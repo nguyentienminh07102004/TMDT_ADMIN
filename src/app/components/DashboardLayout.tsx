@@ -1,0 +1,172 @@
+import { useState } from "react";
+import { Outlet, Link, useLocation } from "react-router";
+import {
+  LayoutDashboard,
+  Film,
+  Clock,
+  Building2,
+  Armchair,
+  Ticket,
+  Users,
+  Gift,
+  Search,
+  Bell,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Badge } from "./ui/badge";
+
+const menuItems = [
+  { icon: LayoutDashboard, label: "Dashboard", path: "/" },
+  { icon: Film, label: "Quản lý phim", path: "/movies" },
+  { icon: Clock, label: "Quản lý suất chiếu", path: "/showtimes" },
+  { icon: Building2, label: "Quản lý rạp / phòng", path: "/cinemas" },
+  { icon: Armchair, label: "Quản lý ghế ngồi", path: "/seats" },
+  { icon: Ticket, label: "Quản lý đặt vé", path: "/bookings" },
+  { icon: Users, label: "Quản lý người dùng", path: "/users" },
+  { icon: Gift, label: "Khuyến mãi / Voucher", path: "/promotions" },
+];
+
+export function DashboardLayout() {
+  const location = useLocation();
+  const [collapsed, setCollapsed] = useState(false);
+
+  return (
+    <div className="dark min-h-screen bg-[#0a0a0f] text-white">
+      {/* Sidebar */}
+      <aside
+        className={`fixed left-0 top-0 h-screen bg-[#12121a] border-r border-white/10 transition-all duration-300 z-50 ${
+          collapsed ? "w-20" : "w-64"
+        }`}
+      >
+        <div className="flex items-center justify-between p-6 border-b border-white/10">
+          {!collapsed && (
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                <Film className="w-6 h-6" />
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold">CinemaHub</h2>
+                <p className="text-xs text-gray-400">Admin Portal</p>
+              </div>
+            </div>
+          )}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setCollapsed(!collapsed)}
+            className="hover:bg-white/5"
+          >
+            {collapsed ? (
+              <ChevronRight className="w-5 h-5" />
+            ) : (
+              <ChevronLeft className="w-5 h-5" />
+            )}
+          </Button>
+        </div>
+
+        <nav className="p-4 space-y-2">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = location.pathname === item.path;
+            return (
+              <Link key={item.path} to={item.path}>
+                <div
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                    isActive
+                      ? "bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-white border border-purple-500/30"
+                      : "text-gray-400 hover:bg-white/5 hover:text-white"
+                  }`}
+                >
+                  <Icon className="w-5 h-5 flex-shrink-0" />
+                  {!collapsed && (
+                    <span className="text-sm font-medium">{item.label}</span>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
+        </nav>
+      </aside>
+
+      {/* Main Content */}
+      <div className={`transition-all duration-300 ${collapsed ? "ml-20" : "ml-64"}`}>
+        {/* Topbar */}
+        <header className="sticky top-0 z-40 bg-[#12121a]/80 backdrop-blur-xl border-b border-white/10">
+          <div className="flex items-center justify-between px-8 py-4">
+            <div className="flex-1 max-w-xl">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Input
+                  placeholder="Tìm kiếm phim, suất chiếu, người dùng..."
+                  className="pl-10 bg-white/5 border-white/10 focus:border-purple-500/50 rounded-xl h-11"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative hover:bg-white/5 rounded-xl"
+              >
+                <Bell className="w-5 h-5" />
+                <Badge className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 bg-red-500 text-white text-xs rounded-full">
+                  3
+                </Badge>
+              </Button>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="flex items-center gap-3 hover:bg-white/5 rounded-xl px-3"
+                  >
+                    <Avatar className="w-9 h-9">
+                      <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" />
+                      <AvatarFallback>AD</AvatarFallback>
+                    </Avatar>
+                    <div className="text-left">
+                      <p className="text-sm font-medium">Admin User</p>
+                      <p className="text-xs text-gray-400">admin@cinemahub.com</p>
+                    </div>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-[#1a1a24] border-white/10">
+                  <DropdownMenuLabel>Tài khoản của tôi</DropdownMenuLabel>
+                  <DropdownMenuSeparator className="bg-white/10" />
+                  <DropdownMenuItem className="focus:bg-white/5">
+                    Hồ sơ cá nhân
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="focus:bg-white/5">
+                    Cài đặt
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-white/10" />
+                  <DropdownMenuItem className="focus:bg-white/5 text-red-400">
+                    Đăng xuất
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+        </header>
+
+        {/* Page Content */}
+        <main className="p-8">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+}
