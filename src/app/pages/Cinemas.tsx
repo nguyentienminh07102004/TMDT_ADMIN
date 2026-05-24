@@ -156,25 +156,25 @@ export function Cinemas() {
                   Thêm rạp mới
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl">
+              <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl text-white">
                 <DialogHeader>
                   <DialogTitle>Thêm rạp chiếu phim mới</DialogTitle>
-                  <DialogDescription>
+                  <DialogDescription className="text-white/70">
                     Nhập thông tin rạp chiếu phim
                   </DialogDescription>
                 </DialogHeader>
-                <div className="space-y-4 mt-4">
+                <div className="space-y-4 mt-4 text-white">
                   <div className="space-y-2">
                     <Label>Tên rạp</Label>
-                    <Input placeholder="VD: CGV Vincom" className="bg-white/5 border-white/10" />
+                    <Input placeholder="VD: CGV Vincom" className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
                   </div>
                   <div className="space-y-2">
                     <Label>Địa chỉ</Label>
-                    <Textarea placeholder="Nhập địa chỉ đầy đủ..." className="bg-white/5 border-white/10" />
+                    <Textarea placeholder="Nhập địa chỉ đầy đủ..." className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
                   </div>
                   <div className="space-y-2">
                     <Label>Mô tả</Label>
-                    <Textarea placeholder="Mô tả về rạp..." className="bg-white/5 border-white/10" />
+                    <Textarea placeholder="Mô tả về rạp..." className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
                   </div>
                   <div className="flex justify-end gap-3 pt-4">
                     <Button variant="outline" onClick={() => setIsAddCinemaOpen(false)} className="border-white/10">

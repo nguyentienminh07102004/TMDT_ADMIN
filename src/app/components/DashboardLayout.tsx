@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet, Link, useLocation } from "react-router";
+import { Outlet, Link, useLocation, useNavigate } from "react-router";
 import {
   LayoutDashboard,
   Film,
@@ -26,6 +26,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Badge } from "./ui/badge";
+import { clearAuthSession, getAuthProfile } from "../lib/auth";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/" },
@@ -40,7 +41,15 @@ const menuItems = [
 
 export function DashboardLayout() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const profile = getAuthProfile();
+  const roleLabel = profile.role === "ADMIN" ? "Quản trị viên" : "Người dùng";
+
+  const handleLogout = () => {
+    clearAuthSession();
+    navigate("/login", { replace: true });
+  };
 
   return (
     <div className="dark min-h-screen bg-[#0a0a0f] text-white">
@@ -134,12 +143,12 @@ export function DashboardLayout() {
                     className="flex items-center gap-3 hover:bg-white/5 rounded-xl px-3"
                   >
                     <Avatar className="w-9 h-9">
-                      <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" />
+                      <AvatarImage src={profile.avatar ?? "https://api.dicebear.com/7.x/avataaars/svg?seed=Admin"} />
                       <AvatarFallback>AD</AvatarFallback>
                     </Avatar>
                     <div className="text-left">
-                      <p className="text-sm font-medium">Admin User</p>
-                      <p className="text-xs text-gray-400">admin@cinemahub.com</p>
+                      <p className="text-sm font-medium">{profile.fullName ?? "Admin User"}</p>
+                      <p className="text-xs text-gray-400">{roleLabel}</p>
                     </div>
                   </Button>
                 </DropdownMenuTrigger>
@@ -153,7 +162,7 @@ export function DashboardLayout() {
                     Cài đặt
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-white/10" />
-                  <DropdownMenuItem className="focus:bg-white/5 text-red-400">
+                  <DropdownMenuItem className="focus:bg-white/5 text-red-400" onClick={handleLogout}>
                     Đăng xuất
                   </DropdownMenuItem>
                 </DropdownMenuContent>

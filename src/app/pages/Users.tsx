@@ -181,13 +181,13 @@ export function Users() {
               Thêm người dùng
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl">
+          <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl text-white">
             <DialogHeader>
               <DialogTitle>Thêm người dùng mới</DialogTitle>
-              <DialogDescription>Tạo tài khoản mới theo DTO user của API</DialogDescription>
+              <DialogDescription className="text-white/70">Tạo tài khoản mới theo DTO user của API</DialogDescription>
             </DialogHeader>
 
-            <form className="space-y-4 mt-4" onSubmit={handleCreateUser}>
+            <form className="space-y-4 mt-4 text-white" onSubmit={handleCreateUser}>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="fullName">Họ tên</Label>
@@ -196,7 +196,7 @@ export function Users() {
                     placeholder="Nhập họ tên"
                     value={formData.fullName}
                     onChange={(event) => setFormData((current) => ({ ...current, fullName: event.target.value }))}
-                    className="bg-white/5 border-white/10"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
                   />
                 </div>
                 <div className="space-y-2">
@@ -207,7 +207,7 @@ export function Users() {
                     placeholder="email@example.com"
                     value={formData.email}
                     onChange={(event) => setFormData((current) => ({ ...current, email: event.target.value }))}
-                    className="bg-white/5 border-white/10"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
                   />
                 </div>
               </div>
@@ -220,7 +220,7 @@ export function Users() {
                     placeholder="0901234567"
                     value={formData.phone}
                     onChange={(event) => setFormData((current) => ({ ...current, phone: event.target.value }))}
-                    className="bg-white/5 border-white/10"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
                   />
                 </div>
                 <div className="space-y-2">
@@ -229,7 +229,7 @@ export function Users() {
                     value={formData.role}
                     onValueChange={(value) => setFormData((current) => ({ ...current, role: value as UserRole }))}
                   >
-                    <SelectTrigger className="bg-white/5 border-white/10">
+                    <SelectTrigger className="bg-white/5 border-white/10 text-white">
                       <SelectValue placeholder="Chọn vai trò" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1a1a24] border-white/10">
@@ -248,7 +248,7 @@ export function Users() {
                   placeholder="Nhập mật khẩu"
                   value={formData.password}
                   onChange={(event) => setFormData((current) => ({ ...current, password: event.target.value }))}
-                  className="bg-white/5 border-white/10"
+                  className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
                 />
               </div>
 
@@ -260,7 +260,7 @@ export function Users() {
                   placeholder="Nhập lại mật khẩu"
                   value={formData.confirmPassword}
                   onChange={(event) => setFormData((current) => ({ ...current, confirmPassword: event.target.value }))}
-                  className="bg-white/5 border-white/10"
+                  className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
                 />
               </div>
 

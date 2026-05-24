@@ -216,13 +216,13 @@ export function Movies() {
               Thêm phim mới
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl">
+          <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl text-white">
             <DialogHeader>
               <DialogTitle>Thêm phim mới</DialogTitle>
-              <DialogDescription>Nhập đúng các field theo MovieCreateRequest</DialogDescription>
+              <DialogDescription className="text-white/70">Nhập đúng các field theo MovieCreateRequest</DialogDescription>
             </DialogHeader>
 
-            <form className="space-y-4 mt-4" onSubmit={handleCreateMovie}>
+            <form className="space-y-4 mt-4 text-white" onSubmit={handleCreateMovie}>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="title">Tên phim</Label>
@@ -231,7 +231,7 @@ export function Movies() {
                     placeholder="Nhập tên phim"
                     value={formData.title}
                     onChange={(event) => setFormData((current) => ({ ...current, title: event.target.value }))}
-                    className="bg-white/5 border-white/10"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
                   />
                 </div>
                 <div className="space-y-2">
@@ -241,7 +241,7 @@ export function Movies() {
                     placeholder="Action, Drama..."
                     value={formData.genre}
                     onChange={(event) => setFormData((current) => ({ ...current, genre: event.target.value }))}
-                    className="bg-white/5 border-white/10"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
                   />
                 </div>
               </div>
@@ -255,7 +255,7 @@ export function Movies() {
                     placeholder="120"
                     value={formData.duration}
                     onChange={(event) => setFormData((current) => ({ ...current, duration: event.target.value }))}
-                    className="bg-white/5 border-white/10"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
                   />
                 </div>
                 <div className="space-y-2">
@@ -271,7 +271,7 @@ export function Movies() {
                 <div className="space-y-2">
                   <Label>Trạng thái</Label>
                   <Select value={formData.status} onValueChange={(value) => setFormData((current) => ({ ...current, status: value as MovieStatus }))}>
-                    <SelectTrigger className="bg-white/5 border-white/10">
+                    <SelectTrigger className="bg-white/5 border-white/10 text-white">
                       <SelectValue placeholder="Chọn trạng thái" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1a1a24] border-white/10">
@@ -290,7 +290,7 @@ export function Movies() {
                   placeholder="Nhập tên đạo diễn"
                   value={formData.director}
                   onChange={(event) => setFormData((current) => ({ ...current, director: event.target.value }))}
-                  className="bg-white/5 border-white/10"
+                  className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
                 />
               </div>
 
@@ -301,7 +301,7 @@ export function Movies() {
                   placeholder="Nhập tên diễn viên, phân cách bằng dấu phẩy"
                   value={formData.cast}
                   onChange={(event) => setFormData((current) => ({ ...current, cast: event.target.value }))}
-                  className="bg-white/5 border-white/10"
+                  className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
                 />
               </div>
 
@@ -312,7 +312,7 @@ export function Movies() {
                   placeholder="Nhập mô tả phim..."
                   value={formData.description}
                   onChange={(event) => setFormData((current) => ({ ...current, description: event.target.value }))}
-                  className="bg-white/5 border-white/10 min-h-24"
+                  className="bg-white/5 border-white/10 min-h-24 text-white placeholder:text-white/50"
                 />
               </div>
 

@@ -207,64 +207,64 @@ export function Bookings() {
               Tạo vé
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl">
+          <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl text-white">
             <DialogHeader>
               <DialogTitle>Tạo vé mới</DialogTitle>
             </DialogHeader>
 
-            <form className="space-y-4 mt-4" onSubmit={handleCreateTicket}>
+            <form className="space-y-4 mt-4 text-white" onSubmit={handleCreateTicket}>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="userId">User ID</Label>
-                  <Input id="userId" placeholder="usr_001" value={formData.userId} onChange={(event) => setFormData((current) => ({ ...current, userId: event.target.value }))} className="bg-white/5 border-white/10" />
+                  <Input id="userId" placeholder="usr_001" value={formData.userId} onChange={(event) => setFormData((current) => ({ ...current, userId: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="showtimeId">Showtime ID</Label>
-                  <Input id="showtimeId" type="number" placeholder="30" value={formData.showtimeId} onChange={(event) => setFormData((current) => ({ ...current, showtimeId: event.target.value }))} className="bg-white/5 border-white/10" />
+                  <Input id="showtimeId" type="number" placeholder="30" value={formData.showtimeId} onChange={(event) => setFormData((current) => ({ ...current, showtimeId: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="totalAmount">Tổng tiền</Label>
-                  <Input id="totalAmount" type="number" placeholder="90000" value={formData.totalAmount} onChange={(event) => setFormData((current) => ({ ...current, totalAmount: event.target.value }))} className="bg-white/5 border-white/10" />
+                  <Input id="totalAmount" type="number" placeholder="90000" value={formData.totalAmount} onChange={(event) => setFormData((current) => ({ ...current, totalAmount: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="discountAmount">Giảm giá</Label>
-                  <Input id="discountAmount" type="number" placeholder="9000" value={formData.discountAmount} onChange={(event) => setFormData((current) => ({ ...current, discountAmount: event.target.value }))} className="bg-white/5 border-white/10" />
+                  <Input id="discountAmount" type="number" placeholder="9000" value={formData.discountAmount} onChange={(event) => setFormData((current) => ({ ...current, discountAmount: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="finalAmount">Thành tiền</Label>
-                  <Input id="finalAmount" type="number" placeholder="81000" value={formData.finalAmount} onChange={(event) => setFormData((current) => ({ ...current, finalAmount: event.target.value }))} className="bg-white/5 border-white/10" />
+                  <Input id="finalAmount" type="number" placeholder="81000" value={formData.finalAmount} onChange={(event) => setFormData((current) => ({ ...current, finalAmount: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="promotionId">Promotion ID</Label>
-                  <Input id="promotionId" type="number" placeholder="40" value={formData.promotionId} onChange={(event) => setFormData((current) => ({ ...current, promotionId: event.target.value }))} className="bg-white/5 border-white/10" />
+                  <Input id="promotionId" type="number" placeholder="40" value={formData.promotionId} onChange={(event) => setFormData((current) => ({ ...current, promotionId: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="qrCode">QR Code</Label>
-                  <Input id="qrCode" placeholder="QR-123" value={formData.qrCode} onChange={(event) => setFormData((current) => ({ ...current, qrCode: event.target.value }))} className="bg-white/5 border-white/10" />
+                  <Input id="qrCode" placeholder="QR-123" value={formData.qrCode} onChange={(event) => setFormData((current) => ({ ...current, qrCode: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="seatId">Seat ID</Label>
-                  <Input id="seatId" type="number" placeholder="100" value={formData.seatId} onChange={(event) => setFormData((current) => ({ ...current, seatId: event.target.value }))} className="bg-white/5 border-white/10" />
+                  <Input id="seatId" type="number" placeholder="100" value={formData.seatId} onChange={(event) => setFormData((current) => ({ ...current, seatId: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="priceAtTime">Giá tại thời điểm đặt</Label>
-                  <Input id="priceAtTime" type="number" placeholder="90000" value={formData.priceAtTime} onChange={(event) => setFormData((current) => ({ ...current, priceAtTime: event.target.value }))} className="bg-white/5 border-white/10" />
+                  <Input id="priceAtTime" type="number" placeholder="90000" value={formData.priceAtTime} onChange={(event) => setFormData((current) => ({ ...current, priceAtTime: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <Label>Trạng thái</Label>
                 <Select value={formData.status} onValueChange={(value) => setFormData((current) => ({ ...current, status: value as BookingStatus }))}>
-                  <SelectTrigger className="bg-white/5 border-white/10">
+                  <SelectTrigger className="bg-white/5 border-white/10 text-white">
                     <SelectValue placeholder="Chọn trạng thái" />
                   </SelectTrigger>
                   <SelectContent className="bg-[#1a1a24] border-white/10">
@@ -386,7 +386,7 @@ export function Bookings() {
       </Card>
 
       <Dialog open={Boolean(selectedBooking)} onOpenChange={(open) => !open && setSelectedBooking(null)}>
-        <DialogContent className="bg-[#1a1a24] border-white/10 max-w-xl">
+        <DialogContent className="bg-[#1a1a24] border-white/10 max-w-xl text-white">
           <DialogHeader>
             <DialogTitle>Chi tiết booking</DialogTitle>
           </DialogHeader>

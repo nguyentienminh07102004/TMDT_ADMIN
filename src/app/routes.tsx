@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router";
+import { RequireAuth } from "./components/RequireAuth";
 import { DashboardLayout } from "./components/DashboardLayout";
 import { Dashboard } from "./pages/Dashboard";
+import { Login } from "./pages/Login";
 import { Movies } from "./pages/Movies";
 import { Showtimes } from "./pages/Showtimes";
 import { Cinemas } from "./pages/Cinemas";
@@ -11,17 +13,26 @@ import { Promotions } from "./pages/Promotions";
 
 export const router = createBrowserRouter([
   {
+    path: "/login",
+    Component: Login,
+  },
+  {
     path: "/",
-    Component: DashboardLayout,
+    Component: RequireAuth,
     children: [
-      { index: true, Component: Dashboard },
-      { path: "movies", Component: Movies },
-      { path: "showtimes", Component: Showtimes },
-      { path: "cinemas", Component: Cinemas },
-      { path: "seats", Component: Seats },
-      { path: "bookings", Component: Bookings },
-      { path: "users", Component: Users },
-      { path: "promotions", Component: Promotions },
+      {
+        Component: DashboardLayout,
+        children: [
+          { index: true, Component: Dashboard },
+          { path: "movies", Component: Movies },
+          { path: "showtimes", Component: Showtimes },
+          { path: "cinemas", Component: Cinemas },
+          { path: "seats", Component: Seats },
+          { path: "bookings", Component: Bookings },
+          { path: "users", Component: Users },
+          { path: "promotions", Component: Promotions },
+        ],
+      },
     ],
   },
 ]);
