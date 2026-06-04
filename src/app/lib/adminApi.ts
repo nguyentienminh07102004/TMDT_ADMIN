@@ -1,6 +1,6 @@
 import { clearAuthSession, getValidAccessToken } from "./auth";
 
-const DEFAULT_API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080/api";
+const DEFAULT_API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8889/api";
 
 type ApiWrapper<T> = {
   success: boolean;
@@ -22,7 +22,7 @@ export type PageResponse<T> = {
   empty?: boolean;
 };
 
-async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
+export async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   const token = getValidAccessToken();
 
   const response = await fetch(`${DEFAULT_API_BASE_URL}${path}`, {
@@ -134,20 +134,6 @@ export interface MovieResponse {
   createdBy?: string | null;
   updatedAt?: string | null;
   updatedBy?: string | null;
-}
-
-export interface CreateMoviePayload {
-  title: string;
-  genre: string;
-  duration: number;
-  director: string;
-  cast: string;
-  description: string;
-  posterMediaId: string | null;
-  releaseDate: string;
-  status: MovieStatus;
-  teaserUrl: string | null;
-  reviewUrl: string | null;
 }
 
 export interface BookingResponse {
@@ -269,12 +255,6 @@ export const adminApi = {
     });
   },
 
-  createMovie(payload: CreateMoviePayload) {
-    return request<MovieResponse>("/v1/movies", {
-      method: "POST",
-      body: JSON.stringify(payload),
-    });
-  },
 
   createBooking(payload: CreateBookingPayload) {
     return request<BookingResponse>("/v1/bookings", {
