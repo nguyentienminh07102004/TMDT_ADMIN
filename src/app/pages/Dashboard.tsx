@@ -56,14 +56,14 @@ function formatDayLabel(date: Date) {
 
 function getStatusColor(status: string) {
   if (status === "CONFIRMED") {
-    return "bg-green-500/20 text-green-400 border-green-500/30";
+    return "bg-green-500/20 text-green-600 border-green-500/30";
   }
 
   if (status === "CANCELLED") {
-    return "bg-red-500/20 text-red-400 border-red-500/30";
+    return "bg-red-500/20 text-red-600 border-red-500/30";
   }
 
-  return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
+  return "bg-yellow-500/20 text-yellow-600 border-yellow-500/30";
 }
 
 export function Dashboard() {
@@ -346,10 +346,10 @@ export function Dashboard() {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-          <p className="text-gray-400">Đang tải dữ liệu thật từ API...</p>
+          <p className="text-gray-500">Đang tải dữ liệu thật từ API...</p>
         </div>
-        <Card className="bg-[#12121a] border-white/10">
-          <CardContent className="p-6 text-gray-400">Đang đồng bộ dữ liệu...</CardContent>
+        <Card className="bg-white border-gray-200">
+          <CardContent className="p-6 text-gray-500">Đang đồng bộ dữ liệu...</CardContent>
         </Card>
       </div>
     );
@@ -360,10 +360,10 @@ export function Dashboard() {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-          <p className="text-gray-400">Không thể tải dữ liệu từ API</p>
+          <p className="text-gray-500">Không thể tải dữ liệu từ API</p>
         </div>
-        <Card className="bg-[#12121a] border-white/10">
-          <CardContent className="p-6 text-red-400">{error}</CardContent>
+        <Card className="bg-white border-gray-200">
+          <CardContent className="p-6 text-red-600">{error}</CardContent>
         </Card>
       </div>
     );
@@ -373,7 +373,7 @@ export function Dashboard() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-        <p className="text-gray-400">Dữ liệu tổng quan được lấy từ API thật của hệ thống.</p>
+        <p className="text-gray-500">Dữ liệu tổng quan được lấy từ API thật của hệ thống.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -386,18 +386,18 @@ export function Dashboard() {
           const Icon = stat.icon;
 
           return (
-            <Card key={index} className="bg-[#12121a] border-white/10 overflow-hidden">
+            <Card key={index} className="bg-white border-gray-200 overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <p className="text-sm text-gray-400 mb-1">{stat.title}</p>
+                    <p className="text-sm text-gray-500 mb-1">{stat.title}</p>
                     <p className="text-3xl font-bold">{stat.value}</p>
                   </div>
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center`}>
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white`}>
                     <Icon className="w-6 h-6" />
                   </div>
                 </div>
-                <p className="text-xs text-green-400 flex items-center gap-1">
+                <p className="text-xs text-green-600 flex items-center gap-1">
                   <TrendingUp className="w-3 h-3" />
                   {stat.change}
                 </p>
@@ -408,23 +408,23 @@ export function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="lg:col-span-2 bg-[#12121a] border-white/10">
+        <Card className="lg:col-span-2 bg-white border-gray-200">
           <CardHeader>
             <CardTitle>Doanh thu 7 ngày qua</CardTitle>
           </CardHeader>
           <CardContent>
             {chartTicks ? (
-              <p className="text-gray-400">Chưa có đủ dữ liệu để vẽ biểu đồ.</p>
+              <p className="text-gray-500">Chưa có đủ dữ liệu để vẽ biểu đồ.</p>
             ) : (
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={revenueChartData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#ffffff20" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis dataKey="label" stroke="#888" />
                   <YAxis stroke="#888" />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: "#1a1a24",
-                      border: "1px solid #ffffff20",
+                      backgroundColor: "#ffffff",
+                      border: "1px solid #e5e7eb",
                       borderRadius: "8px",
                     }}
                     formatter={(value: number, name: string) => [
@@ -441,13 +441,13 @@ export function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardHeader>
             <CardTitle>Trạng thái booking</CardTitle>
           </CardHeader>
           <CardContent className="flex items-center justify-center">
             {bookingStatusChartData.length === 0 ? (
-              <p className="text-gray-400">Chưa có dữ liệu booking.</p>
+              <p className="text-gray-500">Chưa có dữ liệu booking.</p>
             ) : (
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
@@ -458,8 +458,8 @@ export function Dashboard() {
                   </Pie>
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: "#1a1a24",
-                      border: "1px solid #ffffff20",
+                      backgroundColor: "#ffffff",
+                      border: "1px solid #e5e7eb",
                       borderRadius: "8px",
                     }}
                   />
@@ -471,24 +471,24 @@ export function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardHeader>
             <CardTitle>Phim có nhiều vé nhất</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {topMovies.length === 0 ? (
-                <p className="text-gray-400">Chưa có dữ liệu phim và booking để xếp hạng.</p>
+                <p className="text-gray-500">Chưa có dữ liệu phim và booking để xếp hạng.</p>
               ) : (
                 topMovies.map((movie, index) => (
-                  <div key={`${movie.title}-${index}`} className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
+                  <div key={`${movie.title}-${index}`} className="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-100 transition-colors">
                     <img src={PLACEHOLDER_POSTER} alt={movie.title} className="w-12 h-16 rounded-lg object-cover" />
                     <div className="flex-1">
                       <h4 className="font-semibold mb-1">{movie.title}</h4>
-                      <p className="text-sm text-gray-400">{movie.tickets} vé</p>
+                      <p className="text-sm text-gray-500">{movie.tickets} vé</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-green-400">{formatCurrency(movie.revenue)}</p>
+                      <p className="font-semibold text-green-600">{formatCurrency(movie.revenue)}</p>
                     </div>
                   </div>
                 ))
@@ -497,26 +497,26 @@ export function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardHeader>
             <CardTitle>Suất chiếu sắp diễn ra</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {upcomingShowtimes.length === 0 ? (
-                <p className="text-gray-400">Chưa có suất chiếu sắp tới.</p>
+                <p className="text-gray-500">Chưa có suất chiếu sắp tới.</p>
               ) : (
                 upcomingShowtimes.map((showtime) => (
-                  <div key={showtime.id} className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors">
+                  <div key={showtime.id} className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 transition-colors">
                     <div>
                       <h4 className="font-semibold mb-1">{showtime.movie}</h4>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-500">
                         {showtime.cinema} - {showtime.room}
                       </p>
                     </div>
                     <div className="text-right">
                       <p className="font-semibold">{showtime.time}</p>
-                      <p className="text-xs text-gray-400">{showtime.seats}</p>
+                      <p className="text-xs text-gray-500">{showtime.seats}</p>
                     </div>
                   </div>
                 ))
@@ -526,7 +526,7 @@ export function Dashboard() {
         </Card>
       </div>
 
-      <Card className="bg-[#12121a] border-white/10">
+      <Card className="bg-white border-gray-200">
         <CardHeader>
           <CardTitle>Đơn đặt vé gần đây</CardTitle>
         </CardHeader>
@@ -534,25 +534,25 @@ export function Dashboard() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-white/10">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-400">Mã đơn</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-400">Khách hàng</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-400">Phim</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-400">Ghế</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-400">Tổng tiền</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-400">Trạng thái</th>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Mã đơn</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Khách hàng</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Phim</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Ghế</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Tổng tiền</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Trạng thái</th>
                 </tr>
               </thead>
               <tbody>
                 {recentBookings.length === 0 ? (
                   <tr>
-                    <td className="py-4 px-4 text-gray-400" colSpan={6}>
+                    <td className="py-4 px-4 text-gray-500" colSpan={6}>
                       Chưa có đơn đặt vé.
                     </td>
                   </tr>
                 ) : (
                   recentBookings.map((booking) => (
-                    <tr key={booking.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                    <tr key={booking.id} className="border-b border-gray-100 hover:bg-gray-100 transition-colors">
                       <td className="py-3 px-4 text-sm">#{booking.id}</td>
                       <td className="py-3 px-4 text-sm">{booking.customer}</td>
                       <td className="py-3 px-4 text-sm">{booking.movie}</td>
@@ -572,7 +572,7 @@ export function Dashboard() {
         </CardContent>
       </Card>
 
-      <Card className="bg-[#12121a] border-white/10">
+      <Card className="bg-white border-gray-200">
         <CardHeader>
           <CardTitle>Cảnh báo hệ thống</CardTitle>
         </CardHeader>
@@ -580,10 +580,10 @@ export function Dashboard() {
           <div className="space-y-3">
             {alerts.map((alert) => (
               <div key={alert.id} className="flex items-start gap-3 p-4 rounded-xl bg-orange-500/10 border border-orange-500/20">
-                <AlertCircle className="w-5 h-5 text-orange-400 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-orange-600 mt-0.5" />
                 <div className="flex-1">
                   <p className="text-sm">{alert.message}</p>
-                  <p className="text-xs text-gray-400 mt-1">{alert.time}</p>
+                  <p className="text-xs text-gray-500 mt-1">{alert.time}</p>
                 </div>
               </div>
             ))}

@@ -28,9 +28,9 @@ const statusLabels: Record<MovieStatus, string> = {
 };
 
 const statusColors: Record<MovieStatus, string> = {
-  COMING_SOON: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  NOW_SHOWING: "bg-green-500/20 text-green-400 border-green-500/30",
-  ENDED: "bg-gray-500/20 text-gray-400 border-gray-500/30",
+  COMING_SOON: "bg-blue-500/20 text-blue-600 border-blue-500/30",
+  NOW_SHOWING: "bg-green-500/20 text-green-600 border-green-500/30",
+  ENDED: "bg-gray-500/20 text-gray-500 border-gray-500/30",
 };
 
 const initialFormData = {
@@ -232,8 +232,8 @@ export function Movies() {
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold mb-2 text-white">Quản lý phim</h1>
-          <p className="text-gray-400">Quản lý danh sách phim trong hệ thống</p>
+          <h1 className="text-3xl font-bold mb-2 text-gray-900">Quản lý phim</h1>
+          <p className="text-gray-500">Quản lý danh sách phim trong hệ thống</p>
         </div>
 
         <Button
@@ -246,16 +246,16 @@ export function Movies() {
       </div>
 
       {/* SEARCH BAR */}
-      <Card className="bg-[#12121a] border-white/10 text-white">
+      <Card className="bg-white border-gray-200 text-gray-900">
         <CardContent className="p-6">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
               <Input
                 placeholder="Tìm theo tên phim, thể loại hoặc đạo diễn..."
                 value={movieSearch.keyword}
                 onChange={(event) => setMovieSearch((prev) => ({ ...prev, keyword: event.target.value, page: 1 }))}
-                className="pl-10 bg-white/5 border-white/10 rounded-xl text-white"
+                className="pl-10 bg-gray-50 border-gray-200 rounded-xl text-gray-900"
               />
             </div>
 
@@ -263,10 +263,10 @@ export function Movies() {
               value={movieSearch.status || "all"}
               onValueChange={(value) => setMovieSearch((prev) => ({ ...prev, status: value === "all" ? null : value as MovieStatus, page: 1 }))}
             >
-              <SelectTrigger className="w-full lg:w-48 bg-white/5 border-white/10 rounded-xl text-white">
+              <SelectTrigger className="w-full lg:w-48 bg-gray-50 border-gray-200 rounded-xl text-gray-900">
                 <SelectValue placeholder="Trạng thái" />
               </SelectTrigger>
-              <SelectContent className="bg-[#1a1a24] border-white/10 text-white">
+              <SelectContent className="bg-white border-gray-200 text-gray-900">
                 <SelectItem value="all">Tất cả trạng thái</SelectItem>
                 <SelectItem value="COMING_SOON">Sắp chiếu</SelectItem>
                 <SelectItem value="NOW_SHOWING">Đang chiếu</SelectItem>
@@ -278,36 +278,36 @@ export function Movies() {
       </Card>
 
       {/* TABLE LIST */}
-      <Card className="bg-[#12121a] border-white/10 text-white">
+      <Card className="bg-white border-gray-200 text-gray-900">
         <CardContent className="p-6">
           <div className="overflow-x-auto">
-            <table className="w-full text-white">
+            <table className="w-full text-gray-900">
               <thead>
-                <tr className="border-b border-white/10">
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Tên phim</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Thể loại</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Thời lượng</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Đạo diễn</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Ngày phát hành</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Trạng thái</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Poster</th>
-                  <th className="text-center py-4 px-4 text-sm font-medium text-gray-400 w-28">Hành động</th>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Tên phim</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Thể loại</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Thời lượng</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Đạo diễn</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Ngày phát hành</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Trạng thái</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Poster</th>
+                  <th className="text-center py-4 px-4 text-sm font-medium text-gray-500 w-28">Hành động</th>
                 </tr>
               </thead>
               <tbody>
                 {movies.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="text-center py-8 text-gray-400 text-sm">
+                    <td colSpan={8} className="text-center py-8 text-gray-500 text-sm">
                       Không tìm thấy bộ phim nào phù hợp.
                     </td>
                   </tr>
                 ) : (
                   movies.map((movie) => (
-                    <tr key={movie.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                    <tr key={movie.id} className="border-b border-gray-100 hover:bg-gray-100 transition-colors">
                       <td className="py-4 px-4">
                         <p className="font-semibold">{movie.title}</p>
                       </td>
-                      <td className="py-4 px-4 text-sm text-gray-300">{movie.genre}</td>
+                      <td className="py-4 px-4 text-sm text-gray-600">{movie.genre}</td>
                       <td className="py-4 px-4 text-sm">{movie.duration} phút</td>
                       <td className="py-4 px-4 text-sm">{movie.director}</td>
                       <td className="py-4 px-4 text-sm">{movie.releaseDate}</td>
@@ -323,11 +323,11 @@ export function Movies() {
                               src={movie.posterUrl}
                               alt={movie.title}
                               // Thay đổi kích thước thành w-20 (80px) và h-12 (48px) để tạo hình chữ nhật nằm ngang
-                              className="w-20 h-12 object-cover rounded-md shadow-sm border border-white/10"
+                              className="w-20 h-12 object-cover rounded-md shadow-sm border border-gray-200"
                             />
                           ) : (
                             // Đồng bộ kích thước ô trống nằm ngang tương ứng
-                            <div className="w-20 h-12 bg-white/5 flex items-center justify-center rounded-md border border-white/10 text-[10px] text-gray-400 text-center p-1">
+                            <div className="w-20 h-12 bg-gray-50 flex items-center justify-center rounded-md border border-gray-200 text-[10px] text-gray-500 text-center p-1">
                               Không có ảnh
                             </div>
                           )}
@@ -338,7 +338,7 @@ export function Movies() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="h-8 w-8 p-0 rounded-lg hover:bg-white/10 text-gray-300 hover:text-white transition-colors"
+                            className="h-8 w-8 p-0 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-colors"
                             onClick={() => handleOpenViewModal(movie.id)}
                             title="Xem chi tiết"
                           >
@@ -349,7 +349,7 @@ export function Movies() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="h-8 w-8 p-0 rounded-lg hover:bg-red-500/20 text-red-400 hover:text-red-300 transition-colors"
+                            className="h-8 w-8 p-0 rounded-lg hover:bg-red-500/20 text-red-600 hover:text-red-700 transition-colors"
                             onClick={() => handleDeleteMovie(movie.id, movie.title)}
                             title="Xóa phim"
                           >
@@ -366,10 +366,10 @@ export function Movies() {
           </div>
 
           {/* PAGINATION */}
-          <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-white/5">
+          <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-gray-100">
 
             {/* INFO PAGE */}
-            <span className="text-sm text-gray-400 mr-2">
+            <span className="text-sm text-gray-500 mr-2">
               Trang {metaData.currentPage + 1} / {metaData.totalPage}
             </span>
 
@@ -410,8 +410,8 @@ export function Movies() {
                     onClick={() => handlePageChange(p)}
                     variant={movieSearch.page === p ? "default" : "outline"}
                     className={`h-9 w-9 p-0 ${movieSearch.page === p
-                      ? "bg-purple-600 text-white"
-                      : "border-white/10 text-gray-300"
+                      ? "bg-purple-600 text-gray-900"
+                      : "border-gray-200 text-gray-600"
                       }`}
                   >
                     {p + 1}
@@ -436,19 +436,19 @@ export function Movies() {
 
       {/* MODAL DIALOG */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="bg-[#1a1a24] border-white/10 max-w-3xl text-white overflow-y-auto max-h-[90vh]">
+        <DialogContent className="bg-white border-gray-200 max-w-3xl text-gray-900 overflow-y-auto max-h-[90vh]">
           <DialogHeader>
             <DialogTitle>
               {modalMode === "CREATE" && "Thêm phim mới"}
               {modalMode === "VIEW" && "Chi tiết phim"}
               {modalMode === "EDIT" && "Chỉnh sửa thông tin phim"}
             </DialogTitle>
-            <DialogDescription className="text-white/70">
+            <DialogDescription className="text-gray-600">
               {modalMode === "VIEW" ? "Thông tin chi tiết lưu trong hệ thống" : "Nhập đầy đủ thông tin bên dưới"}
             </DialogDescription>
           </DialogHeader>
 
-          <form className="space-y-4 mt-4 text-white" onSubmit={handleSubmitForm}>
+          <form className="space-y-4 mt-4 text-gray-900" onSubmit={handleSubmitForm}>
             {/* TEXT FIELDS SECTION */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -460,7 +460,7 @@ export function Movies() {
                   placeholder="Nhập tên phim"
                   value={formData.title}
                   onChange={(event) => setFormData((current) => ({ ...current, title: event.target.value }))}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                  className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
                 />
               </div>
               <div className="space-y-2">
@@ -472,7 +472,7 @@ export function Movies() {
                   placeholder="Action, Drama..."
                   value={formData.genre}
                   onChange={(event) => setFormData((current) => ({ ...current, genre: event.target.value }))}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                  className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
                 />
               </div>
             </div>
@@ -488,7 +488,7 @@ export function Movies() {
                   placeholder="120"
                   value={formData.duration}
                   onChange={(event) => setFormData((current) => ({ ...current, duration: event.target.value }))}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                  className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
                 />
               </div>
               <div className="space-y-2">
@@ -500,7 +500,7 @@ export function Movies() {
                   disabled={modalMode === "VIEW"}
                   value={formData.releaseDate}
                   onChange={(event) => setFormData((current) => ({ ...current, releaseDate: event.target.value }))}
-                  className="bg-white/5 border-white/10 text-white"
+                  className="bg-gray-50 border-gray-200 text-gray-900"
                 />
               </div>
               <div className="space-y-2">
@@ -510,10 +510,10 @@ export function Movies() {
                   value={formData.status}
                   onValueChange={(value: MovieStatus) => setFormData((current) => ({ ...current, status: value }))}
                 >
-                  <SelectTrigger id="modalStatus" className="bg-white/5 border-white/10 text-white">
+                  <SelectTrigger id="modalStatus" className="bg-gray-50 border-gray-200 text-gray-900">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a24] border-white/10 text-white">
+                  <SelectContent className="bg-white border-gray-200 text-gray-900">
                     <SelectItem value="COMING_SOON">Sắp chiếu</SelectItem>
                     <SelectItem value="NOW_SHOWING">Đang chiếu</SelectItem>
                     <SelectItem value="ENDED">Ngừng chiếu</SelectItem>
@@ -531,7 +531,7 @@ export function Movies() {
                 placeholder="Nhập tên đạo diễn"
                 value={formData.director}
                 onChange={(event) => setFormData((current) => ({ ...current, director: event.target.value }))}
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
               />
             </div>
 
@@ -544,7 +544,7 @@ export function Movies() {
                 placeholder="Nhập tên diễn viên, phân cách bằng dấu phẩy"
                 value={formData.movieCast}
                 onChange={(event) => setFormData((current) => ({ ...current, movieCast: event.target.value }))}
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
               />
             </div>
 
@@ -557,20 +557,20 @@ export function Movies() {
                 placeholder="Nhập mô tả phim..."
                 value={formData.description}
                 onChange={(event) => setFormData((current) => ({ ...current, description: event.target.value }))}
-                className="bg-white/5 border-white/10 min-h-24 text-white placeholder:text-white/50"
+                className="bg-gray-50 border-gray-200 min-h-24 text-gray-900 placeholder:text-gray-500"
               />
             </div>
 
             {/*--- PHẦN THAY ĐỔI CHÍNH: UPLOAD VÀ HIỂN THỊ MEDIA ---*/}
-            <div className="space-y-6 border-t border-white/10 pt-4">
+            <div className="space-y-6 border-t border-gray-200 pt-4">
 
               {/* 1. KHU VỰC POSTER IMAGE */}
               <div className="space-y-2">
-                <Label className="text-sm font-semibold text-gray-300">Poster ảnh phim</Label>
-                <div className="grid grid-cols-7 items-center gap-2 bg-white/5 p-3 rounded-xl border border-white/5">
+                <Label className="text-sm font-semibold text-gray-600">Poster ảnh phim</Label>
+                <div className="grid grid-cols-7 items-center gap-2 bg-gray-50 p-3 rounded-xl border border-gray-100">
 
                   {/* Ô URL Cũ bên trái */}
-                  <div className="col-span-3 flex flex-col items-center justify-center border border-dashed border-white/10 rounded-lg bg-[#12121a] h-32 text-center overflow-hidden">
+                  <div className="col-span-3 flex flex-col items-center justify-center border border-dashed border-gray-200 rounded-lg bg-white h-32 text-center overflow-hidden">
                     {oldUrls.posterUrl ? (
                       <img
                         src={oldUrls.posterUrl}
@@ -601,12 +601,12 @@ export function Movies() {
                           variant="ghost"
                           disabled={isUploading.poster}
                           onClick={() => posterInputRef.current?.click()}
-                          className="h-9 w-9 rounded-full bg-purple-500/10 text-purple-400 hover:bg-purple-500/20"
+                          className="h-9 w-9 rounded-full bg-purple-500/10 text-purple-600 hover:bg-purple-500/20"
                           title="Tải lên hình ảnh mới"
                         >
                           {isUploading.poster ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
                         </Button>
-                        <span className="text-[9px] text-purple-400 font-medium">Thay thế</span>
+                        <span className="text-[9px] text-purple-600 font-medium">Thay thế</span>
                       </>
                     ) : (
                       <ArrowRight className="text-gray-600 w-5 h-5" />
@@ -614,12 +614,12 @@ export function Movies() {
                   </div>
 
                   {/* Ô kết quả Upload mới bên phải */}
-                  <div className="col-span-3 flex flex-col items-center justify-center border border-dashed border-purple-500/30 rounded-lg p-2 bg-[#12121a] h-32 text-center">
-                    <span className="text-[10px] text-purple-400 mb-1 block">Poster mới tải lên</span>
+                  <div className="col-span-3 flex flex-col items-center justify-center border border-dashed border-purple-500/30 rounded-lg p-2 bg-white h-32 text-center">
+                    <span className="text-[10px] text-purple-600 mb-1 block">Poster mới tải lên</span>
                     {newUrls.posterUrl ? (
                       <div className="w-full h-full flex flex-col items-center justify-center">
                         <img src={newUrls.posterUrl} alt="New Poster" className="h-16 max-w-full object-contain rounded border border-purple-500/30" />
-                        <span className="text-[9px] text-gray-400 truncate w-full mt-1">ID: {formData.posterId}</span>
+                        <span className="text-[9px] text-gray-500 truncate w-full mt-1">ID: {formData.posterId}</span>
                       </div>
                     ) : (
                       <span className="text-xs text-gray-500 italic">Chưa chọn ảnh mới</span>
@@ -631,11 +631,11 @@ export function Movies() {
 
               {/* 2. KHU VỰC TEASER VIDEO */}
               <div className="space-y-2">
-                <Label className="text-sm font-semibold text-gray-300">Teaser Video</Label>
-                <div className="grid grid-cols-7 items-center gap-2 bg-white/5 p-3 rounded-xl border border-white/5">
+                <Label className="text-sm font-semibold text-gray-600">Teaser Video</Label>
+                <div className="grid grid-cols-7 items-center gap-2 bg-gray-50 p-3 rounded-xl border border-gray-100">
 
                   {/* Ô Video Cũ bên trái */}
-                  <div className="col-span-3 flex flex-col items-center justify-center border border-dashed border-white/10 rounded-lg bg-[#12121a] h-32 text-center overflow-hidden">
+                  <div className="col-span-3 flex flex-col items-center justify-center border border-dashed border-gray-200 rounded-lg bg-white h-32 text-center overflow-hidden">
                     {oldUrls.teaserUrl ? (
                       <video
                         src={oldUrls.teaserUrl}
@@ -667,12 +667,12 @@ export function Movies() {
                           variant="ghost"
                           disabled={isUploading.teaser}
                           onClick={() => teaserInputRef.current?.click()}
-                          className="h-9 w-9 rounded-full bg-pink-500/10 text-pink-400 hover:bg-pink-500/20"
+                          className="h-9 w-9 rounded-full bg-pink-500/10 text-pink-600 hover:bg-pink-500/20"
                           title="Tải lên video mới"
                         >
                           {isUploading.teaser ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
                         </Button>
-                        <span className="text-[9px] text-pink-400 font-medium">Thay thế</span>
+                        <span className="text-[9px] text-pink-600 font-medium">Thay thế</span>
                       </>
                     ) : (
                       <ArrowRight className="text-gray-600 w-5 h-5" />
@@ -680,12 +680,12 @@ export function Movies() {
                   </div>
 
                   {/* Ô kết quả Upload mới bên phải */}
-                  <div className="col-span-3 flex flex-col items-center justify-center border border-dashed border-pink-500/30 rounded-lg p-2 bg-[#12121a] h-32 text-center">
-                    <span className="text-[10px] text-pink-400 mb-1 block">Teaser mới tải lên</span>
+                  <div className="col-span-3 flex flex-col items-center justify-center border border-dashed border-pink-500/30 rounded-lg p-2 bg-white h-32 text-center">
+                    <span className="text-[10px] text-pink-600 mb-1 block">Teaser mới tải lên</span>
                     {newUrls.teaserUrl ? (
                       <div className="w-full h-full flex flex-col items-center justify-center">
                         <video src={newUrls.teaserUrl} className="h-14 max-w-full bg-black rounded" controls muted />
-                        <span className="text-[9px] text-gray-400 truncate w-full mt-1">ID: {formData.teaserId}</span>
+                        <span className="text-[9px] text-gray-500 truncate w-full mt-1">ID: {formData.teaserId}</span>
                       </div>
                     ) : (
                       <span className="text-xs text-gray-500 italic">Chưa chọn video mới</span>
@@ -704,7 +704,7 @@ export function Movies() {
                 type="button"
                 variant="outline"
                 onClick={() => setIsDialogOpen(false)}
-                className="border-white/10 text-white"
+                className="border-gray-200 text-black"
               >
                 Đóng
               </Button>
@@ -718,7 +718,7 @@ export function Movies() {
                     e.stopPropagation();
                     setModalMode("EDIT");
                   }}
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                  className="bg-blue-600 hover:bg-blue-700 text-gray-900"
                 >
                   <Edit className="w-4 h-4 mr-2" />
                   Chỉnh sửa

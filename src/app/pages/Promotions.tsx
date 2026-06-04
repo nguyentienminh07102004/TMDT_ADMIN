@@ -116,9 +116,9 @@ const promotions = [
 ];
 
 const statusColors = {
-  "Đang áp dụng": "bg-green-500/20 text-green-400 border-green-500/30",
-  "Chưa bắt đầu": "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  "Hết hạn": "bg-gray-500/20 text-gray-400 border-gray-500/30",
+  "Đang áp dụng": "bg-green-500/20 text-green-600 border-green-500/30",
+  "Chưa bắt đầu": "bg-blue-500/20 text-blue-600 border-blue-500/30",
+  "Hết hạn": "bg-gray-500/20 text-gray-500 border-gray-500/30",
 };
 
 export function Promotions() {
@@ -130,7 +130,7 @@ export function Promotions() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold mb-2">Quản lý khuyến mãi / Voucher</h1>
-          <p className="text-gray-400">Tạo và quản lý các chương trình khuyến mãi</p>
+          <p className="text-gray-500">Tạo và quản lý các chương trình khuyến mãi</p>
         </div>
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
@@ -139,7 +139,7 @@ export function Promotions() {
               Tạo voucher mới
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="bg-white border-gray-200 max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Tạo voucher mới</DialogTitle>
               <DialogDescription>
@@ -150,27 +150,27 @@ export function Promotions() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Mã voucher</Label>
-                  <Input placeholder="VD: SUMMER20" className="bg-white/5 border-white/10" />
+                  <Input placeholder="VD: SUMMER20" className="bg-gray-50 border-gray-200" />
                 </div>
                 <div className="space-y-2">
                   <Label>Tên chương trình</Label>
-                  <Input placeholder="Nhập tên chương trình" className="bg-white/5 border-white/10" />
+                  <Input placeholder="Nhập tên chương trình" className="bg-gray-50 border-gray-200" />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <Label>Mô tả</Label>
-                <Textarea placeholder="Mô tả về chương trình..." className="bg-white/5 border-white/10" />
+                <Textarea placeholder="Mô tả về chương trình..." className="bg-gray-50 border-gray-200" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Loại giảm giá</Label>
                   <Select>
-                    <SelectTrigger className="bg-white/5 border-white/10">
+                    <SelectTrigger className="bg-gray-50 border-gray-200">
                       <SelectValue placeholder="Chọn loại" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#1a1a24] border-white/10">
+                    <SelectContent className="bg-white border-gray-200">
                       <SelectItem value="percentage">Phần trăm (%)</SelectItem>
                       <SelectItem value="fixed">Số tiền cố định (₫)</SelectItem>
                     </SelectContent>
@@ -178,44 +178,44 @@ export function Promotions() {
                 </div>
                 <div className="space-y-2">
                   <Label>Giá trị giảm</Label>
-                  <Input type="number" placeholder="20" className="bg-white/5 border-white/10" />
+                  <Input type="number" placeholder="20" className="bg-gray-50 border-gray-200" />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Giá trị đơn tối thiểu (₫)</Label>
-                  <Input type="number" placeholder="200000" className="bg-white/5 border-white/10" />
+                  <Input type="number" placeholder="200000" className="bg-gray-50 border-gray-200" />
                 </div>
                 <div className="space-y-2">
                   <Label>Giảm tối đa (₫)</Label>
-                  <Input type="number" placeholder="100000" className="bg-white/5 border-white/10" />
+                  <Input type="number" placeholder="100000" className="bg-gray-50 border-gray-200" />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <Label>Số lượng voucher</Label>
-                <Input type="number" placeholder="100" className="bg-white/5 border-white/10" />
+                <Input type="number" placeholder="100" className="bg-gray-50 border-gray-200" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Ngày bắt đầu</Label>
-                  <Input type="date" className="bg-white/5 border-white/10" />
+                  <Input type="date" className="bg-gray-50 border-gray-200" />
                 </div>
                 <div className="space-y-2">
                   <Label>Ngày kết thúc</Label>
-                  <Input type="date" className="bg-white/5 border-white/10" />
+                  <Input type="date" className="bg-gray-50 border-gray-200" />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <Label>Áp dụng cho</Label>
                 <Select>
-                  <SelectTrigger className="bg-white/5 border-white/10">
+                  <SelectTrigger className="bg-gray-50 border-gray-200">
                     <SelectValue placeholder="Chọn đối tượng áp dụng" />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a24] border-white/10">
+                  <SelectContent className="bg-white border-gray-200">
                     <SelectItem value="all">Tất cả</SelectItem>
                     <SelectItem value="new-user">Người dùng mới</SelectItem>
                     <SelectItem value="vip">Phòng VIP</SelectItem>
@@ -227,7 +227,7 @@ export function Promotions() {
               </div>
 
               <div className="flex justify-end gap-3 pt-4">
-                <Button variant="outline" onClick={() => setIsAddDialogOpen(false)} className="border-white/10">
+                <Button variant="outline" onClick={() => setIsAddDialogOpen(false)} className="border-gray-200">
                   Hủy
                 </Button>
                 <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
@@ -241,14 +241,14 @@ export function Promotions() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center text-white">
                 <Percent className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-gray-400">Đang áp dụng</p>
+                <p className="text-sm text-gray-500">Đang áp dụng</p>
                 <p className="text-2xl font-bold">
                   {promotions.filter(p => p.status === "Đang áp dụng").length}
                 </p>
@@ -257,14 +257,14 @@ export function Promotions() {
           </CardContent>
         </Card>
 
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white">
                 <Percent className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-gray-400">Chưa bắt đầu</p>
+                <p className="text-sm text-gray-500">Chưa bắt đầu</p>
                 <p className="text-2xl font-bold">
                   {promotions.filter(p => p.status === "Chưa bắt đầu").length}
                 </p>
@@ -273,14 +273,14 @@ export function Promotions() {
           </CardContent>
         </Card>
 
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-500 to-gray-600 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-500 to-gray-600 flex items-center justify-center text-white">
                 <Percent className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-gray-400">Hết hạn</p>
+                <p className="text-sm text-gray-500">Hết hạn</p>
                 <p className="text-2xl font-bold">
                   {promotions.filter(p => p.status === "Hết hạn").length}
                 </p>
@@ -289,14 +289,14 @@ export function Promotions() {
           </CardContent>
         </Card>
 
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white">
                 <Percent className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-gray-400">Tổng số voucher</p>
+                <p className="text-sm text-gray-500">Tổng số voucher</p>
                 <p className="text-2xl font-bold">{promotions.length}</p>
               </div>
             </div>
@@ -307,13 +307,13 @@ export function Promotions() {
       {/* Promotions Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {promotions.map((promo) => (
-          <Card key={promo.id} className="bg-[#12121a] border-white/10">
+          <Card key={promo.id} className="bg-white border-gray-200">
             <CardContent className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="px-3 py-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-lg">
-                      <code className="text-purple-300 font-mono font-semibold">{promo.code}</code>
+                    <div className="px-3 py-1 bg-gradient-to-r from-purple-500/15 to-pink-500/15 border border-purple-500/30 rounded-lg">
+                      <code className="text-purple-700 font-mono font-semibold">{promo.code}</code>
                     </div>
                     <Button variant="ghost" size="icon" className="h-8 w-8">
                       <Copy className="w-4 h-4" />
@@ -330,29 +330,29 @@ export function Promotions() {
               </div>
 
               <div className="space-y-3 mb-4">
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
-                  <span className="text-sm text-gray-400">Loại giảm giá:</span>
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                  <span className="text-sm text-gray-500">Loại giảm giá:</span>
                   <span className="font-semibold">
                     {promo.type === "percentage" ? `${promo.value}%` : `₫${promo.value.toLocaleString()}`}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
-                  <span className="text-sm text-gray-400">Đơn tối thiểu:</span>
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                  <span className="text-sm text-gray-500">Đơn tối thiểu:</span>
                   <span className="font-semibold">₫{promo.minAmount.toLocaleString()}</span>
                 </div>
 
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
-                  <span className="text-sm text-gray-400">Giảm tối đa:</span>
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                  <span className="text-sm text-gray-500">Giảm tối đa:</span>
                   <span className="font-semibold">₫{promo.maxDiscount.toLocaleString()}</span>
                 </div>
 
-                <div className="p-3 bg-white/5 rounded-xl">
+                <div className="p-3 bg-gray-50 rounded-xl">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-400">Số lượng:</span>
+                    <span className="text-sm text-gray-500">Số lượng:</span>
                     <span className="text-sm">{promo.used} / {promo.quantity}</span>
                   </div>
-                  <div className="w-full bg-white/10 rounded-full h-2">
+                  <div className="w-full bg-gray-100 rounded-full h-2">
                     <div
                       className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
                       style={{ width: `${(promo.used / promo.quantity) * 100}%` }}
@@ -360,23 +360,23 @@ export function Promotions() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
-                  <span className="text-sm text-gray-400">Thời gian:</span>
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                  <span className="text-sm text-gray-500">Thời gian:</span>
                   <span className="text-sm">{promo.startDate} - {promo.endDate}</span>
                 </div>
 
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
-                  <span className="text-sm text-gray-400">Áp dụng cho:</span>
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                  <span className="text-sm text-gray-500">Áp dụng cho:</span>
                   <span className="text-sm">{promo.applicableFor}</span>
                 </div>
               </div>
 
               <div className="flex gap-2">
-                <Button variant="outline" size="sm" className="flex-1 border-white/10 rounded-xl">
+                <Button variant="outline" size="sm" className="flex-1 border-gray-200 rounded-xl">
                   <Edit className="w-4 h-4 mr-2" />
                   Chỉnh sửa
                 </Button>
-                <Button variant="outline" size="sm" className="flex-1 border-white/10 rounded-xl text-red-400">
+                <Button variant="outline" size="sm" className="flex-1 border-gray-200 rounded-xl text-red-600">
                   <Trash2 className="w-4 h-4 mr-2" />
                   Xóa
                 </Button>

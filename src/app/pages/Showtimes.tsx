@@ -107,9 +107,9 @@ const timeSlots = ["10:00", "12:30", "14:30", "16:30", "18:00", "19:30", "21:00"
 const cinemas = ["CGV Vincom", "Lotte Cinema", "CGV Aeon", "Galaxy Cinema"];
 
 const statusColors = {
-  "Còn vé": "bg-green-500/20 text-green-400 border-green-500/30",
-  "Sắp hết": "bg-orange-500/20 text-orange-400 border-orange-500/30",
-  "Hết vé": "bg-red-500/20 text-red-400 border-red-500/30",
+  "Còn vé": "bg-green-500/20 text-green-600 border-green-500/30",
+  "Sắp hết": "bg-orange-500/20 text-orange-600 border-orange-500/30",
+  "Hết vé": "bg-red-500/20 text-red-600 border-red-500/30",
 };
 
 export function Showtimes() {
@@ -121,7 +121,7 @@ export function Showtimes() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold mb-2">Quản lý suất chiếu</h1>
-          <p className="text-gray-400">Quản lý lịch chiếu phim tại các rạp</p>
+          <p className="text-gray-500">Quản lý lịch chiếu phim tại các rạp</p>
         </div>
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
@@ -130,7 +130,7 @@ export function Showtimes() {
               Thêm suất chiếu
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl">
+          <DialogContent className="bg-white border-gray-200 max-w-2xl">
             <DialogHeader>
               <DialogTitle>Thêm suất chiếu mới</DialogTitle>
               <DialogDescription>
@@ -141,10 +141,10 @@ export function Showtimes() {
               <div className="space-y-2">
                 <Label>Chọn phim</Label>
                 <Select>
-                  <SelectTrigger className="bg-white/5 border-white/10">
+                  <SelectTrigger className="bg-gray-50 border-gray-200">
                     <SelectValue placeholder="Chọn phim" />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a24] border-white/10">
+                  <SelectContent className="bg-white border-gray-200 text-gray-900">
                     <SelectItem value="oppenheimer">Oppenheimer</SelectItem>
                     <SelectItem value="barbie">Barbie</SelectItem>
                     <SelectItem value="inception">Inception</SelectItem>
@@ -156,10 +156,10 @@ export function Showtimes() {
                 <div className="space-y-2">
                   <Label>Chọn rạp</Label>
                   <Select>
-                    <SelectTrigger className="bg-white/5 border-white/10">
+                    <SelectTrigger className="bg-gray-50 border-gray-200">
                       <SelectValue placeholder="Chọn rạp" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#1a1a24] border-white/10">
+                    <SelectContent className="bg-white border-gray-200 text-gray-900">
                       <SelectItem value="cgv">CGV Vincom</SelectItem>
                       <SelectItem value="lotte">Lotte Cinema</SelectItem>
                       <SelectItem value="galaxy">Galaxy Cinema</SelectItem>
@@ -169,10 +169,10 @@ export function Showtimes() {
                 <div className="space-y-2">
                   <Label>Chọn phòng</Label>
                   <Select>
-                    <SelectTrigger className="bg-white/5 border-white/10">
+                    <SelectTrigger className="bg-gray-50 border-gray-200">
                       <SelectValue placeholder="Chọn phòng" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#1a1a24] border-white/10">
+                    <SelectContent className="bg-white border-gray-200 text-gray-900">
                       <SelectItem value="room1">Phòng 1 (2D)</SelectItem>
                       <SelectItem value="room2">Phòng 2 (IMAX)</SelectItem>
                       <SelectItem value="room3">Phòng 3 (VIP)</SelectItem>
@@ -184,21 +184,21 @@ export function Showtimes() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Ngày chiếu</Label>
-                  <Input type="date" className="bg-white/5 border-white/10" />
+                  <Input type="date" className="bg-gray-50 border-gray-200" />
                 </div>
                 <div className="space-y-2">
                   <Label>Giờ bắt đầu</Label>
-                  <Input type="time" className="bg-white/5 border-white/10" />
+                  <Input type="time" className="bg-gray-50 border-gray-200" />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <Label>Giá vé (₫)</Label>
-                <Input type="number" placeholder="170000" className="bg-white/5 border-white/10" />
+                <Input type="number" placeholder="170000" className="bg-gray-50 border-gray-200" />
               </div>
 
               <div className="flex justify-end gap-3 pt-4">
-                <Button variant="outline" onClick={() => setIsAddDialogOpen(false)} className="border-white/10">
+                <Button variant="outline" onClick={() => setIsAddDialogOpen(false)} className="border-gray-200 text-black">
                   Hủy
                 </Button>
                 <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
@@ -211,14 +211,14 @@ export function Showtimes() {
       </div>
 
       {/* Filters */}
-      <Card className="bg-[#12121a] border-white/10">
+      <Card className="bg-white border-gray-200">
         <CardContent className="p-6">
           <div className="flex flex-col lg:flex-row gap-4">
             <Select>
-              <SelectTrigger className="w-full lg:w-56 bg-white/5 border-white/10 rounded-xl">
+              <SelectTrigger className="w-full lg:w-56 bg-gray-50 border-gray-200 rounded-xl">
                 <SelectValue placeholder="Chọn phim" />
               </SelectTrigger>
-              <SelectContent className="bg-[#1a1a24] border-white/10">
+              <SelectContent className="bg-white border-gray-200">
                 <SelectItem value="all">Tất cả phim</SelectItem>
                 <SelectItem value="oppenheimer">Oppenheimer</SelectItem>
                 <SelectItem value="barbie">Barbie</SelectItem>
@@ -226,10 +226,10 @@ export function Showtimes() {
             </Select>
 
             <Select>
-              <SelectTrigger className="w-full lg:w-56 bg-white/5 border-white/10 rounded-xl">
+              <SelectTrigger className="w-full lg:w-56 bg-gray-50 border-gray-200 rounded-xl">
                 <SelectValue placeholder="Chọn rạp" />
               </SelectTrigger>
-              <SelectContent className="bg-[#1a1a24] border-white/10">
+              <SelectContent className="bg-white border-gray-200">
                 <SelectItem value="all">Tất cả rạp</SelectItem>
                 {cinemas.map((cinema) => (
                   <SelectItem key={cinema} value={cinema.toLowerCase()}>
@@ -239,13 +239,13 @@ export function Showtimes() {
               </SelectContent>
             </Select>
 
-            <Input type="date" className="bg-white/5 border-white/10 rounded-xl" defaultValue="2026-03-30" />
+            <Input type="date" className="bg-gray-50 border-gray-200 rounded-xl" defaultValue="2026-03-30" />
 
             <Select>
-              <SelectTrigger className="w-full lg:w-56 bg-white/5 border-white/10 rounded-xl">
+              <SelectTrigger className="w-full lg:w-56 bg-gray-50 border-gray-200 rounded-xl">
                 <SelectValue placeholder="Trạng thái" />
               </SelectTrigger>
-              <SelectContent className="bg-[#1a1a24] border-white/10">
+              <SelectContent className="bg-white border-gray-200">
                 <SelectItem value="all">Tất cả</SelectItem>
                 <SelectItem value="available">Còn vé</SelectItem>
                 <SelectItem value="almost">Sắp hết</SelectItem>
@@ -258,43 +258,43 @@ export function Showtimes() {
 
       {/* View Tabs */}
       <Tabs defaultValue="list" className="w-full">
-        <TabsList className="bg-[#12121a] border-white/10">
+        <TabsList className="bg-white border-gray-200">
           <TabsTrigger value="list">Danh sách</TabsTrigger>
           <TabsTrigger value="timeline">Timeline</TabsTrigger>
         </TabsList>
 
         <TabsContent value="list" className="mt-6">
-          <Card className="bg-[#12121a] border-white/10">
+          <Card className="bg-white border-gray-200">
             <CardContent className="p-6">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-white/10">
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">
+                    <tr className="border-b border-gray-200">
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">
                         Mã suất chiếu
                       </th>
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">
                         Phim
                       </th>
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">
                         Rạp
                       </th>
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">
                         Phòng
                       </th>
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">
                         Ngày giờ
                       </th>
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">
                         Giá vé
                       </th>
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">
                         Ghế trống
                       </th>
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">
                         Trạng thái
                       </th>
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">
                         Hành động
                       </th>
                     </tr>
@@ -303,7 +303,7 @@ export function Showtimes() {
                     {showtimes.map((showtime) => (
                       <tr
                         key={showtime.id}
-                        className="border-b border-white/5 hover:bg-white/5 transition-colors"
+                        className="border-b border-gray-100 hover:bg-gray-100 transition-colors"
                       >
                         <td className="py-4 px-4 text-sm font-mono">{showtime.code}</td>
                         <td className="py-4 px-4">
@@ -313,9 +313,9 @@ export function Showtimes() {
                         <td className="py-4 px-4 text-sm">{showtime.room}</td>
                         <td className="py-4 px-4">
                           <div className="flex items-center gap-2 text-sm">
-                            <Calendar className="w-4 h-4 text-gray-400" />
+                            <Calendar className="w-4 h-4 text-gray-500" />
                             {showtime.date}
-                            <Clock className="w-4 h-4 text-gray-400 ml-2" />
+                            <Clock className="w-4 h-4 text-gray-500 ml-2" />
                             {showtime.time}
                           </div>
                         </td>
@@ -341,7 +341,7 @@ export function Showtimes() {
                             <Button
                               variant="ghost"
                               size="icon"
-                              className="rounded-xl text-red-400 hover:text-red-300"
+                              className="rounded-xl text-red-600 hover:text-red-700"
                             >
                               <Trash2 className="w-4 h-4" />
                             </Button>
@@ -357,7 +357,7 @@ export function Showtimes() {
         </TabsContent>
 
         <TabsContent value="timeline" className="mt-6">
-          <Card className="bg-[#12121a] border-white/10">
+          <Card className="bg-white border-gray-200">
             <CardHeader>
               <CardTitle>Lịch chiếu phim - 30/03/2026</CardTitle>
             </CardHeader>
@@ -366,7 +366,7 @@ export function Showtimes() {
                 {cinemas.map((cinema) => (
                   <div key={cinema} className="space-y-3">
                     <div className="flex items-center gap-3">
-                      <MapPin className="w-5 h-5 text-purple-400" />
+                      <MapPin className="w-5 h-5 text-purple-600" />
                       <h3 className="font-semibold text-lg">{cinema}</h3>
                     </div>
                     <div className="grid grid-cols-4 gap-3 ml-8">
@@ -380,7 +380,7 @@ export function Showtimes() {
                             className={`p-4 rounded-xl border transition-all ${
                               hasShowtime
                                 ? "bg-purple-500/20 border-purple-500/30 hover:bg-purple-500/30"
-                                : "bg-white/5 border-white/10 opacity-50"
+                                : "bg-gray-50 border-gray-200 opacity-50"
                             }`}
                           >
                             <div className="flex items-center gap-2 mb-2">
@@ -388,7 +388,7 @@ export function Showtimes() {
                               <span className="font-semibold">{time}</span>
                             </div>
                             {hasShowtime && (
-                              <p className="text-sm text-gray-300">{hasShowtime.movie}</p>
+                              <p className="text-sm text-gray-600">{hasShowtime.movie}</p>
                             )}
                           </div>
                         );

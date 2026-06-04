@@ -87,7 +87,7 @@ export function Revenue() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold mb-2">Báo cáo doanh thu</h1>
-          <p className="text-gray-400">Phân tích và thống kê doanh thu hệ thống</p>
+          <p className="text-gray-500">Phân tích và thống kê doanh thu hệ thống</p>
         </div>
         <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
           <Download className="w-4 h-4 mr-2" />
@@ -96,15 +96,15 @@ export function Revenue() {
       </div>
 
       {/* Time Range Filter */}
-      <Card className="bg-[#12121a] border-white/10">
+      <Card className="bg-white border-gray-200">
         <CardContent className="p-6">
           <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-400">Khoảng thời gian:</span>
+            <span className="text-sm text-gray-500">Khoảng thời gian:</span>
             <Select value={timeRange} onValueChange={setTimeRange}>
-              <SelectTrigger className="w-48 bg-white/5 border-white/10 rounded-xl">
+              <SelectTrigger className="w-48 bg-gray-50 border-gray-200 rounded-xl">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-[#1a1a24] border-white/10">
+              <SelectContent className="bg-white border-gray-200">
                 <SelectItem value="today">Hôm nay</SelectItem>
                 <SelectItem value="week">7 ngày qua</SelectItem>
                 <SelectItem value="month">30 ngày qua</SelectItem>
@@ -117,16 +117,16 @@ export function Revenue() {
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center text-white">
                 <DollarSign className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-gray-400">Tổng doanh thu</p>
+                <p className="text-sm text-gray-500">Tổng doanh thu</p>
                 <p className="text-2xl font-bold">₫314.2M</p>
-                <p className="text-xs text-green-400 flex items-center gap-1 mt-1">
+                <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
                   <TrendingUp className="w-3 h-3" />
                   +12.5%
                 </p>
@@ -135,16 +135,16 @@ export function Revenue() {
           </CardContent>
         </Card>
 
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white">
                 <Ticket className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-gray-400">Tổng vé bán</p>
+                <p className="text-sm text-gray-500">Tổng vé bán</p>
                 <p className="text-2xl font-bold">7,904</p>
-                <p className="text-xs text-green-400 flex items-center gap-1 mt-1">
+                <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
                   <TrendingUp className="w-3 h-3" />
                   +8.3%
                 </p>
@@ -153,16 +153,16 @@ export function Revenue() {
           </CardContent>
         </Card>
 
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white">
                 <Users className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-gray-400">Lượng khách</p>
+                <p className="text-sm text-gray-500">Lượng khách</p>
                 <p className="text-2xl font-bold">6,542</p>
-                <p className="text-xs text-green-400 flex items-center gap-1 mt-1">
+                <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
                   <TrendingUp className="w-3 h-3" />
                   +15.2%
                 </p>
@@ -171,16 +171,16 @@ export function Revenue() {
           </CardContent>
         </Card>
 
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white">
                 <TrendingUp className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-gray-400">Lấp đầy TB</p>
+                <p className="text-sm text-gray-500">Lấp đầy TB</p>
                 <p className="text-2xl font-bold">72.8%</p>
-                <p className="text-xs text-green-400 flex items-center gap-1 mt-1">
+                <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
                   <TrendingUp className="w-3 h-3" />
                   +3.1%
                 </p>
@@ -192,26 +192,26 @@ export function Revenue() {
 
       {/* Revenue Charts */}
       <Tabs defaultValue="daily" className="w-full">
-        <TabsList className="bg-[#12121a] border-white/10">
+        <TabsList className="bg-white border-gray-200">
           <TabsTrigger value="daily">Theo ngày</TabsTrigger>
           <TabsTrigger value="monthly">Theo tháng</TabsTrigger>
         </TabsList>
 
         <TabsContent value="daily" className="mt-6">
-          <Card className="bg-[#12121a] border-white/10">
+          <Card className="bg-white border-gray-200">
             <CardHeader>
               <CardTitle>Doanh thu theo ngày (7 ngày qua)</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={400}>
                 <BarChart data={dailyRevenue}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#ffffff20" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis dataKey="date" stroke="#888" />
                   <YAxis stroke="#888" />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: "#1a1a24",
-                      border: "1px solid #ffffff20",
+                      backgroundColor: "#ffffff",
+                      border: "1px solid #e5e7eb",
                       borderRadius: "8px",
                     }}
                   />
@@ -224,20 +224,20 @@ export function Revenue() {
         </TabsContent>
 
         <TabsContent value="monthly" className="mt-6">
-          <Card className="bg-[#12121a] border-white/10">
+          <Card className="bg-white border-gray-200">
             <CardHeader>
               <CardTitle>Doanh thu theo tháng (6 tháng qua)</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={400}>
                 <LineChart data={monthlyRevenue}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#ffffff20" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis dataKey="month" stroke="#888" />
                   <YAxis stroke="#888" />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: "#1a1a24",
-                      border: "1px solid #ffffff20",
+                      backgroundColor: "#ffffff",
+                      border: "1px solid #e5e7eb",
                       borderRadius: "8px",
                     }}
                   />
@@ -260,7 +260,7 @@ export function Revenue() {
       {/* Analysis Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Movies */}
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardHeader>
             <CardTitle>Top phim theo doanh thu</CardTitle>
           </CardHeader>
@@ -270,15 +270,15 @@ export function Revenue() {
                 <div key={index} className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-semibold">{movie.name}</span>
-                    <span className="text-green-400">₫{movie.revenue.toLocaleString()}</span>
+                    <span className="text-green-600">₫{movie.revenue.toLocaleString()}</span>
                   </div>
-                  <div className="relative w-full bg-white/10 rounded-full h-2">
+                  <div className="relative w-full bg-gray-100 rounded-full h-2">
                     <div
                       className="absolute top-0 left-0 bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
                       style={{ width: `${movie.percentage}%` }}
                     />
                   </div>
-                  <span className="text-xs text-gray-400">{movie.percentage}% tổng doanh thu</span>
+                  <span className="text-xs text-gray-500">{movie.percentage}% tổng doanh thu</span>
                 </div>
               ))}
             </div>
@@ -286,7 +286,7 @@ export function Revenue() {
         </Card>
 
         {/* Genre Distribution */}
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardHeader>
             <CardTitle>Doanh thu theo thể loại</CardTitle>
           </CardHeader>
@@ -308,8 +308,8 @@ export function Revenue() {
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#1a1a24",
-                    border: "1px solid #ffffff20",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #e5e7eb",
                     borderRadius: "8px",
                   }}
                 />
@@ -319,21 +319,21 @@ export function Revenue() {
         </Card>
 
         {/* Revenue by Cinema */}
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardHeader>
             <CardTitle>Doanh thu theo rạp</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {revenueByCinema.map((cinema, index) => (
-                <div key={index} className="p-4 bg-white/5 rounded-xl">
+                <div key={index} className="p-4 bg-gray-50 rounded-xl">
                   <div className="flex items-center justify-between mb-2">
                     <h4 className="font-semibold">{cinema.cinema}</h4>
-                    <span className="text-green-400 font-semibold">
+                    <span className="text-green-600 font-semibold">
                       ₫{cinema.revenue.toLocaleString()}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between text-sm text-gray-400">
+                  <div className="flex items-center justify-between text-sm text-gray-500">
                     <span>{cinema.tickets.toLocaleString()} vé</span>
                     <span>₫{Math.round(cinema.revenue / cinema.tickets).toLocaleString()} / vé</span>
                   </div>
@@ -344,20 +344,20 @@ export function Revenue() {
         </Card>
 
         {/* Peak Hours */}
-        <Card className="bg-[#12121a] border-white/10">
+        <Card className="bg-white border-gray-200">
           <CardHeader>
             <CardTitle>Khung giờ đặt vé</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={peakHours}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#ffffff20" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                 <XAxis dataKey="time" stroke="#888" />
                 <YAxis stroke="#888" />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#1a1a24",
-                    border: "1px solid #ffffff20",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #e5e7eb",
                     borderRadius: "8px",
                   }}
                 />

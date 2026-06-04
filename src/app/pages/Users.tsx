@@ -74,13 +74,13 @@ const roleLabels: Record<UserRole, string> = {
 };
 
 const roleColors: Record<UserRole, string> = {
-  USER: "bg-green-500/20 text-green-400 border-green-500/30",
-  ADMIN: "bg-red-500/20 text-red-400 border-red-500/30",
+  USER: "bg-green-500/20 text-green-600 border-green-500/30",
+  ADMIN: "bg-red-500/20 text-red-600 border-red-500/30",
 };
 
 const statusColors = {
-  "Hoạt động": "bg-green-500/20 text-green-400 border-green-500/30",
-  "Tạm khóa": "bg-red-500/20 text-red-400 border-red-500/30",
+  "Hoạt động": "bg-green-500/20 text-green-600 border-green-500/30",
+  "Tạm khóa": "bg-red-500/20 text-red-600 border-red-500/30",
 };
 
 function mapUserResponseToRow(user: UserResponse): UserRow {
@@ -171,7 +171,7 @@ export function Users() {
       <div className="flex items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold mb-2">Quản lý người dùng</h1>
-          <p className="text-gray-400">Quản lý tài khoản người dùng trong hệ thống</p>
+          <p className="text-gray-500">Quản lý tài khoản người dùng trong hệ thống</p>
         </div>
 
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -181,13 +181,13 @@ export function Users() {
               Thêm người dùng
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl text-white">
+          <DialogContent className="bg-white border-gray-200 max-w-2xl text-gray-900">
             <DialogHeader>
               <DialogTitle>Thêm người dùng mới</DialogTitle>
-              <DialogDescription className="text-white/70">Tạo tài khoản mới theo DTO user của API</DialogDescription>
+              <DialogDescription className="text-gray-600">Tạo tài khoản mới theo DTO user của API</DialogDescription>
             </DialogHeader>
 
-            <form className="space-y-4 mt-4 text-white" onSubmit={handleCreateUser}>
+            <form className="space-y-4 mt-4 text-gray-900" onSubmit={handleCreateUser}>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="fullName">Họ tên</Label>
@@ -196,7 +196,7 @@ export function Users() {
                     placeholder="Nhập họ tên"
                     value={formData.fullName}
                     onChange={(event) => setFormData((current) => ({ ...current, fullName: event.target.value }))}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                    className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
                   />
                 </div>
                 <div className="space-y-2">
@@ -207,7 +207,7 @@ export function Users() {
                     placeholder="email@example.com"
                     value={formData.email}
                     onChange={(event) => setFormData((current) => ({ ...current, email: event.target.value }))}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                    className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
                   />
                 </div>
               </div>
@@ -220,7 +220,7 @@ export function Users() {
                     placeholder="0901234567"
                     value={formData.phone}
                     onChange={(event) => setFormData((current) => ({ ...current, phone: event.target.value }))}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                    className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
                   />
                 </div>
                 <div className="space-y-2">
@@ -229,10 +229,10 @@ export function Users() {
                     value={formData.role}
                     onValueChange={(value) => setFormData((current) => ({ ...current, role: value as UserRole }))}
                   >
-                    <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                    <SelectTrigger className="bg-gray-50 border-gray-200 text-gray-900">
                       <SelectValue placeholder="Chọn vai trò" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#1a1a24] border-white/10">
+                    <SelectContent className="bg-white border-gray-200">
                       <SelectItem value="USER">Người dùng</SelectItem>
                       <SelectItem value="ADMIN">Quản trị viên</SelectItem>
                     </SelectContent>
@@ -248,7 +248,7 @@ export function Users() {
                   placeholder="Nhập mật khẩu"
                   value={formData.password}
                   onChange={(event) => setFormData((current) => ({ ...current, password: event.target.value }))}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                  className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
                 />
               </div>
 
@@ -260,12 +260,12 @@ export function Users() {
                   placeholder="Nhập lại mật khẩu"
                   value={formData.confirmPassword}
                   onChange={(event) => setFormData((current) => ({ ...current, confirmPassword: event.target.value }))}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                  className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
                 />
               </div>
 
               <div className="flex justify-end gap-3 pt-4">
-                <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)} className="border-white/10">
+                <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)} className="border-gray-200">
                   Hủy
                 </Button>
                 <Button type="submit" className="bg-gradient-to-r from-purple-500 to-pink-500" disabled={isSubmitting}>
@@ -284,24 +284,24 @@ export function Users() {
         </Dialog>
       </div>
 
-      <Card className="bg-[#12121a] border-white/10">
+      <Card className="bg-white border-gray-200">
         <CardContent className="p-6">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
               <Input
                 placeholder="Tìm theo tên, email, số điện thoại..."
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                className="pl-10 bg-white/5 border-white/10 rounded-xl"
+                className="pl-10 bg-gray-50 border-gray-200 rounded-xl"
               />
             </div>
 
             <Select value={roleFilter} onValueChange={setRoleFilter}>
-              <SelectTrigger className="w-full lg:w-48 bg-white/5 border-white/10 rounded-xl">
+              <SelectTrigger className="w-full lg:w-48 bg-gray-50 border-gray-200 rounded-xl">
                 <SelectValue placeholder="Vai trò" />
               </SelectTrigger>
-              <SelectContent className="bg-[#1a1a24] border-white/10">
+              <SelectContent className="bg-white border-gray-200">
                 <SelectItem value="all">Tất cả vai trò</SelectItem>
                 <SelectItem value="USER">Người dùng</SelectItem>
                 <SelectItem value="ADMIN">Quản trị viên</SelectItem>
@@ -309,10 +309,10 @@ export function Users() {
             </Select>
 
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-full lg:w-48 bg-white/5 border-white/10 rounded-xl">
+              <SelectTrigger className="w-full lg:w-48 bg-gray-50 border-gray-200 rounded-xl">
                 <SelectValue placeholder="Trạng thái" />
               </SelectTrigger>
-              <SelectContent className="bg-[#1a1a24] border-white/10">
+              <SelectContent className="bg-white border-gray-200">
                 <SelectItem value="all">Tất cả trạng thái</SelectItem>
                 <SelectItem value="active">Hoạt động</SelectItem>
                 <SelectItem value="blocked">Tạm khóa</SelectItem>
@@ -322,23 +322,23 @@ export function Users() {
         </CardContent>
       </Card>
 
-      <Card className="bg-[#12121a] border-white/10">
+      <Card className="bg-white border-gray-200">
         <CardContent className="p-6">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-white/10">
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Người dùng</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Email / Số điện thoại</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Vai trò</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Trạng thái</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Ngày tạo</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Hành động</th>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Người dùng</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Email / Số điện thoại</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Vai trò</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Trạng thái</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Ngày tạo</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Hành động</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredUsers.map((user) => (
-                  <tr key={user.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                  <tr key={user.id} className="border-b border-gray-100 hover:bg-gray-100 transition-colors">
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-3">
                         <Avatar>
@@ -347,13 +347,13 @@ export function Users() {
                         </Avatar>
                         <div>
                           <p className="font-semibold">{user.fullName}</p>
-                          <p className="text-xs text-gray-400">{user.id}</p>
+                          <p className="text-xs text-gray-500">{user.id}</p>
                         </div>
                       </div>
                     </td>
                     <td className="py-4 px-4">
                       <p className="text-sm">{user.email}</p>
-                      <p className="text-xs text-gray-400">{user.phone}</p>
+                      <p className="text-xs text-gray-500">{user.phone}</p>
                     </td>
                     <td className="py-4 px-4">
                       <Badge variant="outline" className={roleColors[user.role]}>
@@ -385,7 +385,7 @@ export function Users() {
           </div>
 
           <div className="flex items-center justify-between mt-6">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-500">
               Hiển thị {filteredUsers.length} trong tổng số {users.length} người dùng
             </p>
           </div>

@@ -211,24 +211,24 @@ export function Seats() {
     : [];
 
   return (
-    <div className="space-y-6 text-white">
+    <div className="space-y-6 text-gray-900">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold mb-2">Quản lý sơ đồ ghế ngồi</h1>
-        <p className="text-gray-400">Thiết lập và chỉnh sửa sơ đồ ghế cho từng phòng chiếu</p>
+        <p className="text-gray-500">Thiết lập và chỉnh sửa sơ đồ ghế cho từng phòng chiếu</p>
       </div>
 
       {/* Selection Filters */}
-      <Card className="bg-[#12121a] border-white/10">
+      <Card className="bg-white border-gray-200">
         <CardContent className="p-6">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1">
-              <label className="text-sm text-gray-400 mb-2 block">Chọn rạp</label>
+              <label className="text-sm text-gray-500 mb-2 block">Chọn rạp</label>
               <Select value={selectedCinema} onValueChange={setSelectedCinema}>
-                <SelectTrigger className="bg-white/5 border-white/10 rounded-xl text-white">
+                <SelectTrigger className="bg-gray-50 border-gray-200 rounded-xl text-gray-900">
                   <SelectValue placeholder="Chọn rạp chiếu" />
                 </SelectTrigger>
-                <SelectContent className="bg-[#1a1a24] border-white/10 text-white">
+                <SelectContent className="bg-white border-gray-200 text-gray-900">
                   {cinemas.map((cinema) => (
                     <SelectItem key={cinema.id} value={String(cinema.id)}>
                       {cinema.name}
@@ -239,12 +239,12 @@ export function Seats() {
             </div>
 
             <div className="flex-1">
-              <label className="text-sm text-gray-400 mb-2 block">Chọn phòng</label>
+              <label className="text-sm text-gray-500 mb-2 block">Chọn phòng</label>
               <Select value={selectedRoom} onValueChange={handleRoomChange}>
-                <SelectTrigger className="bg-white/5 border-white/10 rounded-xl text-white">
+                <SelectTrigger className="bg-gray-50 border-gray-200 rounded-xl text-gray-900">
                   <SelectValue placeholder="Chọn phòng chiếu" />
                 </SelectTrigger>
-                <SelectContent className="bg-[#1a1a24] border-white/10 text-white">
+                <SelectContent className="bg-white border-gray-200 text-gray-900">
                   {rooms.length === 0 ? (
                     <SelectItem value="none" disabled>Không có phòng nào</SelectItem>
                   ) : (
@@ -262,7 +262,7 @@ export function Seats() {
       </Card>
 
       {/* Seat Type Selector */}
-      <Card className="bg-[#12121a] border-white/10">
+      <Card className="bg-white border-gray-200">
         <CardHeader>
           <CardTitle className="text-lg">Chọn loại ghế để chỉnh sửa</CardTitle>
         </CardHeader>
@@ -274,17 +274,17 @@ export function Seats() {
                 onClick={() => setSelectedType(type as SeatType)}
                 className={`p-4 rounded-xl border-2 transition-all ${
                   selectedType === type
-                    ? "border-white/30 bg-white/10"
-                    : "border-white/10 hover:border-white/20"
+                    ? "border-gray-300 bg-gray-100"
+                    : "border-gray-200 hover:border-gray-300"
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <div className={`w-8 h-8 rounded-lg ${config.color} flex items-center justify-center`}>
-                    <Armchair className="w-5 h-5 text-white" />
+                    <Armchair className="w-5 h-5 text-gray-900" />
                   </div>
                   <div className="text-left">
                     <p className="font-semibold text-sm">{config.label}</p>
-                    <p className="text-xs text-gray-400">{counts[type as SeatType]} ghế</p>
+                    <p className="text-xs text-gray-500">{counts[type as SeatType]} ghế</p>
                   </div>
                 </div>
               </button>
@@ -294,7 +294,7 @@ export function Seats() {
       </Card>
 
       {/* Seat Layout */}
-      <Card className="bg-[#12121a] border-white/10">
+      <Card className="bg-white border-gray-200">
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle>Sơ đồ phòng chiếu {roomCurrent && `- ${roomCurrent.name}`}</CardTitle>
@@ -312,17 +312,17 @@ export function Seats() {
           {/* Screen */}
           <div className="mb-12">
             <div className="w-full h-3 bg-gradient-to-b from-white/30 to-transparent rounded-t-3xl mb-2" />
-            <p className="text-center text-sm text-gray-400">MÀN HÌNH</p>
+            <p className="text-center text-sm text-gray-500">MÀN HÌNH</p>
           </div>
 
           {/* Seats Grid */}
           <div className="max-w-5xl mx-auto space-y-3 overflow-x-auto pb-4">
             {!roomCurrent || seats.length === 0 ? (
-              <p className="text-center text-gray-400 py-8">Vui lòng chọn rạp và phòng có sẵn dữ liệu ghế</p>
+              <p className="text-center text-gray-500 py-8">Vui lòng chọn rạp và phòng có sẵn dữ liệu ghế</p>
             ) : (
               dynamicRows.map((row) => (
                 <div key={row} className="flex items-center gap-3 min-w-max justify-center">
-                  <div className="w-8 text-center font-semibold text-gray-400">{row}</div>
+                  <div className="w-8 text-center font-semibold text-gray-500">{row}</div>
                   <div className="flex justify-center gap-2">
                     {Array.from({ length: roomCurrent.totalSeatOfRow }, (_, i) => i + 1).map((num) => {
                       // Tìm ghế dựa trên interface Seat mới (s.seatNumber thay vì s.number)
@@ -332,7 +332,7 @@ export function Seats() {
                         <button
                           key={num}
                           onClick={() => handleSeatClick(row, num)}
-                          className={`w-8 h-8 rounded-lg ${config.color} ${config.hoverColor} transition-all flex items-center justify-center text-xs font-semibold text-white`}
+                          className={`w-8 h-8 rounded-lg ${config.color} ${config.hoverColor} transition-all flex items-center justify-center text-xs font-semibold text-gray-900`}
                           title={`${row}${num} - ${config.label}`}
                         >
                           {seat?.type === "COUPLE" ? "♥" : <Armchair className="w-4 h-4" />}
@@ -340,22 +340,22 @@ export function Seats() {
                       );
                     })}
                   </div>
-                  <div className="w-8 text-center font-semibold text-gray-400">{row}</div>
+                  <div className="w-8 text-center font-semibold text-gray-500">{row}</div>
                 </div>
               ))
             )}
           </div>
 
           {/* Legend */}
-          <div className="mt-12 pt-6 border-t border-white/10">
-            <p className="text-sm font-semibold mb-4 text-gray-400">Chú thích:</p>
+          <div className="mt-12 pt-6 border-t border-gray-200">
+            <p className="text-sm font-semibold mb-4 text-gray-500">Chú thích:</p>
             <div className="flex flex-wrap gap-6">
               {Object.entries(seatTypeConfig).map(([type, config]) => (
                 <div key={type} className="flex items-center gap-2">
                   <div className={`w-6 h-6 rounded-lg ${config.color} flex items-center justify-center`}>
-                    <Armchair className="w-4 h-4 text-white" />
+                    <Armchair className="w-4 h-4 text-gray-900" />
                   </div>
-                  <span className="text-sm text-gray-300">{config.label}</span>
+                  <span className="text-sm text-gray-600">{config.label}</span>
                 </div>
               ))}
             </div>
@@ -363,20 +363,20 @@ export function Seats() {
 
           {/* Summary */}
           <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-4 bg-white/5 rounded-xl">
-              <p className="text-sm text-gray-400 mb-1">Tổng số ghế</p>
+            <div className="p-4 bg-gray-50 rounded-xl">
+              <p className="text-sm text-gray-500 mb-1">Tổng số ghế</p>
               <p className="text-2xl font-bold">{seats.length}</p>
             </div>
-            <div className="p-4 bg-white/5 rounded-xl">
-              <p className="text-sm text-gray-400 mb-1">Ghế có thể sử dụng</p>
+            <div className="p-4 bg-gray-50 rounded-xl">
+              <p className="text-sm text-gray-500 mb-1">Ghế có thể sử dụng</p>
               <p className="text-2xl font-bold">{seats.length - counts.UNAVAILABLE}</p>
             </div>
-            <div className="p-4 bg-white/5 rounded-xl">
-              <p className="text-sm text-gray-400 mb-1">Ghế VIP</p>
+            <div className="p-4 bg-gray-50 rounded-xl">
+              <p className="text-sm text-gray-500 mb-1">Ghế VIP</p>
               <p className="text-2xl font-bold">{counts.VIP}</p>
             </div>
-            <div className="p-4 bg-white/5 rounded-xl">
-              <p className="text-sm text-gray-400 mb-1">Ghế đôi</p>
+            <div className="p-4 bg-gray-50 rounded-xl">
+              <p className="text-sm text-gray-500 mb-1">Ghế đôi</p>
               <p className="text-2xl font-bold">{counts.COUPLE}</p>
             </div>
           </div>

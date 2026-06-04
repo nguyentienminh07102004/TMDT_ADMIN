@@ -65,30 +65,30 @@ export function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gray-50 text-gray-900 flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(168,85,247,0.18),_transparent_40%),radial-gradient(circle_at_bottom_right,_rgba(236,72,153,0.15),_transparent_35%)]" />
-      <Card className="relative z-10 w-full max-w-md bg-[#12121a]/90 border-white/10 backdrop-blur-xl shadow-2xl shadow-black/30 text-white">
+      <Card className="relative z-10 w-full max-w-md bg-white/90 border-gray-200 backdrop-blur-xl shadow-2xl shadow-gray-300/40 text-gray-900">
         <CardContent className="p-8 space-y-6">
           <div className="space-y-2 text-center">
-            <div className="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+            <div className="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white">
               <LockKeyhole className="w-7 h-7" />
             </div>
             <h1 className="text-2xl font-bold">Đăng nhập quản trị</h1>
-            <p className="text-sm text-gray-400">Dùng tài khoản admin để vào dashboard.</p>
+            <p className="text-sm text-gray-500">Dùng tài khoản admin để vào dashboard.</p>
           </div>
 
-          <form className="space-y-4 text-white" onSubmit={handleSubmit}>
+          <form className="space-y-4 text-gray-900" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <Input
                   id="email"
                   type="email"
                   placeholder="admin@example.com"
                   value={formData.email}
                   onChange={(event) => setFormData((current) => ({ ...current, email: event.target.value }))}
-                  className="pl-10 bg-white/5 border-white/10 rounded-xl text-white placeholder:text-white/50"
+                  className="pl-10 bg-gray-50 border-gray-200 rounded-xl text-gray-900 placeholder:text-gray-500"
                 />
               </div>
             </div>
@@ -96,14 +96,14 @@ export function Login() {
             <div className="space-y-2">
               <Label htmlFor="password">Mật khẩu</Label>
               <div className="relative">
-                <LockKeyhole className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <LockKeyhole className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <Input
                   id="password"
                   type="password"
                   placeholder="Nhập mật khẩu"
                   value={formData.password}
                   onChange={(event) => setFormData((current) => ({ ...current, password: event.target.value }))}
-                  className="pl-10 bg-white/5 border-white/10 rounded-xl text-white placeholder:text-white/50"
+                  className="pl-10 bg-gray-50 border-gray-200 rounded-xl text-gray-900 placeholder:text-gray-500"
                 />
               </div>
             </div>

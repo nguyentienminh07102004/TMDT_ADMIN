@@ -28,11 +28,11 @@ import { RoomResponse, RoomRequest, RoomSearch } from "../types/Room";
 import { roomApi } from "../api/RoomApi";
 
 const roomTypeColors = {
-  "STANDARD": "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  "3D": "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
-  "IMAX": "bg-purple-500/20 text-purple-400 border-purple-500/30",
+  "STANDARD": "bg-blue-500/20 text-blue-600 border-blue-500/30",
+  "3D": "bg-cyan-500/20 text-cyan-600 border-cyan-500/30",
+  "IMAX": "bg-purple-500/20 text-purple-600 border-purple-500/30",
   "VIP": "bg-amber-500/20 text-amber-400 border-amber-500/30",
-  "4DX": "bg-pink-500/20 text-pink-400 border-pink-500/30",
+  "4DX": "bg-pink-500/20 text-pink-600 border-pink-500/30",
 };
 
 export function Cinemas() {
@@ -242,15 +242,15 @@ export function Cinemas() {
 
 
   return (
-    <div className="space-y-6 text-white">
+    <div className="space-y-6 text-gray-900">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold mb-2">Quản lý rạp / phòng chiếu</h1>
-        <p className="text-gray-400">Quản lý và thiết lập thông tin rạp phim, cấu hình phòng máy chiếu toàn hệ thống</p>
+        <p className="text-gray-500">Quản lý và thiết lập thông tin rạp phim, cấu hình phòng máy chiếu toàn hệ thống</p>
       </div>
 
       <Tabs defaultValue="cinemas" className="w-full">
-        <TabsList className="bg-[#12121a] border-white/10">
+        <TabsList className="bg-white border-gray-200">
           <TabsTrigger value="cinemas">Danh sách rạp</TabsTrigger>
           <TabsTrigger value="rooms">Danh sách phòng chiếu</TabsTrigger>
         </TabsList>
@@ -266,42 +266,42 @@ export function Cinemas() {
           {/* Grid danh sách rạp */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {cinemas.map((cinema) => (
-              <Card key={cinema.id} className="bg-[#12121a] border-white/10 text-white">
+              <Card key={cinema.id} className="bg-white border-gray-200 text-gray-900">
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 text-white">
                         <Building2 className="w-6 h-6" />
                       </div>
                       <div>
                         <h3 className="font-semibold text-lg mb-1">{cinema.name}</h3>
-                        <div className="flex items-start gap-2 text-sm text-gray-400">
+                        <div className="flex items-start gap-2 text-sm text-gray-500">
                           <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
                           <span>{`[${cinema.city}] ${cinema.address}`}</span>
                         </div>
                       </div>
                     </div>
-                    <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30">
+                    <Badge variant="outline" className="bg-green-500/20 text-green-600 border-green-500/30">
                       Hoạt động
                     </Badge>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 mb-4 p-4 bg-white/5 rounded-xl">
+                  <div className="grid grid-cols-2 gap-4 mb-4 p-4 bg-gray-50 rounded-xl">
                     <div>
-                      <p className="text-sm text-gray-400 mb-1">Mã hệ thống</p>
+                      <p className="text-sm text-gray-500 mb-1">Mã hệ thống</p>
                       <p className="text-2xl font-bold">#{cinema.id}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-400 mb-1">Trạng thái dữ liệu</p>
-                      <p className="text-sm font-semibold text-purple-400 mt-1">Sẵn sàng</p>
+                      <p className="text-sm text-gray-500 mb-1">Trạng thái dữ liệu</p>
+                      <p className="text-sm font-semibold text-purple-600 mt-1">Sẵn sàng</p>
                     </div>
                   </div>
 
                   <div className="flex gap-2">
-                    <Button onClick={() => openEditCinemaModal(cinema)} variant="outline" size="sm" className="flex-1 border-white/10 rounded-xl hover:bg-white/5">
+                    <Button onClick={() => openEditCinemaModal(cinema)} variant="outline" size="sm" className="flex-1 border-gray-200 rounded-xl hover:bg-gray-100">
                       <Edit className="w-4 h-4 mr-2" /> Chỉnh sửa
                     </Button>
-                    <Button onClick={() => handleDeleteCinema(cinema.id)} variant="outline" size="sm" className="flex-1 border-white/10 rounded-xl text-red-400 hover:text-red-300 hover:bg-white/5">
+                    <Button onClick={() => handleDeleteCinema(cinema.id)} variant="outline" size="sm" className="flex-1 border-gray-200 rounded-xl text-red-600 hover:text-red-700 hover:bg-gray-100">
                       <Trash2 className="w-4 h-4 mr-2" /> Xóa
                     </Button>
                   </div>
@@ -315,20 +315,20 @@ export function Cinemas() {
         <TabsContent value="rooms" className="mt-6 space-y-6">
 
           {/* Thanh Bộ Lọc & Tìm Kiếm Phòng Chiếu */}
-          <div className="flex flex-col sm:flex-row gap-4 items-end sm:items-center justify-between p-4 bg-[#12121a] rounded-xl border border-white/10">
+          <div className="flex flex-col sm:flex-row gap-4 items-end sm:items-center justify-between p-4 bg-white rounded-xl border border-gray-200">
             <div className="flex items-center gap-3 w-full sm:w-auto">
-              <div className="flex items-center gap-2 text-sm text-gray-400 whitespace-nowrap">
-                <Filter className="w-4 h-4 text-purple-400" />
+              <div className="flex items-center gap-2 text-sm text-gray-500 whitespace-nowrap">
+                <Filter className="w-4 h-4 text-purple-600" />
                 <span>Lọc theo rạp:</span>
               </div>
               <Select
                 value={roomSearch.cinemaId ? roomSearch.cinemaId.toString() : "ALL"}
                 onValueChange={handleFilterCinemaChange}
               >
-                <SelectTrigger className="bg-white/5 border-white/10 w-full sm:w-[240px] text-white">
+                <SelectTrigger className="bg-gray-50 border-gray-200 w-full sm:w-[240px] text-gray-900">
                   <SelectValue placeholder="Tất cả các rạp" />
                 </SelectTrigger>
-                <SelectContent className="bg-[#1a1a24] border-white/10 text-white">
+                <SelectContent className="bg-white border-gray-200 text-gray-900">
                   <SelectItem value="ALL">Tất cả các rạp</SelectItem>
                   {cinemas.map((c) => (
                     <SelectItem key={c.id} value={c.id.toString()}>{c.name}</SelectItem>
@@ -343,17 +343,17 @@ export function Cinemas() {
           </div>
 
           {/* Bảng dữ liệu */}
-          <Card className="bg-[#12121a] border-white/10 text-white">
+          <Card className="bg-white border-gray-200 text-gray-900">
             <CardContent className="p-6">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-white/10">
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Tên phòng</th>
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Thuộc rạp</th>
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Loại phòng</th>
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Số ghế</th>
-                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Hành động</th>
+                    <tr className="border-b border-gray-200">
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Tên phòng</th>
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Thuộc rạp</th>
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Loại phòng</th>
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Số ghế</th>
+                      <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Hành động</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -365,31 +365,31 @@ export function Cinemas() {
                       </tr>
                     ) : (
                       rooms.map((room) => (
-                        <tr key={room.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                        <tr key={room.id} className="border-b border-gray-100 hover:bg-gray-100 transition-colors">
                           <td className="py-4 px-4">
                             <div className="flex items-center gap-3">
                               <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                                <Armchair className="w-5 h-5 text-purple-400" />
+                                <Armchair className="w-5 h-5 text-purple-600" />
                               </div>
                               <span className="font-semibold">{room.name}</span>
                             </div>
                           </td>
-                          <td className="py-4 px-4 text-sm text-gray-300">{room.cinemaName}</td>
+                          <td className="py-4 px-4 text-sm text-gray-600">{room.cinemaName}</td>
                           <td className="py-4 px-4">
                             <Badge
                               variant="outline"
-                              className={roomTypeColors[room.type as keyof typeof roomTypeColors] || "bg-gray-500/20 text-gray-400"}
+                              className={roomTypeColors[room.type as keyof typeof roomTypeColors] || "bg-gray-500/20 text-gray-500"}
                             >
                               {room.type === "STANDARD" ? "2D Standard" : room.type}
                             </Badge>
                           </td>
-                          <td className="py-4 px-4 text-sm text-gray-300">{room.totalSeatOfRow * room.totalRow} </td>
+                          <td className="py-4 px-4 text-sm text-gray-600">{room.totalSeatOfRow * room.totalRow} </td>
                           <td className="py-4 px-4">
                             <div className="flex gap-2">
-                              <Button onClick={() => openEditRoomModal(room)} variant="ghost" size="icon" className="rounded-xl hover:bg-white/5">
-                                <Edit className="w-4 h-4 text-gray-300" />
+                              <Button onClick={() => openEditRoomModal(room)} variant="ghost" size="icon" className="rounded-xl hover:bg-gray-100">
+                                <Edit className="w-4 h-4 text-gray-600" />
                               </Button>
-                              <Button onClick={() => handleDeleteRoom(room.id)} variant="ghost" size="icon" className="rounded-xl text-red-400 hover:text-red-300 hover:bg-white/5">
+                              <Button onClick={() => handleDeleteRoom(room.id)} variant="ghost" size="icon" className="rounded-xl text-red-600 hover:text-red-700 hover:bg-gray-100">
                                 <Trash2 className="w-4 h-4" />
                               </Button>
                             </div>
@@ -402,10 +402,10 @@ export function Cinemas() {
               </div>
 
               {/* Bộ Phân Trang (Pagination UI) */}
-              <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-white/5">
+              <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-gray-100">
 
                 {/* INFO PAGE */}
-                <span className="text-sm text-gray-400 mr-2">
+                <span className="text-sm text-gray-500 mr-2">
                   Trang {metaData.currentPage + 1} / {metaData.totalPage}
                 </span>
 
@@ -446,8 +446,8 @@ export function Cinemas() {
                         onClick={() => handlePageChange(p)}
                         variant={roomSearch.page === p ? "default" : "outline"}
                         className={`h-9 w-9 p-0 ${roomSearch.page === p
-                          ? "bg-purple-600 text-white"
-                          : "border-white/10 text-gray-300"
+                          ? "bg-purple-600 text-gray-900"
+                          : "border-gray-200 text-gray-600"
                           }`}
                       >
                         {p + 1}
@@ -474,14 +474,14 @@ export function Cinemas() {
 
       {/* ================= MODAL: DIALOG RẠP PHIM (DÙNG CHUNG THÊM / SỬA) ================= */}
       <Dialog open={isCinemaModalOpen} onOpenChange={setIsCinemaModalOpen}>
-        <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl text-white">
+        <DialogContent className="bg-white border-gray-200 max-w-2xl text-gray-900">
           <DialogHeader>
             <DialogTitle>{editingCinema ? "Cập nhật rạp chiếu phim" : "Thêm rạp chiếu phim mới"}</DialogTitle>
-            <DialogDescription className="text-white/70">
+            <DialogDescription className="text-gray-600">
               Điền các thông số chi tiết để đồng bộ cấu hình rạp trên hệ thống
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-4 mt-4 text-white">
+          <div className="space-y-4 mt-4 text-gray-900">
             <div className="space-y-2">
               <Label>Tên rạp</Label>
               <Input
@@ -489,16 +489,16 @@ export function Cinemas() {
                 value={cinemaRequest.name}
                 onChange={handleCinemaInputChange}
                 placeholder="VD: CGV Vincom Bà Triệu"
-                className="bg-white/5 border-white/10 text-white"
+                className="bg-gray-50 border-gray-200 text-gray-900"
               />
             </div>
             <div className="space-y-2">
               <Label>Thành phố</Label>
               <Select value={cinemaRequest.city} onValueChange={(val) => setCinemaRequest(p => ({ ...p, city: val }))}>
-                <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                <SelectTrigger className="bg-gray-50 border-gray-200 text-gray-900">
                   <SelectValue placeholder="Chọn thành phố" />
                 </SelectTrigger>
-                <SelectContent className="bg-[#1a1a24] border-white/10 text-white">
+                <SelectContent className="bg-white border-gray-200 text-gray-900">
                   <SelectItem value="Hà Nội">Hà Nội</SelectItem>
                   <SelectItem value="Hồ Chí Minh">Hồ Chí Minh</SelectItem>
                   <SelectItem value="Đà Nẵng">Đà Nẵng</SelectItem>
@@ -512,11 +512,11 @@ export function Cinemas() {
                 value={cinemaRequest.address}
                 onChange={handleCinemaInputChange}
                 placeholder="Nhập vị trí chính xác..."
-                className="bg-white/5 border-white/10 text-white"
+                className="bg-gray-50 border-gray-200 text-gray-900"
               />
             </div>
             <div className="flex justify-end gap-3 pt-4">
-              <Button variant="outline" type="button" onClick={() => setIsCinemaModalOpen(false)} className="border-white/10 text-white hover:bg-white/10">
+              <Button variant="outline" type="button" onClick={() => setIsCinemaModalOpen(false)} className="border-gray-200 text-black hover:bg-gray-100 hover:text-gray-900 cursor-pointer">
                 Hủy
               </Button>
               <Button onClick={handleSaveCinema} className="bg-gradient-to-r from-purple-500 to-pink-500">
@@ -529,10 +529,10 @@ export function Cinemas() {
 
       {/* ================= MODAL: DIALOG PHÒNG CHIẾU (DÙNG CHUNG THÊM / SỬA) ================= */}
       <Dialog open={isRoomModalOpen} onOpenChange={setIsRoomModalOpen}>
-        <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl text-white">
+        <DialogContent className="bg-white border-gray-200 max-w-2xl text-gray-900">
           <DialogHeader>
             <DialogTitle>{editingRoom ? "Cập nhật phòng chiếu" : "Thêm phòng chiếu mới"}</DialogTitle>
-            <DialogDescription className="text-white/70">
+            <DialogDescription className="text-gray-600">
               Thiết lập lại không gian hạ tầng, sức chứa và kiểu định dạng hình ảnh của phòng chiếu
             </DialogDescription>
           </DialogHeader>
@@ -543,10 +543,10 @@ export function Cinemas() {
                 value={roomRequest.cinemaId ? roomRequest.cinemaId.toString() : ""}
                 onValueChange={(val) => handleRoomSelectChange("cinemaId", val)}
               >
-                <SelectTrigger className="bg-white/5 border-white/10">
+                <SelectTrigger className="bg-gray-50 border-gray-200">
                   <SelectValue placeholder="Chọn rạp chỉ định" />
                 </SelectTrigger>
-                <SelectContent className="bg-[#1a1a24] border-white/10 text-white">
+                <SelectContent className="bg-white border-gray-200 text-gray-900">
                   {cinemas.map((cinema) => (
                     <SelectItem key={cinema.id} value={cinema.id.toString()}>
                       {cinema.name}
@@ -563,7 +563,7 @@ export function Cinemas() {
                   value={roomRequest.name}
                   onChange={handleRoomInputChange}
                   placeholder="VD: Phòng chiếu 05"
-                  className="bg-white/5 border-white/10"
+                  className="bg-gray-50 border-gray-200"
                 />
               </div>
               <div className="space-y-2">
@@ -572,10 +572,10 @@ export function Cinemas() {
                   value={roomRequest.type}
                   onValueChange={(val) => handleRoomSelectChange("type", val)}
                 >
-                  <SelectTrigger className="bg-white/5 border-white/10">
+                  <SelectTrigger className="bg-gray-50 border-gray-200">
                     <SelectValue placeholder="Chọn loại định dạng" />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a24] border-white/10 text-white">
+                  <SelectContent className="bg-white border-gray-200 text-gray-900">
                     <SelectItem value="STANDARD">2D Standard</SelectItem>
                     <SelectItem value="3D">3D</SelectItem>
                     <SelectItem value="IMAX">IMAX</SelectItem>
@@ -594,7 +594,7 @@ export function Cinemas() {
                   value={roomRequest.totalRow || ""}
                   onChange={handleRoomInputChange}
                   placeholder="180"
-                  className="bg-white/5 border-white/10"
+                  className="bg-gray-50 border-gray-200"
                 />
               </div>
               <div className="space-y-2">
@@ -605,12 +605,12 @@ export function Cinemas() {
                   value={roomRequest.totalSeatOfRow || ""}
                   onChange={handleRoomInputChange}
                   placeholder="VD: 12"
-                  className="bg-white/5 border-white/10"
+                  className="bg-gray-50 border-gray-200"
                 />
               </div>
             </div>
             <div className="flex justify-end gap-3 pt-4">
-              <Button variant="outline" type="button" onClick={() => setIsRoomModalOpen(false)} className="border-white/10 text-white hover:bg-white/10">
+              <Button variant="outline" type="button" onClick={() => setIsRoomModalOpen(false)} className="border-gray-200 text-gray-900 hover:bg-gray-100">
                 Hủy
               </Button>
               <Button onClick={handleSaveRoom} className="bg-gradient-to-r from-purple-500 to-pink-500">

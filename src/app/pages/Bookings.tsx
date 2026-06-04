@@ -75,9 +75,9 @@ const statusLabels: Record<BookingStatus, string> = {
 };
 
 const statusColors: Record<BookingStatus, string> = {
-  PENDING: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-  CONFIRMED: "bg-green-500/20 text-green-400 border-green-500/30",
-  CANCELLED: "bg-red-500/20 text-red-400 border-red-500/30",
+  PENDING: "bg-yellow-500/20 text-yellow-600 border-yellow-500/30",
+  CONFIRMED: "bg-green-500/20 text-green-600 border-green-500/30",
+  CANCELLED: "bg-red-500/20 text-red-600 border-red-500/30",
 };
 
 const bookingStatusOptions: Array<{ label: string; value: BookingStatus }> = [
@@ -197,7 +197,7 @@ export function Bookings() {
       <div className="flex items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold mb-2">Quản lý đặt vé</h1>
-          <p className="text-gray-400">Chỉ hiển thị các field có trong Booking API</p>
+          <p className="text-gray-500">Chỉ hiển thị các field có trong Booking API</p>
         </div>
 
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -207,67 +207,67 @@ export function Bookings() {
               Tạo vé
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-[#1a1a24] border-white/10 max-w-2xl text-white">
+          <DialogContent className="bg-white border-gray-200 max-w-2xl text-gray-900">
             <DialogHeader>
               <DialogTitle>Tạo vé mới</DialogTitle>
             </DialogHeader>
 
-            <form className="space-y-4 mt-4 text-white" onSubmit={handleCreateTicket}>
+            <form className="space-y-4 mt-4 text-gray-900" onSubmit={handleCreateTicket}>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="userId">User ID</Label>
-                  <Input id="userId" placeholder="usr_001" value={formData.userId} onChange={(event) => setFormData((current) => ({ ...current, userId: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
+                  <Input id="userId" placeholder="usr_001" value={formData.userId} onChange={(event) => setFormData((current) => ({ ...current, userId: event.target.value }))} className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="showtimeId">Showtime ID</Label>
-                  <Input id="showtimeId" type="number" placeholder="30" value={formData.showtimeId} onChange={(event) => setFormData((current) => ({ ...current, showtimeId: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
+                  <Input id="showtimeId" type="number" placeholder="30" value={formData.showtimeId} onChange={(event) => setFormData((current) => ({ ...current, showtimeId: event.target.value }))} className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500" />
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="totalAmount">Tổng tiền</Label>
-                  <Input id="totalAmount" type="number" placeholder="90000" value={formData.totalAmount} onChange={(event) => setFormData((current) => ({ ...current, totalAmount: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
+                  <Input id="totalAmount" type="number" placeholder="90000" value={formData.totalAmount} onChange={(event) => setFormData((current) => ({ ...current, totalAmount: event.target.value }))} className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="discountAmount">Giảm giá</Label>
-                  <Input id="discountAmount" type="number" placeholder="9000" value={formData.discountAmount} onChange={(event) => setFormData((current) => ({ ...current, discountAmount: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
+                  <Input id="discountAmount" type="number" placeholder="9000" value={formData.discountAmount} onChange={(event) => setFormData((current) => ({ ...current, discountAmount: event.target.value }))} className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="finalAmount">Thành tiền</Label>
-                  <Input id="finalAmount" type="number" placeholder="81000" value={formData.finalAmount} onChange={(event) => setFormData((current) => ({ ...current, finalAmount: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
+                  <Input id="finalAmount" type="number" placeholder="81000" value={formData.finalAmount} onChange={(event) => setFormData((current) => ({ ...current, finalAmount: event.target.value }))} className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500" />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="promotionId">Promotion ID</Label>
-                  <Input id="promotionId" type="number" placeholder="40" value={formData.promotionId} onChange={(event) => setFormData((current) => ({ ...current, promotionId: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
+                  <Input id="promotionId" type="number" placeholder="40" value={formData.promotionId} onChange={(event) => setFormData((current) => ({ ...current, promotionId: event.target.value }))} className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="qrCode">QR Code</Label>
-                  <Input id="qrCode" placeholder="QR-123" value={formData.qrCode} onChange={(event) => setFormData((current) => ({ ...current, qrCode: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
+                  <Input id="qrCode" placeholder="QR-123" value={formData.qrCode} onChange={(event) => setFormData((current) => ({ ...current, qrCode: event.target.value }))} className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500" />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="seatId">Seat ID</Label>
-                  <Input id="seatId" type="number" placeholder="100" value={formData.seatId} onChange={(event) => setFormData((current) => ({ ...current, seatId: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
+                  <Input id="seatId" type="number" placeholder="100" value={formData.seatId} onChange={(event) => setFormData((current) => ({ ...current, seatId: event.target.value }))} className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="priceAtTime">Giá tại thời điểm đặt</Label>
-                  <Input id="priceAtTime" type="number" placeholder="90000" value={formData.priceAtTime} onChange={(event) => setFormData((current) => ({ ...current, priceAtTime: event.target.value }))} className="bg-white/5 border-white/10 text-white placeholder:text-white/50" />
+                  <Input id="priceAtTime" type="number" placeholder="90000" value={formData.priceAtTime} onChange={(event) => setFormData((current) => ({ ...current, priceAtTime: event.target.value }))} className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500" />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <Label>Trạng thái</Label>
                 <Select value={formData.status} onValueChange={(value) => setFormData((current) => ({ ...current, status: value as BookingStatus }))}>
-                  <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                  <SelectTrigger className="bg-gray-50 border-gray-200 text-gray-900">
                     <SelectValue placeholder="Chọn trạng thái" />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a24] border-white/10">
+                  <SelectContent className="bg-white border-gray-200">
                     {bookingStatusOptions.map((option) => (
                       <SelectItem key={option.value} value={option.value}>
                         {option.label}
@@ -278,7 +278,7 @@ export function Bookings() {
               </div>
 
               <div className="flex justify-end gap-3 pt-4">
-                <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)} className="border-white/10">
+                <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)} className="border-gray-200">
                   Hủy
                 </Button>
                 <Button type="submit" className="bg-gradient-to-r from-purple-500 to-pink-500" disabled={isSubmitting}>
@@ -297,24 +297,24 @@ export function Bookings() {
         </Dialog>
       </div>
 
-      <Card className="bg-[#12121a] border-white/10">
+      <Card className="bg-white border-gray-200">
         <CardContent className="p-6">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
               <Input
                 placeholder="Tìm theo ID booking, user ID hoặc QR code..."
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                className="pl-10 bg-white/5 border-white/10 rounded-xl"
+                className="pl-10 bg-gray-50 border-gray-200 rounded-xl"
               />
             </div>
 
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-full lg:w-56 bg-white/5 border-white/10 rounded-xl">
+              <SelectTrigger className="w-full lg:w-56 bg-gray-50 border-gray-200 rounded-xl">
                 <SelectValue placeholder="Trạng thái booking" />
               </SelectTrigger>
-              <SelectContent className="bg-[#1a1a24] border-white/10">
+              <SelectContent className="bg-white border-gray-200">
                 <SelectItem value="all">Tất cả</SelectItem>
                 <SelectItem value="PENDING">Chờ xử lý</SelectItem>
                 <SelectItem value="CONFIRMED">Xác nhận</SelectItem>
@@ -322,7 +322,7 @@ export function Bookings() {
               </SelectContent>
             </Select>
 
-            <Button variant="outline" className="border-white/10 rounded-xl">
+            <Button variant="outline" className="border-gray-200 rounded-xl">
               <Filter className="w-4 h-4 mr-2" />
               Bộ lọc
             </Button>
@@ -330,28 +330,28 @@ export function Bookings() {
         </CardContent>
       </Card>
 
-      <Card className="bg-[#12121a] border-white/10">
+      <Card className="bg-white border-gray-200">
         <CardContent className="p-6">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-white/10">
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">ID</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">User ID</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Showtime ID</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Promotion ID</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Tổng tiền</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Giảm giá</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Thành tiền</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Trạng thái</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">QR Code</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Tạo lúc</th>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-400">Hành động</th>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">ID</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">User ID</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Showtime ID</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Promotion ID</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Tổng tiền</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Giảm giá</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Thành tiền</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Trạng thái</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">QR Code</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Tạo lúc</th>
+                  <th className="text-left py-4 px-4 text-sm font-medium text-gray-500">Hành động</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredBookings.map((booking) => (
-                  <tr key={booking.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                  <tr key={booking.id} className="border-b border-gray-100 hover:bg-gray-100 transition-colors">
                     <td className="py-4 px-4 font-mono text-sm">#{booking.id}</td>
                     <td className="py-4 px-4 text-sm">{booking.userId}</td>
                     <td className="py-4 px-4 text-sm">{booking.showtimeId}</td>
@@ -378,7 +378,7 @@ export function Bookings() {
           </div>
 
           <div className="flex items-center justify-between mt-6">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-500">
               Hiển thị {filteredBookings.length} trong tổng số {bookings.length} booking
             </p>
           </div>
@@ -386,21 +386,21 @@ export function Bookings() {
       </Card>
 
       <Dialog open={Boolean(selectedBooking)} onOpenChange={(open) => !open && setSelectedBooking(null)}>
-        <DialogContent className="bg-[#1a1a24] border-white/10 max-w-xl text-white">
+        <DialogContent className="bg-white border-gray-200 max-w-xl text-gray-900">
           <DialogHeader>
             <DialogTitle>Chi tiết booking</DialogTitle>
           </DialogHeader>
           {selectedBooking && (
             <div className="space-y-3 mt-4 text-sm">
-              <div className="flex justify-between"><span className="text-gray-400">ID</span><span>#{selectedBooking.id}</span></div>
-              <div className="flex justify-between"><span className="text-gray-400">User ID</span><span>{selectedBooking.userId}</span></div>
-              <div className="flex justify-between"><span className="text-gray-400">Showtime ID</span><span>{selectedBooking.showtimeId}</span></div>
-              <div className="flex justify-between"><span className="text-gray-400">Promotion ID</span><span>{selectedBooking.promotionId ?? "-"}</span></div>
-              <div className="flex justify-between"><span className="text-gray-400">Tổng tiền</span><span>₫{selectedBooking.totalAmount.toLocaleString()}</span></div>
-              <div className="flex justify-between"><span className="text-gray-400">Giảm giá</span><span>₫{selectedBooking.discountAmount.toLocaleString()}</span></div>
-              <div className="flex justify-between"><span className="text-gray-400">Thành tiền</span><span>₫{selectedBooking.finalAmount.toLocaleString()}</span></div>
-              <div className="flex justify-between"><span className="text-gray-400">Trạng thái</span><Badge variant="outline" className={statusColors[selectedBooking.status]}>{statusLabels[selectedBooking.status]}</Badge></div>
-              <div className="flex justify-between"><span className="text-gray-400">QR Code</span><span className="font-mono">{selectedBooking.qrCode}</span></div>
+              <div className="flex justify-between"><span className="text-gray-500">ID</span><span>#{selectedBooking.id}</span></div>
+              <div className="flex justify-between"><span className="text-gray-500">User ID</span><span>{selectedBooking.userId}</span></div>
+              <div className="flex justify-between"><span className="text-gray-500">Showtime ID</span><span>{selectedBooking.showtimeId}</span></div>
+              <div className="flex justify-between"><span className="text-gray-500">Promotion ID</span><span>{selectedBooking.promotionId ?? "-"}</span></div>
+              <div className="flex justify-between"><span className="text-gray-500">Tổng tiền</span><span>₫{selectedBooking.totalAmount.toLocaleString()}</span></div>
+              <div className="flex justify-between"><span className="text-gray-500">Giảm giá</span><span>₫{selectedBooking.discountAmount.toLocaleString()}</span></div>
+              <div className="flex justify-between"><span className="text-gray-500">Thành tiền</span><span>₫{selectedBooking.finalAmount.toLocaleString()}</span></div>
+              <div className="flex justify-between"><span className="text-gray-500">Trạng thái</span><Badge variant="outline" className={statusColors[selectedBooking.status]}>{statusLabels[selectedBooking.status]}</Badge></div>
+              <div className="flex justify-between"><span className="text-gray-500">QR Code</span><span className="font-mono">{selectedBooking.qrCode}</span></div>
             </div>
           )}
         </DialogContent>

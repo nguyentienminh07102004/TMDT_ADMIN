@@ -52,22 +52,22 @@ export function DashboardLayout() {
   };
 
   return (
-    <div className="dark min-h-screen bg-[#0a0a0f] text-white">
+    <div className="min-h-screen bg-gray-50 text-gray-900">
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-screen bg-[#12121a] border-r border-white/10 transition-all duration-300 z-50 ${
+        className={`fixed left-0 top-0 h-screen bg-white border-r border-gray-200 transition-all duration-300 z-50 ${
           collapsed ? "w-20" : "w-64"
         }`}
       >
-        <div className="flex items-center justify-between p-6 border-b border-white/10">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200">
           {!collapsed && (
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white">
                 <Film className="w-6 h-6" />
               </div>
               <div>
                 <h2 className="text-lg font-semibold">CinemaHub</h2>
-                <p className="text-xs text-gray-400">Admin Portal</p>
+                <p className="text-xs text-gray-500">Admin Portal</p>
               </div>
             </div>
           )}
@@ -75,7 +75,7 @@ export function DashboardLayout() {
             variant="ghost"
             size="icon"
             onClick={() => setCollapsed(!collapsed)}
-            className="hover:bg-white/5"
+            className="hover:bg-gray-100"
           >
             {collapsed ? (
               <ChevronRight className="w-5 h-5" />
@@ -94,8 +94,8 @@ export function DashboardLayout() {
                 <div
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                     isActive
-                      ? "bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-white border border-purple-500/30"
-                      : "text-gray-400 hover:bg-white/5 hover:text-white"
+                      ? "bg-gradient-to-r from-purple-500/15 to-pink-500/15 text-purple-700 border border-purple-500/30"
+                      : "text-gray-500 hover:bg-gray-100 hover:text-gray-900"
                   }`}
                 >
                   <Icon className="w-5 h-5 flex-shrink-0" />
@@ -112,14 +112,14 @@ export function DashboardLayout() {
       {/* Main Content */}
       <div className={`transition-all duration-300 ${collapsed ? "ml-20" : "ml-64"}`}>
         {/* Topbar */}
-        <header className="sticky top-0 z-40 bg-[#12121a]/80 backdrop-blur-xl border-b border-white/10">
+        <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-gray-200">
           <div className="flex items-center justify-between px-8 py-4">
             <div className="flex-1 max-w-xl">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <Input
                   placeholder="Tìm kiếm phim, suất chiếu, người dùng..."
-                  className="pl-10 bg-white/5 border-white/10 focus:border-purple-500/50 rounded-xl h-11"
+                  className="pl-10 bg-gray-50 border-gray-200 focus:border-purple-500/50 rounded-xl h-11"
                 />
               </div>
             </div>
@@ -128,7 +128,7 @@ export function DashboardLayout() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="relative hover:bg-white/5 rounded-xl"
+                className="relative hover:bg-gray-100 rounded-xl"
               >
                 <Bell className="w-5 h-5" />
                 <Badge className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 bg-red-500 text-white text-xs rounded-full">
@@ -140,7 +140,7 @@ export function DashboardLayout() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="flex items-center gap-3 hover:bg-white/5 rounded-xl px-3"
+                    className="flex items-center gap-3 hover:bg-gray-100 rounded-xl px-3"
                   >
                     <Avatar className="w-9 h-9">
                       <AvatarImage src={profile.avatar ?? "https://api.dicebear.com/7.x/avataaars/svg?seed=Admin"} />
@@ -148,21 +148,21 @@ export function DashboardLayout() {
                     </Avatar>
                     <div className="text-left">
                       <p className="text-sm font-medium">{profile.fullName ?? "Admin User"}</p>
-                      <p className="text-xs text-gray-400">{roleLabel}</p>
+                      <p className="text-xs text-gray-500">{roleLabel}</p>
                     </div>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-[#1a1a24] border-white/10">
+                <DropdownMenuContent align="end" className="w-56 bg-white border-gray-200">
                   <DropdownMenuLabel>Tài khoản của tôi</DropdownMenuLabel>
-                  <DropdownMenuSeparator className="bg-white/10" />
-                  <DropdownMenuItem className="focus:bg-white/5">
+                  <DropdownMenuSeparator className="bg-gray-100" />
+                  <DropdownMenuItem className="focus:bg-gray-50">
                     Hồ sơ cá nhân
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="focus:bg-white/5">
+                  <DropdownMenuItem className="focus:bg-gray-50">
                     Cài đặt
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-white/10" />
-                  <DropdownMenuItem className="focus:bg-white/5 text-red-400" onClick={handleLogout}>
+                  <DropdownMenuSeparator className="bg-gray-100" />
+                  <DropdownMenuItem className="focus:bg-gray-50 text-red-600" onClick={handleLogout}>
                     Đăng xuất
                   </DropdownMenuItem>
                 </DropdownMenuContent>
