@@ -8,6 +8,11 @@ export interface MovieRequest {
   posterId: string | null;
   releaseDate: string;
   teaserId: string | null;
+  isTrending: boolean;
+}
+
+export interface MovieIdsRequest {
+  movieIds: number[];
 }
 
 export type MovieStatus = "COMING_SOON" | "NOW_SHOWING" | "ENDED";
@@ -24,6 +29,7 @@ export interface MovieResponse {
   releaseDate: string;
   status: MovieStatus;
   teaserUrl: string;
+  isTrending: boolean;
 
   createdAt: string;
   createdBy: string;

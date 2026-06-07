@@ -9,7 +9,6 @@ import { Cinemas } from "./pages/Cinemas";
 import { Seats } from "./pages/Seats";
 import { Bookings } from "./pages/Bookings";
 import { Users } from "./pages/Users";
-import { Promotions } from "./pages/Promotions";
 
 export const router = createBrowserRouter([
   {
@@ -29,8 +28,7 @@ export const router = createBrowserRouter([
           { path: "cinemas", Component: Cinemas },
           { path: "seats", Component: Seats },
           { path: "bookings", Component: Bookings },
-          { path: "users", Component: Users },
-          { path: "promotions", Component: Promotions },
+          { path: "users", Component: Users }        
         ],
       },
     ],

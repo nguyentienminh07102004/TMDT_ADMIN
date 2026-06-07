@@ -1,5 +1,5 @@
 import { request, BaseResponse } from "../lib/baseApi";
-import { MovieRequest, MovieResponse, MovieSearch } from "../types/Movie";
+import { MovieRequest, MovieResponse, MovieSearch, MovieIdsRequest } from "../types/Movie";
 
 export const movieApi = {
   // CREATE
@@ -47,5 +47,25 @@ export const movieApi = {
         method: "GET",
       }
     );
+  },
+
+  getTrending() {
+    return request<MovieResponse[]>(`/v1/movies/trending`, {
+      method: "GET",
+    });
+  },
+
+  reorder(movieIdsRequest:MovieIdsRequest) {
+    return request<MovieIdsRequest>(`/v1/movies/reorder`, {
+      method: "PUT",
+      body: JSON.stringify(movieIdsRequest),
+    });
+  },
+
+  removeTrending(movieIdsRequest:MovieIdsRequest) {
+    return request<MovieIdsRequest>(`/v1/movies/remove-trending`, {
+      method: "PUT",
+      body: JSON.stringify(movieIdsRequest),
+    });
   },
 };

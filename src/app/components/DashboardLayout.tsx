@@ -36,7 +36,6 @@ const menuItems = [
   { icon: Armchair, label: "Quản lý ghế ngồi", path: "/seats" },
   { icon: Ticket, label: "Quản lý đặt vé", path: "/bookings" },
   { icon: Users, label: "Quản lý người dùng", path: "/users" },
-  { icon: Gift, label: "Khuyến mãi / Voucher", path: "/promotions" },
 ];
 
 export function DashboardLayout() {
@@ -116,11 +115,6 @@ export function DashboardLayout() {
           <div className="flex items-center justify-between px-8 py-4">
             <div className="flex-1 max-w-xl">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                <Input
-                  placeholder="Tìm kiếm phim, suất chiếu, người dùng..."
-                  className="pl-10 bg-gray-50 border-gray-200 focus:border-purple-500/50 rounded-xl h-11"
-                />
               </div>
             </div>
 
