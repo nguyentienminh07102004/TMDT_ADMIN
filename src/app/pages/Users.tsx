@@ -1,5 +1,5 @@
-import { FormEvent, useMemo, useState } from "react";
-import { Eye, Loader2, Search, Trash2, UserPlus, User as UserIcon } from "lucide-react";
+import { FormEvent, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight, Eye, Loader2, Search, Trash2, UserPlus } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
@@ -22,60 +22,21 @@ import {
   SelectValue,
 } from "../components/ui/select";
 import { toast } from "sonner";
-import { adminApi, type CreateUserPayload, type UserRole, type UserResponse } from "../lib/adminApi";
+import { Role, UserRequest, UserResponse, UserSearch } from "../types/User";
+import { userApi } from "../api/UserApi";
+import { CinemaResponse } from "../types/Cinema";
+import { cinemaApi } from "../api/CinemaApi";
 
-type UserRow = {
-  id: string;
-  fullName: string;
-  email: string;
-  phone: string;
-  role: UserRole;
-  avatarUrl: string | null;
-  isLock: boolean;
-  createdAt: string | null;
+const roleLabels: Record<Role, string> = {
+  [Role.USER]: "Người dùng",
+  [Role.ADMIN]: "Quản trị viên",
+  [Role.SUPER_ADMIN]: "Quản trị cấp cao",
 };
 
-const initialUsers: UserRow[] = [
-  {
-    id: "usr_001",
-    fullName: "Nguyễn Văn A",
-    email: "nguyenvana@email.com",
-    phone: "0901234567",
-    role: "USER",
-    avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=User1",
-    isLock: false,
-    createdAt: "2026-03-15T10:00:00Z",
-  },
-  {
-    id: "usr_002",
-    fullName: "Hoàng Văn E",
-    email: "hoangvane@email.com",
-    phone: "0945678901",
-    role: "ADMIN",
-    avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=User5",
-    isLock: false,
-    createdAt: "2026-03-01T10:00:00Z",
-  },
-  {
-    id: "usr_003",
-    fullName: "Đỗ Thị F",
-    email: "dothif@email.com",
-    phone: "0956789012",
-    role: "USER",
-    avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=User6",
-    isLock: true,
-    createdAt: "2026-04-12T10:00:00Z",
-  },
-];
-
-const roleLabels: Record<UserRole, string> = {
-  USER: "Người dùng",
-  ADMIN: "Quản trị viên",
-};
-
-const roleColors: Record<UserRole, string> = {
-  USER: "bg-green-500/20 text-green-600 border-green-500/30",
-  ADMIN: "bg-red-500/20 text-red-600 border-red-500/30",
+const roleColors: Record<Role, string> = {
+  [Role.USER]: "bg-green-500/20 text-green-600 border-green-500/30",
+  [Role.ADMIN]: "bg-red-500/20 text-red-600 border-red-500/30",
+  [Role.SUPER_ADMIN]: "bg-purple-500/20 text-purple-600 border-purple-500/30",
 };
 
 const statusColors = {
@@ -83,72 +44,129 @@ const statusColors = {
   "Tạm khóa": "bg-red-500/20 text-red-600 border-red-500/30",
 };
 
-function mapUserResponseToRow(user: UserResponse): UserRow {
-  return {
-    id: user.id,
-    fullName: user.fullName,
-    email: user.email,
-    phone: user.phone,
-    role: user.role,
-    avatarUrl: user.avatarUrl,
-    isLock: Boolean(user.isLock),
-    createdAt: user.createdAt ?? null,
-  };
-}
-
 export function Users() {
-  const [users, setUsers] = useState<UserRow[]>(initialUsers);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [roleFilter, setRoleFilter] = useState("all");
-  const [statusFilter, setStatusFilter] = useState("all");
+  const [users, setUsers] = useState<UserResponse[]>([]);
+  const [cinemas, setCinemas] = useState<CinemaResponse[]>([]);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
     password: "",
     confirmPassword: "",
-    role: "USER" as UserRole,
+    cinemaId: "",
   });
 
-  const filteredUsers = useMemo(() => {
-    return users.filter((user) => {
-      const query = searchQuery.toLowerCase();
-      const matchesQuery =
-        user.fullName.toLowerCase().includes(query) ||
-        user.email.toLowerCase().includes(query) ||
-        user.phone.includes(query);
-      const matchesRole = roleFilter === "all" || user.role === roleFilter;
-      const matchesStatus =
-        statusFilter === "all" ||
-        (statusFilter === "active" && !user.isLock) ||
-        (statusFilter === "blocked" && user.isLock);
+  const [metaData, setMetaData] = useState({ totalPage: 1, currentPage: 0, pageSize: 10 });
 
-      return matchesQuery && matchesRole && matchesStatus;
-    });
-  }, [roleFilter, searchQuery, statusFilter, users]);
+  const [userSearch, setUserSearch] = useState<UserSearch>({
+    page: 0,
+    size: 10,
+    keyword: '',
+    isLock: undefined,
+    role: null
+  });
+
+  const fetchUsers = async () => {
+    try {
+      const response = await userApi.search(userSearch);
+
+      if (response && Array.isArray(response.data)) {
+        setUsers(response.data);
+      } else if (Array.isArray(response)) {
+        setUsers(response);
+      } else {
+        setUsers([]);
+      }
+
+      if (response && response.metaData) {
+        setMetaData({
+          totalPage: response.metaData.totalPage || 1,
+          pageSize: response.metaData.pageSize || 10,
+          currentPage: userSearch.page,
+        });
+      }
+    } catch (error) {
+      console.error("Lỗi khi tải danh sách người dùng:", error);
+      toast.error("Không thể tải danh sách người dùng");
+      setUsers([]);
+    }
+  };
+
+  const fetchCinemas = async () => {
+    try {
+      const response = await cinemaApi.search();
+      if (response && Array.isArray(response.data)) {
+        setCinemas(response.data);
+      } else if (Array.isArray(response)) {
+        setCinemas(response);
+      }
+    } catch (error) {
+      console.error("Lỗi khi tải danh sách rạp:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, [userSearch]);
+
+  useEffect(() => {
+    fetchCinemas();
+  }, []);
+
+  const handleSearchKeywordChange = (keyword: string) => {
+    setUserSearch(prev => ({ ...prev, keyword, page: 0 }));
+  };
+
+  const handleRoleFilterChange = (value: string) => {
+    setUserSearch(prev => ({
+      ...prev,
+      role: value === "all" ? null : (value as Role),
+      page: 0
+    }));
+  };
+
+  const handleStatusFilterChange = (value: string) => {
+    let isLock: boolean | undefined = undefined;
+    if (value === "active") isLock = false;
+    if (value === "blocked") isLock = true;
+
+    setUserSearch(prev => ({ ...prev, isLock, page: 0 }));
+  };
 
   const handleCreateUser = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!formData.cinemaId) {
+      toast.error("Vui lòng chọn cụm rạp quản lý cho Admin");
+      return;
+    }
 
     if (formData.password !== formData.confirmPassword) {
       toast.error("Mật khẩu xác nhận không khớp");
       return;
     }
 
-    const payload: CreateUserPayload = {
+    const payload: UserRequest = {
       fullName: formData.fullName.trim(),
       email: formData.email.trim(),
       phone: formData.phone.trim(),
       password: formData.password,
-      role: formData.role,
+      role: null,
+      cinemaId: Number(formData.cinemaId),
     };
 
     try {
       setIsSubmitting(true);
-      const createdUser = await adminApi.createUser(payload);
-      setUsers((currentUsers) => [mapUserResponseToRow(createdUser), ...currentUsers]);
+      const response = await userApi.createAdmin(payload);
+
+      if (response && response.data) {
+        setUsers((currentUsers) => [response.data, ...currentUsers]);
+        toast.success(`Đã tạo thành công Admin ${response.data.fullName}`);
+      }
+
       setIsAddDialogOpen(false);
       setFormData({
         fullName: "",
@@ -156,13 +174,24 @@ export function Users() {
         phone: "",
         password: "",
         confirmPassword: "",
-        role: "USER",
+        cinemaId: "",
       });
-      toast.success(`Đã tạo người dùng ${createdUser.fullName}`);
+
+      fetchUsers();
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Không thể tạo người dùng");
+      toast.error(error instanceof Error ? error.message : "Không thể tạo tài khoản Admin");
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // ĐÃ SỬA: Thay thế userSearch bằng hàm cập nhật state chuẩn setUserSearch
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 0 && newPage < metaData.totalPage) {
+      setUserSearch((prev) => ({
+        ...prev,
+        page: newPage,
+      }));
     }
   };
 
@@ -171,40 +200,42 @@ export function Users() {
       <div className="flex items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold mb-2">Quản lý người dùng</h1>
-          <p className="text-gray-500">Quản lý tài khoản người dùng trong hệ thống</p>
+          <p className="text-gray-500">Quản lý và cấp tài khoản Admin cho các cụm rạp</p>
         </div>
 
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
             <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600">
               <UserPlus className="w-4 h-4 mr-2" />
-              Thêm người dùng
+              Thêm Admin Rạp
             </Button>
           </DialogTrigger>
           <DialogContent className="bg-white border-gray-200 max-w-2xl text-gray-900">
             <DialogHeader>
-              <DialogTitle>Thêm người dùng mới</DialogTitle>
-              <DialogDescription className="text-gray-600">Tạo tài khoản mới theo DTO user của API</DialogDescription>
+              <DialogTitle>Thêm quản trị viên mới</DialogTitle>
+              <DialogDescription className="text-gray-600">Tạo tài khoản quản lý phân quyền trực thuộc cụm rạp</DialogDescription>
             </DialogHeader>
 
             <form className="space-y-4 mt-4 text-gray-900" onSubmit={handleCreateUser}>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="fullName">Họ tên</Label>
+                  <Label htmlFor="fullName">Họ tên <span className="text-red-500">*</span></Label>
                   <Input
                     id="fullName"
                     placeholder="Nhập họ tên"
+                    required
                     value={formData.fullName}
                     onChange={(event) => setFormData((current) => ({ ...current, fullName: event.target.value }))}
                     className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">Email <span className="text-red-500">*</span></Label>
                   <Input
                     id="email"
                     type="email"
                     placeholder="email@example.com"
+                    required
                     value={formData.email}
                     onChange={(event) => setFormData((current) => ({ ...current, email: event.target.value }))}
                     className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
@@ -223,29 +254,37 @@ export function Users() {
                     className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
                   />
                 </div>
+
                 <div className="space-y-2">
-                  <Label>Vai trò</Label>
+                  <Label>Trực thuộc cụm rạp <span className="text-red-500">*</span></Label>
                   <Select
-                    value={formData.role}
-                    onValueChange={(value) => setFormData((current) => ({ ...current, role: value as UserRole }))}
+                    value={formData.cinemaId}
+                    onValueChange={(value) => setFormData((current) => ({ ...current, cinemaId: value }))}
                   >
                     <SelectTrigger className="bg-gray-50 border-gray-200 text-gray-900">
-                      <SelectValue placeholder="Chọn vai trò" />
+                      <SelectValue placeholder="Chọn rạp phim quản lý" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border-gray-200">
-                      <SelectItem value="USER">Người dùng</SelectItem>
-                      <SelectItem value="ADMIN">Quản trị viên</SelectItem>
+                    <SelectContent className="bg-white border-gray-200 max-h-56 overflow-y-auto">
+                      {Array.isArray(cinemas) && cinemas.map((cinema) => (
+                        <SelectItem key={cinema.id} value={String(cinema.id)}>
+                          {cinema.name}
+                        </SelectItem>
+                      ))}
+                      {cinemas.length === 0 && (
+                        <p className="text-xs text-center py-2 text-gray-400">Đang tải hoặc không có dữ liệu rạp</p>
+                      )}
                     </SelectContent>
                   </Select>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Mật khẩu</Label>
+                <Label htmlFor="password">Mật khẩu <span className="text-red-500">*</span></Label>
                 <Input
                   id="password"
                   type="password"
                   placeholder="Nhập mật khẩu"
+                  required
                   value={formData.password}
                   onChange={(event) => setFormData((current) => ({ ...current, password: event.target.value }))}
                   className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
@@ -253,11 +292,12 @@ export function Users() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Xác nhận mật khẩu</Label>
+                <Label htmlFor="confirmPassword">Xác nhận mật khẩu <span className="text-red-500">*</span></Label>
                 <Input
                   id="confirmPassword"
                   type="password"
                   placeholder="Nhập lại mật khẩu"
+                  required
                   value={formData.confirmPassword}
                   onChange={(event) => setFormData((current) => ({ ...current, confirmPassword: event.target.value }))}
                   className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-500"
@@ -275,7 +315,7 @@ export function Users() {
                       Đang tạo...
                     </>
                   ) : (
-                    "Tạo tài khoản"
+                    "Tạo tài khoản Admin"
                   )}
                 </Button>
               </div>
@@ -291,24 +331,31 @@ export function Users() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
               <Input
                 placeholder="Tìm theo tên, email, số điện thoại..."
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
+                value={userSearch.keyword}
+                onChange={(event) => handleSearchKeywordChange(event.target.value)}
                 className="pl-10 bg-gray-50 border-gray-200 rounded-xl"
               />
             </div>
 
-            <Select value={roleFilter} onValueChange={setRoleFilter}>
+            <Select
+              value={userSearch.role ?? "all"}
+              onValueChange={handleRoleFilterChange}
+            >
               <SelectTrigger className="w-full lg:w-48 bg-gray-50 border-gray-200 rounded-xl">
                 <SelectValue placeholder="Vai trò" />
               </SelectTrigger>
               <SelectContent className="bg-white border-gray-200">
                 <SelectItem value="all">Tất cả vai trò</SelectItem>
-                <SelectItem value="USER">Người dùng</SelectItem>
-                <SelectItem value="ADMIN">Quản trị viên</SelectItem>
+                <SelectItem value={Role.USER}>Người dùng</SelectItem>
+                <SelectItem value={Role.ADMIN}>Quản trị viên</SelectItem>
+                <SelectItem value={Role.SUPER_ADMIN}>Quản trị cấp cao</SelectItem>
               </SelectContent>
             </Select>
 
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <Select
+              value={userSearch.isLock === undefined ? "all" : userSearch.isLock ? "blocked" : "active"}
+              onValueChange={handleStatusFilterChange}
+            >
               <SelectTrigger className="w-full lg:w-48 bg-gray-50 border-gray-200 rounded-xl">
                 <SelectValue placeholder="Trạng thái" />
               </SelectTrigger>
@@ -337,57 +384,120 @@ export function Users() {
                 </tr>
               </thead>
               <tbody>
-                {filteredUsers.map((user) => (
-                  <tr key={user.id} className="border-b border-gray-100 hover:bg-gray-100 transition-colors">
-                    <td className="py-4 px-4">
-                      <div className="flex items-center gap-3">
-                        <Avatar>
-                          <AvatarImage src={user.avatarUrl ?? undefined} />
-                          <AvatarFallback>{user.fullName[0]}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <p className="font-semibold">{user.fullName}</p>
-                          <p className="text-xs text-gray-500">{user.id}</p>
+                {Array.isArray(users) && users.length > 0 ? (
+                  users.map((user) => (
+                    <tr key={user.id} className="border-b border-gray-100 hover:bg-gray-100 transition-colors">
+                      <td className="py-4 px-4">
+                        <div className="flex items-center gap-3">
+                          <Avatar>
+                            <AvatarImage src={user.avatarUrl ?? undefined} />
+                            <AvatarFallback>{user.fullName ? user.fullName[0].toUpperCase() : "U"}</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="font-semibold">{user.fullName}</p>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4">
-                      <p className="text-sm">{user.email}</p>
-                      <p className="text-xs text-gray-500">{user.phone}</p>
-                    </td>
-                    <td className="py-4 px-4">
-                      <Badge variant="outline" className={roleColors[user.role]}>
-                        {roleLabels[user.role]}
-                      </Badge>
-                    </td>
-                    <td className="py-4 px-4">
-                      <Badge variant="outline" className={statusColors[user.isLock ? "Tạm khóa" : "Hoạt động"]}>
-                        {user.isLock ? "Tạm khóa" : "Hoạt động"}
-                      </Badge>
-                    </td>
-                    <td className="py-4 px-4 text-sm">
-                      {user.createdAt ? new Date(user.createdAt).toLocaleDateString("vi-VN") : "-"}
-                    </td>
-                    <td className="py-4 px-4">
-                      <div className="flex gap-2">
-                        <Button variant="ghost" size="icon" className="rounded-xl">
-                          <Eye className="w-4 h-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="rounded-xl">
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
+                      </td>
+                      <td className="py-4 px-4">
+                        <p className="text-sm">{user.email}</p>
+                        <p className="text-xs text-gray-500">{user.phone}</p>
+                      </td>
+                      <td className="py-4 px-4">
+                        <Badge variant="outline" className={roleColors[user.role] || ""}>
+                          {roleLabels[user.role] || user.role}
+                        </Badge>
+                      </td>
+                      <td className="py-4 px-4">
+                        <Badge variant="outline" className={statusColors[user.isLock ? "Tạm khóa" : "Hoạt động"]}>
+                          {user.isLock ? "Tạm khóa" : "Hoạt động"}
+                        </Badge>
+                      </td>
+                      <td className="py-4 px-4 text-sm">
+                        {user.createdAt ? new Date(user.createdAt).toLocaleDateString("vi-VN") : "-"}
+                      </td>
+                      <td className="py-4 px-4">
+                        <div className="flex gap-2">
+                          <Button variant="ghost" size="icon" className="rounded-xl">
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon" className="rounded-xl">
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={6} className="text-center py-10 text-gray-500">
+                      Không tìm thấy dữ liệu người dùng hợp lệ hoặc danh sách trống.
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
 
-          <div className="flex items-center justify-between mt-6">
-            <p className="text-sm text-gray-500">
-              Hiển thị {filteredUsers.length} trong tổng số {users.length} người dùng
-            </p>
+          {/* Bộ Phân Trang (Pagination UI) */}
+          <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-gray-100">
+            {/* INFO PAGE */}
+            <span className="text-sm text-gray-500 mr-2">
+              Trang {metaData.currentPage + 1} / {metaData.totalPage}
+            </span>
+
+            {/* PREV */}
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => handlePageChange(userSearch.page - 1)}
+              disabled={userSearch.page === 0}
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </Button>
+
+            {/* PAGE NUMBER LIST */}
+            {Array.from({ length: metaData.totalPage }, (_, i) => i)
+              .filter((p) => {
+                if (p === 0 || p === metaData.totalPage - 1) return true;
+                return Math.abs(userSearch.page - p) <= 1;
+              })
+              .reduce((acc, p, index, array) => {
+                // Thêm dấu ba chấm "..." nếu phát hiện khoảng cách giữa 2 trang lớn hơn 1
+                if (index > 0 && p - array[index - 1] > 1) {
+                  acc.push(
+                    <span key={`dots-${p}`} className="w-9 text-center text-gray-400 select-none">
+                      ...
+                    </span>
+                  );
+                }
+
+                // Thêm button số trang chính thức
+                acc.push(
+                  <Button
+                    key={p}
+                    onClick={() => handlePageChange(p)}
+                    variant={userSearch.page === p ? "default" : "outline"}
+                    className={`h-9 w-9 p-0 ${userSearch.page === p
+                        ? "bg-purple-600 text-white hover:bg-purple-700"
+                        : "border-gray-200 text-gray-600 hover:bg-gray-50"
+                      }`}
+                  >
+                    {p + 1}
+                  </Button>
+                );
+
+                return acc;
+              }, [] as React.ReactNode[])}
+
+            {/* NEXT */}
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => handlePageChange(userSearch.page + 1)}
+              disabled={userSearch.page === metaData.totalPage - 1}
+            >
+              <ChevronRight className="w-4 h-4" />
+            </Button>
           </div>
         </CardContent>
       </Card>

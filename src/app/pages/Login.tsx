@@ -1,68 +1,63 @@
 import { FormEvent, useEffect, useState } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router";
 import { Loader2, LockKeyhole, Mail } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { adminApi } from "../lib/adminApi";
-import { getAuthProfile, isAuthenticated, saveAuthSession } from "../lib/auth";
 import { toast } from "sonner";
-
-type LocationState = {
-  from?: { pathname?: string };
-};
+import { userApi } from "../api/UserApi";
+import { Login as LoginType } from "../types/User";
 
 export function Login() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const state = location.state as LocationState | null;
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      window.location.href = "/";
+    }
+  }, []);
+
+  const [redirectTo, setRedirectTo] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<LoginType>({
     email: "",
     password: "",
   });
-
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      return;
-    }
-
-    const profile = getAuthProfile();
-    if (!profile.fullName) {
-      navigate("/", { replace: true });
-      return;
-    }
-
-    navigate(state?.from?.pathname ?? "/", { replace: true });
-  }, [navigate, state?.from?.pathname]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      setIsSubmitting(true);
-      const response = await adminApi.login(formData);
-      saveAuthSession({
-        accessToken: response.accessToken,
-        refreshToken: response.refreshToken,
-        fullName: response.fullName,
-        avatar: response.avatar,
+      setIsSubmitting(true); 
+      
+      // Call API Đăng nhập
+      const data = await userApi.login(formData);
+      const response = data.data;
+      
+      // 2. LƯU TOKENS
+      localStorage.setItem("accessToken", response.accessToken);
+      localStorage.setItem("refreshToken", response.refreshToken);
+      
+      // 3. GOM CỤM DỮ LIỆU PROFILE ĐỂ DASHBOARDLAYOUT ĐỌC ĐƯỢC TRỰC TIẾP
+      const userProfile = {
         role: response.role,
-      });
+        fullName: response.fullName,
+        avatar: response.avatar || null
+      };
+      
+      // Lưu dưới dạng JSON string (Khớp với các key 'profile'/'user' mà Layout tìm kiếm)
+      localStorage.setItem("profile", JSON.stringify(userProfile));
 
       toast.success("Đăng nhập thành công");
-      navigate(state?.from?.pathname ?? "/", { replace: true });
+      
+      // Điều hướng bằng reload full page sang trang quản trị
+      window.location.href = redirectTo ?? "/";
     } catch (error) {
+      console.error("Lỗi đăng nhập:", error);
       toast.error(error instanceof Error ? error.message : "Không thể đăng nhập");
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  if (isAuthenticated()) {
-    return <Navigate to={state?.from?.pathname ?? "/"} replace />;
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 flex items-center justify-center px-4">
@@ -108,7 +103,11 @@ export function Login() {
               </div>
             </div>
 
-            <Button type="submit" className="w-full bg-gradient-to-r from-violet-500 to-fuchsia-500" disabled={isSubmitting}>
+            <Button
+              type="submit"
+              className="w-full bg-gradient-to-r from-violet-500 to-fuchsia-500"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />

@@ -1,5 +1,4 @@
-import { createBrowserRouter } from "react-router";
-import { RequireAuth } from "./components/RequireAuth";
+import { createBrowserRouter } from "react-router-dom";
 import { DashboardLayout } from "./components/DashboardLayout";
 import { Dashboard } from "./pages/Dashboard";
 import { Login } from "./pages/Login";
@@ -17,20 +16,15 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    Component: RequireAuth,
+    Component: DashboardLayout,
     children: [
-      {
-        Component: DashboardLayout,
-        children: [
-          { index: true, Component: Dashboard },
-          { path: "movies", Component: Movies },
-          { path: "showtimes", Component: Showtimes },
-          { path: "cinemas", Component: Cinemas },
-          { path: "seats", Component: Seats },
-          { path: "bookings", Component: Bookings },
-          { path: "users", Component: Users }        
-        ],
-      },
+      { index: true, Component: Dashboard },
+      { path: "movies", Component: Movies },
+      { path: "showtimes", Component: Showtimes },
+      { path: "cinemas", Component: Cinemas },
+      { path: "seats", Component: Seats },
+      { path: "bookings", Component: Bookings },
+      { path: "users", Component: Users },
     ],
   },
 ]);

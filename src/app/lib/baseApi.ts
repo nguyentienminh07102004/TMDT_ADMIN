@@ -15,48 +15,58 @@ export async function request<T>(
   options?: RequestInit & { params?: Record<string, any> }
 ): Promise<BaseResponse<T>> {
   const baseUrl = "http://localhost:8889/api";
-
   let finalUrl = `${baseUrl}${url}`;
 
+  // 1. Query params
   if (options?.params) {
     const query = new URLSearchParams();
-
     Object.entries(options.params).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) {
+      if (value !== undefined && value !== null && value !== "") {
         query.append(key, String(value));
       }
     });
 
-    finalUrl += `?${query.toString()}`;
+    const qs = query.toString();
+    if (qs) finalUrl += `?${qs}`;
   }
 
-  // --- ĐOẠN XỬ LÝ HEADERS ĐÃ ĐƯỢC FIX LỖI TYPESCRIPT ---
-  const isFormData = options?.body instanceof FormData;
-  
-  // Sử dụng class Headers để bọc lại options?.headers, xử lý được mọi kiểu dữ liệu đầu vào
+  // 2. Headers
   const headers = new Headers(options?.headers);
 
-  // Chỉ thêm Content-Type JSON nếu body KHÔNG PHẢI là FormData
+  // 3. Token: only attach Authorization header when token exists.
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    headers.set("Authorization", `Bearer ${token}`);
+  }
+
+  // 4. Content-Type
+  const isFormData = options?.body instanceof FormData;
+
   if (!isFormData && !headers.has("Content-Type")) {
     headers.set("Content-Type", "application/json");
   }
-  
-  // Nếu là FormData, bắt buộc xóa Content-Type để trình duyệt tự điền boundary mượt mà
+
   if (isFormData) {
     headers.delete("Content-Type");
   }
-  // ----------------------------------------------------
 
+  // 5. Fetch
   const response = await fetch(finalUrl, {
-    headers, // Truyền trực tiếp instance Headers vào fetch
-    method: options?.method,
-    body: options?.body,
+    ...options,
+    headers,
   });
 
   const result: BaseResponse<T> = await response.json();
 
+  // 6. Handle error
   if (!response.ok || !result.success) {
-    throw new Error(result.message || "Đã có lỗi xảy ra");
+    if (response.status === 401) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("auth_session");
+      window.location.href = "/login";
+    }
+
+    throw new Error(result.message || `Lỗi hệ thống (${response.status})`);
   }
 
   return result;

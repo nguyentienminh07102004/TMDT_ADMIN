@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet, Link, useLocation, useNavigate } from "react-router";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Film,
@@ -26,7 +26,6 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Badge } from "./ui/badge";
-import { clearAuthSession, getAuthProfile } from "../lib/auth";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/" },
@@ -42,11 +41,34 @@ export function DashboardLayout() {
   const location = useLocation();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
-  const profile = getAuthProfile();
-  const roleLabel = profile.role === "ADMIN" ? "Quản trị viên" : "Người dùng";
 
+  // --- ĐỌC TRỰC TIẾP TỪ LOCAL STORAGE ---
+  // Giả định dữ liệu user được lưu dưới dạng JSON string với key là 'profile' hoặc 'user'
+  const profile = (() => {
+    try {
+      const storedProfile = localStorage.getItem("profile") || localStorage.getItem("user");
+      return storedProfile ? JSON.parse(storedProfile) : null;
+    } catch (e) {
+      console.error("Không thể parse dữ liệu profile từ localStorage", e);
+      return null;
+    }
+  })();
+
+  // Lấy ra các trường thông tin hoặc dùng dữ liệu fallback nếu chưa đăng nhập/thiếu data
+  const userRole = profile?.role ?? "USER";
+  const userFullName = profile?.fullName ?? "Admin User";
+  const userAvatar = profile?.avatar ?? "https://api.dicebear.com/7.x/avataaars/svg?seed=Admin";
+  const roleLabel = userRole === "ADMIN" ? "Quản trị viên" : "Người dùng";
+
+  // --- XỬ LÝ ĐĂNG XUẤT TRỰC TIẾP ---
   const handleLogout = () => {
-    clearAuthSession();
+    // Xóa hết các key liên quan đến session, token, user ở localStorage
+    localStorage.removeItem("profile");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("accessToken");
+    
+    // Điều hướng về trang login
     navigate("/login", { replace: true });
   };
 
@@ -114,37 +136,24 @@ export function DashboardLayout() {
         <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-gray-200">
           <div className="flex items-center justify-between px-8 py-4">
             <div className="flex-1 max-w-xl">
-              <div className="relative">
-              </div>
+
             </div>
 
             <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative hover:bg-gray-100 rounded-xl"
-              >
-                <Bell className="w-5 h-5" />
-                <Badge className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 bg-red-500 text-white text-xs rounded-full">
-                  3
-                </Badge>
-              </Button>
+
 
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="flex items-center gap-3 hover:bg-gray-100 rounded-xl px-3"
-                  >
+                <DropdownMenuTrigger>
+                  <button className="flex items-center gap-3 hover:bg-gray-100 rounded-xl px-3 p-2">
                     <Avatar className="w-9 h-9">
-                      <AvatarImage src={profile.avatar ?? "https://api.dicebear.com/7.x/avataaars/svg?seed=Admin"} />
+                      <AvatarImage src={userAvatar} />
                       <AvatarFallback>AD</AvatarFallback>
                     </Avatar>
                     <div className="text-left">
-                      <p className="text-sm font-medium">{profile.fullName ?? "Admin User"}</p>
+                      <p className="text-sm font-medium">{userFullName}</p>
                       <p className="text-xs text-gray-500">{roleLabel}</p>
                     </div>
-                  </Button>
+                  </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-white border-gray-200">
                   <DropdownMenuLabel>Tài khoản của tôi</DropdownMenuLabel>

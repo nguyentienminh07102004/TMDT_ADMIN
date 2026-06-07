@@ -1,114 +1,39 @@
-export const AUTH_STORAGE_KEYS = {
-  accessToken: "accessToken",
-  refreshToken: "refreshToken",
-  fullName: "fullName",
-  avatar: "avatar",
-  role: "role",
-} as const;
-
-type JwtPayload = {
-  exp?: number;
-};
-
-export type AuthSession = {
-  accessToken: string;
-  refreshToken: string;
-  fullName?: string;
-  avatar?: string | null;
-  role?: string;
-};
-
-function base64UrlDecode(value: string) {
-  const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
-  const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
-  return atob(padded);
+export function getRole(): string | null {
+  return localStorage.getItem("role");
 }
 
-export function decodeJwtPayload(token: string): JwtPayload | null {
+export function getFullName(): string | null {
+  return localStorage.getItem("fullName");
+}
+
+export function getAvatar(): string | null {
+  return localStorage.getItem("avatar");
+}
+
+export function getAccessToken(): string | null {
+  return localStorage.getItem("accessToken");
+}
+
+export function clearAuth(): void {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  localStorage.removeItem("role");
+  localStorage.removeItem("fullName");
+  localStorage.removeItem("avatar");
+}
+
+// Compatibility helpers used across the app
+export function getValidAccessToken(): string | null {
+  // For now, simply return the stored access token. Token refresh logic omitted.
+  return getAccessToken();
+}
+
+export function clearAuthSession(): void {
+  clearAuth();
   try {
-    const [, payloadPart] = token.split(".");
-
-    if (!payloadPart) {
-      return null;
-    }
-
-    return JSON.parse(base64UrlDecode(payloadPart)) as JwtPayload;
-  } catch {
-    return null;
+    // Redirect to login page to force re-authentication
+    window.location.href = "/login";
+  } catch (e) {
+    // noop in non-browser environments
   }
-}
-
-export function isTokenExpired(token: string, safetyWindowInSeconds = 30) {
-  const payload = decodeJwtPayload(token);
-
-  if (!payload?.exp) {
-    return true;
-  }
-
-  return payload.exp * 1000 <= Date.now() + safetyWindowInSeconds * 1000;
-}
-
-export function getStoredAccessToken() {
-  return localStorage.getItem(AUTH_STORAGE_KEYS.accessToken) ?? localStorage.getItem("token");
-}
-
-export function getValidAccessToken() {
-  const token = getStoredAccessToken();
-
-  if (!token) {
-    return null;
-  }
-
-  if (isTokenExpired(token)) {
-    clearAuthSession();
-    return null;
-  }
-
-  return token;
-}
-
-export function isAuthenticated() {
-  return Boolean(getValidAccessToken());
-}
-
-export function saveAuthSession(session: AuthSession) {
-  localStorage.setItem(AUTH_STORAGE_KEYS.accessToken, session.accessToken);
-  localStorage.setItem(AUTH_STORAGE_KEYS.refreshToken, session.refreshToken);
-
-  if (session.fullName) {
-    localStorage.setItem(AUTH_STORAGE_KEYS.fullName, session.fullName);
-  } else {
-    localStorage.removeItem(AUTH_STORAGE_KEYS.fullName);
-  }
-
-  if (session.avatar) {
-    localStorage.setItem(AUTH_STORAGE_KEYS.avatar, session.avatar);
-  } else {
-    localStorage.removeItem(AUTH_STORAGE_KEYS.avatar);
-  }
-
-  if (session.role) {
-    localStorage.setItem(AUTH_STORAGE_KEYS.role, session.role);
-  } else {
-    localStorage.removeItem(AUTH_STORAGE_KEYS.role);
-  }
-
-  localStorage.removeItem("token");
-}
-
-export function clearAuthSession() {
-  localStorage.removeItem(AUTH_STORAGE_KEYS.accessToken);
-  localStorage.removeItem(AUTH_STORAGE_KEYS.refreshToken);
-  localStorage.removeItem(AUTH_STORAGE_KEYS.fullName);
-  localStorage.removeItem(AUTH_STORAGE_KEYS.avatar);
-  localStorage.removeItem(AUTH_STORAGE_KEYS.role);
-  localStorage.removeItem("token");
-}
-
-export function getAuthProfile() {
-  return {
-    fullName: localStorage.getItem(AUTH_STORAGE_KEYS.fullName),
-    avatar: localStorage.getItem(AUTH_STORAGE_KEYS.avatar),
-    role: localStorage.getItem(AUTH_STORAGE_KEYS.role),
-  };
 }
