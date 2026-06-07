@@ -70,7 +70,7 @@ export function Login() {
       <Card className="relative z-10 w-full max-w-md bg-white/90 border-gray-200 backdrop-blur-xl shadow-2xl shadow-gray-300/40 text-gray-900">
         <CardContent className="p-8 space-y-6">
           <div className="space-y-2 text-center">
-            <div className="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white">
+            <div className="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white">
               <LockKeyhole className="w-7 h-7" />
             </div>
             <h1 className="text-2xl font-bold">Đăng nhập quản trị</h1>
@@ -108,7 +108,7 @@ export function Login() {
               </div>
             </div>
 
-            <Button type="submit" className="w-full bg-gradient-to-r from-purple-500 to-pink-500" disabled={isSubmitting}>
+            <Button type="submit" className="w-full bg-gradient-to-r from-violet-500 to-fuchsia-500" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />

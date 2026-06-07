@@ -30,8 +30,8 @@ import { roomApi } from "../api/RoomApi";
 const roomTypeColors = {
   "STANDARD": "bg-blue-500/20 text-blue-600 border-blue-500/30",
   "3D": "bg-cyan-500/20 text-cyan-600 border-cyan-500/30",
-  "IMAX": "bg-purple-500/20 text-purple-600 border-purple-500/30",
-  "VIP": "bg-amber-500/20 text-amber-400 border-amber-500/30",
+  "IMAX": "bg-violet-500/20 text-violet-600 border-violet-500/30",
+  "VIP": "bg-amber-500/20 text-amber-600 border-amber-500/30",
   "4DX": "bg-pink-500/20 text-pink-600 border-pink-500/30",
 };
 
@@ -258,7 +258,7 @@ export function Cinemas() {
         {/* ================= CINEMAS TAB ================= */}
         <TabsContent value="cinemas" className="mt-6 space-y-6">
           <div className="flex justify-end">
-            <Button onClick={openAddCinemaModal} className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+            <Button onClick={openAddCinemaModal} className="bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600">
               <Plus className="w-4 h-4 mr-2" /> Thêm rạp mới
             </Button>
           </div>
@@ -270,7 +270,7 @@ export function Cinemas() {
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 text-white">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center flex-shrink-0 text-white">
                         <Building2 className="w-6 h-6" />
                       </div>
                       <div>
@@ -293,7 +293,7 @@ export function Cinemas() {
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 mb-1">Trạng thái dữ liệu</p>
-                      <p className="text-sm font-semibold text-purple-600 mt-1">Sẵn sàng</p>
+                      <p className="text-sm font-semibold text-violet-600 mt-1">Sẵn sàng</p>
                     </div>
                   </div>
 
@@ -318,7 +318,7 @@ export function Cinemas() {
           <div className="flex flex-col sm:flex-row gap-4 items-end sm:items-center justify-between p-4 bg-white rounded-xl border border-gray-200">
             <div className="flex items-center gap-3 w-full sm:w-auto">
               <div className="flex items-center gap-2 text-sm text-gray-500 whitespace-nowrap">
-                <Filter className="w-4 h-4 text-purple-600" />
+                <Filter className="w-4 h-4 text-violet-600" />
                 <span>Lọc theo rạp:</span>
               </div>
               <Select
@@ -337,7 +337,7 @@ export function Cinemas() {
               </Select>
             </div>
 
-            <Button onClick={openAddRoomModal} className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 w-full sm:w-auto">
+            <Button onClick={openAddRoomModal} className="bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" /> Thêm phòng chiếu
             </Button>
           </div>
@@ -368,8 +368,8 @@ export function Cinemas() {
                         <tr key={room.id} className="border-b border-gray-100 hover:bg-gray-100 transition-colors">
                           <td className="py-4 px-4">
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                                <Armchair className="w-5 h-5 text-purple-600" />
+                              <div className="w-10 h-10 rounded-lg bg-violet-500/20 flex items-center justify-center">
+                                <Armchair className="w-5 h-5 text-violet-600" />
                               </div>
                               <span className="font-semibold">{room.name}</span>
                             </div>
@@ -516,10 +516,10 @@ export function Cinemas() {
               />
             </div>
             <div className="flex justify-end gap-3 pt-4">
-              <Button variant="outline" type="button" onClick={() => setIsCinemaModalOpen(false)} className="border-gray-200 text-black hover:bg-gray-100 hover:text-gray-900 cursor-pointer">
+              <Button variant="outline" type="button" onClick={() => setIsCinemaModalOpen(false)} className="border-gray-200 text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer">
                 Hủy
               </Button>
-              <Button onClick={handleSaveCinema} className="bg-gradient-to-r from-purple-500 to-pink-500">
+              <Button onClick={handleSaveCinema} className="bg-gradient-to-r from-violet-500 to-fuchsia-500">
                 {editingCinema ? "Cập nhật" : "Thêm rạp"}
               </Button>
             </div>
@@ -613,7 +613,7 @@ export function Cinemas() {
               <Button variant="outline" type="button" onClick={() => setIsRoomModalOpen(false)} className="border-gray-200 text-gray-900 hover:bg-gray-100">
                 Hủy
               </Button>
-              <Button onClick={handleSaveRoom} className="bg-gradient-to-r from-purple-500 to-pink-500">
+              <Button onClick={handleSaveRoom} className="bg-gradient-to-r from-violet-500 to-fuchsia-500">
                 {editingRoom ? "Lưu thay đổi" : "Thêm phòng"}
               </Button>
             </div>

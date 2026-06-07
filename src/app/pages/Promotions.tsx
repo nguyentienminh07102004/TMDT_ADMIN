@@ -134,7 +134,7 @@ export function Promotions() {
         </div>
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+            <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600">
               <Plus className="w-4 h-4 mr-2" />
               Tạo voucher mới
             </Button>
@@ -230,7 +230,7 @@ export function Promotions() {
                 <Button variant="outline" onClick={() => setIsAddDialogOpen(false)} className="border-gray-200">
                   Hủy
                 </Button>
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
+                <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500">
                   Tạo voucher
                 </Button>
               </div>
@@ -292,7 +292,7 @@ export function Promotions() {
         <Card className="bg-white border-gray-200">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white">
                 <Percent className="w-6 h-6" />
               </div>
               <div>
@@ -312,8 +312,8 @@ export function Promotions() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="px-3 py-1 bg-gradient-to-r from-purple-500/15 to-pink-500/15 border border-purple-500/30 rounded-lg">
-                      <code className="text-purple-700 font-mono font-semibold">{promo.code}</code>
+                    <div className="px-3 py-1 bg-gradient-to-r from-violet-500/15 to-fuchsia-500/15 border border-violet-500/30 rounded-lg">
+                      <code className="text-violet-700 font-mono font-semibold">{promo.code}</code>
                     </div>
                     <Button variant="ghost" size="icon" className="h-8 w-8">
                       <Copy className="w-4 h-4" />
@@ -354,7 +354,7 @@ export function Promotions() {
                   </div>
                   <div className="w-full bg-gray-100 rounded-full h-2">
                     <div
-                      className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                      className="bg-gradient-to-r from-violet-500 to-fuchsia-500 h-2 rounded-full"
                       style={{ width: `${(promo.used / promo.quantity) * 100}%` }}
                     />
                   </div>

@@ -238,7 +238,7 @@ export function Movies() {
 
         <Button
           onClick={handleOpenCreateModal}
-          className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+          className="bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 text-white"
         >
           <Plus className="w-4 h-4 mr-2" />
           Thêm phim mới
@@ -601,12 +601,12 @@ export function Movies() {
                           variant="ghost"
                           disabled={isUploading.poster}
                           onClick={() => posterInputRef.current?.click()}
-                          className="h-9 w-9 rounded-full bg-purple-500/10 text-purple-600 hover:bg-purple-500/20"
+                          className="h-9 w-9 rounded-full bg-violet-500/10 text-violet-600 hover:bg-violet-500/20"
                           title="Tải lên hình ảnh mới"
                         >
                           {isUploading.poster ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
                         </Button>
-                        <span className="text-[9px] text-purple-600 font-medium">Thay thế</span>
+                        <span className="text-[9px] text-violet-600 font-medium">Thay thế</span>
                       </>
                     ) : (
                       <ArrowRight className="text-gray-600 w-5 h-5" />
@@ -614,11 +614,11 @@ export function Movies() {
                   </div>
 
                   {/* Ô kết quả Upload mới bên phải */}
-                  <div className="col-span-3 flex flex-col items-center justify-center border border-dashed border-purple-500/30 rounded-lg p-2 bg-white h-32 text-center">
-                    <span className="text-[10px] text-purple-600 mb-1 block">Poster mới tải lên</span>
+                  <div className="col-span-3 flex flex-col items-center justify-center border border-dashed border-violet-500/30 rounded-lg p-2 bg-white h-32 text-center">
+                    <span className="text-[10px] text-violet-600 mb-1 block">Poster mới tải lên</span>
                     {newUrls.posterUrl ? (
                       <div className="w-full h-full flex flex-col items-center justify-center">
-                        <img src={newUrls.posterUrl} alt="New Poster" className="h-16 max-w-full object-contain rounded border border-purple-500/30" />
+                        <img src={newUrls.posterUrl} alt="New Poster" className="h-16 max-w-full object-contain rounded border border-violet-500/30" />
                         <span className="text-[9px] text-gray-500 truncate w-full mt-1">ID: {formData.posterId}</span>
                       </div>
                     ) : (
@@ -704,7 +704,7 @@ export function Movies() {
                 type="button"
                 variant="outline"
                 onClick={() => setIsDialogOpen(false)}
-                className="border-gray-200 text-black"
+                className="border-gray-200 text-gray-700"
               >
                 Đóng
               </Button>
@@ -729,7 +729,7 @@ export function Movies() {
                 <Button
                   key="btn-submit-form"
                   type="submit"
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 text-white"
+                  className="bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white"
                   disabled={isSubmitting || isUploading.poster || isUploading.teaser}
                 >
                   {isSubmitting ? (

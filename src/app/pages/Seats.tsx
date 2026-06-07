@@ -299,7 +299,7 @@ export function Seats() {
           <div className="flex items-center justify-between">
             <CardTitle>Sơ đồ phòng chiếu {roomCurrent && `- ${roomCurrent.name}`}</CardTitle>
             <Button 
-              className="bg-gradient-to-r from-purple-500 to-pink-500" 
+              className="bg-gradient-to-r from-violet-500 to-fuchsia-500" 
               disabled={!selectedRoom || isSaving}
               onClick={handleSaveSeats}
             >

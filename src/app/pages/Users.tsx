@@ -176,7 +176,7 @@ export function Users() {
 
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+            <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600">
               <UserPlus className="w-4 h-4 mr-2" />
               Thêm người dùng
             </Button>
@@ -268,7 +268,7 @@ export function Users() {
                 <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)} className="border-gray-200">
                   Hủy
                 </Button>
-                <Button type="submit" className="bg-gradient-to-r from-purple-500 to-pink-500" disabled={isSubmitting}>
+                <Button type="submit" className="bg-gradient-to-r from-violet-500 to-fuchsia-500" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />

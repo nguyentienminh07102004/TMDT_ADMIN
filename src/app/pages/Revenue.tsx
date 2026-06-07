@@ -89,7 +89,7 @@ export function Revenue() {
           <h1 className="text-3xl font-bold mb-2">Báo cáo doanh thu</h1>
           <p className="text-gray-500">Phân tích và thống kê doanh thu hệ thống</p>
         </div>
-        <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+        <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600">
           <Download className="w-4 h-4 mr-2" />
           Xuất báo cáo
         </Button>
@@ -156,7 +156,7 @@ export function Revenue() {
         <Card className="bg-white border-gray-200">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white">
                 <Users className="w-6 h-6" />
               </div>
               <div>
@@ -274,7 +274,7 @@ export function Revenue() {
                   </div>
                   <div className="relative w-full bg-gray-100 rounded-full h-2">
                     <div
-                      className="absolute top-0 left-0 bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                      className="absolute top-0 left-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 h-2 rounded-full"
                       style={{ width: `${movie.percentage}%` }}
                     />
                   </div>

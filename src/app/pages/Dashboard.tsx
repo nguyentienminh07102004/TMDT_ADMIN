@@ -378,7 +378,7 @@ export function Dashboard() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { title: "Phim đang chiếu", value: stats.nowShowingMovies, change: "Từ /v1/movies", icon: Film, color: "from-purple-500 to-pink-500" },
+          { title: "Phim đang chiếu", value: stats.nowShowingMovies, change: "Từ /v1/movies", icon: Film, color: "from-violet-500 to-fuchsia-500" },
           { title: "Vé bán hôm nay", value: stats.ticketsToday, change: "Từ /v1/booking-details", icon: Ticket, color: "from-blue-500 to-cyan-500" },
           { title: "Doanh thu hôm nay", value: formatCurrency(stats.revenueToday), change: "Từ /v1/bookings", icon: DollarSign, color: "from-green-500 to-emerald-500" },
           { title: "Người dùng", value: stats.totalUsers, change: "Từ /v1/users", icon: Users, color: "from-orange-500 to-red-500" },

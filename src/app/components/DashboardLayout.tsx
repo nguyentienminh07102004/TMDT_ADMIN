@@ -62,7 +62,7 @@ export function DashboardLayout() {
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           {!collapsed && (
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white">
                 <Film className="w-6 h-6" />
               </div>
               <div>
@@ -94,7 +94,7 @@ export function DashboardLayout() {
                 <div
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                     isActive
-                      ? "bg-gradient-to-r from-purple-500/15 to-pink-500/15 text-purple-700 border border-purple-500/30"
+                      ? "bg-gradient-to-r from-violet-500/15 to-fuchsia-500/15 text-violet-700 border border-violet-500/30"
                       : "text-gray-500 hover:bg-gray-100 hover:text-gray-900"
                   }`}
                 >

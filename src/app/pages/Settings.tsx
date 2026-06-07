@@ -35,8 +35,8 @@ export function Settings() {
           <Card className="bg-white border-gray-200">
             <CardHeader>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center">
-                  <Globe className="w-5 h-5 text-purple-600" />
+                <div className="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center">
+                  <Globe className="w-5 h-5 text-violet-600" />
                 </div>
                 <CardTitle>Thông tin hệ thống</CardTitle>
               </div>
@@ -91,7 +91,7 @@ export function Settings() {
               </div>
 
               <div className="flex justify-end pt-4">
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
+                <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500">
                   <Save className="w-4 h-4 mr-2" />
                   Lưu thay đổi
                 </Button>
@@ -136,7 +136,7 @@ export function Settings() {
               </div>
 
               <div className="flex justify-end pt-4">
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
+                <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500">
                   <Save className="w-4 h-4 mr-2" />
                   Lưu thay đổi
                 </Button>
@@ -198,7 +198,7 @@ export function Settings() {
               </div>
 
               <div className="flex justify-end pt-4">
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
+                <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500">
                   <Save className="w-4 h-4 mr-2" />
                   Lưu thay đổi
                 </Button>
@@ -237,7 +237,7 @@ export function Settings() {
               </div>
 
               <div className="flex justify-end pt-4">
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
+                <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500">
                   <Save className="w-4 h-4 mr-2" />
                   Lưu thay đổi
                 </Button>
@@ -298,7 +298,7 @@ export function Settings() {
               </div>
 
               <div className="flex justify-end pt-4">
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
+                <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500">
                   <Save className="w-4 h-4 mr-2" />
                   Lưu thay đổi
                 </Button>
@@ -334,7 +334,7 @@ export function Settings() {
               </div>
 
               <div className="flex justify-end pt-4">
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
+                <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500">
                   <Save className="w-4 h-4 mr-2" />
                   Lưu thay đổi
                 </Button>
@@ -391,7 +391,7 @@ export function Settings() {
               </div>
 
               <div className="flex justify-end pt-4">
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
+                <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500">
                   <Save className="w-4 h-4 mr-2" />
                   Lưu thay đổi
                 </Button>
@@ -420,7 +420,7 @@ export function Settings() {
               </div>
 
               <div className="flex justify-end pt-4">
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
+                <Button className="bg-gradient-to-r from-violet-500 to-fuchsia-500">
                   Đổi mật khẩu
                 </Button>
               </div>
