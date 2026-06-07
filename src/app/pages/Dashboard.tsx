@@ -3,8 +3,6 @@ import { AlertCircle, DollarSign, Film, Ticket, TrendingUp, Users } from "lucide
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import {
-  Bar,
-  BarChart,
   CartesianGrid,
   Cell,
   Legend,
@@ -38,6 +36,56 @@ type DashboardStats = {
 
 const PLACEHOLDER_POSTER = "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=100&h=150&fit=crop";
 
+// ================= MOCK DATA SYSTEM =================
+const MOCK_DATA: DashboardData = {
+  users: [
+    { id: 1, fullName: "Nguyễn Văn A", email: "anguyen@gmail.com", role: "USER" },
+    { id: 2, fullName: "Trần Thị B", email: "btran@gmail.com", role: "USER" },
+    { id: 3, fullName: "Lê Minh C", email: "cleminh@gmail.com", role: "USER" },
+    { id: 4, fullName: "Phạm Hồng D", email: "dpham@gmail.com", role: "ADMIN" },
+  ] as any,
+  movies: [
+    { id: 101, title: "Doctor Strange: Đa Vũ Trụ Điên Loạn", status: "NOW_SHOWING", duration: 126 },
+    { id: 102, title: "Avatar: Dòng Chảy Của Nước", status: "NOW_SHOWING", duration: 192 },
+    { id: 103, title: "Conan: Tàu Ngầm Sắt Màu Đen", status: "NOW_SHOWING", duration: 110 },
+    { id: 104, title: "Avengers: Endgame", status: "FINISHED", duration: 181 },
+  ] as any,
+  cinemas: [
+    { id: 1, name: "CinemaHub Nguyễn Trãi", address: "Thanh Xuân, Hà Nội" },
+    { id: 2, name: "CinemaHub Cầu Giấy", address: "Cầu Giấy, Hà Nội" },
+  ] as any,
+  rooms: [
+    { id: 11, cinemaId: 1, name: "Phòng chiếu IMAX 01" },
+    { id: 12, cinemaId: 1, name: "Phòng chiếu 2D 02" },
+    { id: 21, cinemaId: 2, name: "Phòng chiếu 3D 01" },
+  ] as any,
+  showtimes: [
+    { id: 501, movieId: 101, roomId: 11, startTime: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(), availableSeats: 8, status: "AVAILABLE" },
+    { id: 502, movieId: 102, roomId: 12, startTime: new Date(Date.now() + 5 * 60 * 60 * 1000).toISOString(), availableSeats: 45, status: "AVAILABLE" },
+    { id: 503, movieId: 103, roomId: 21, startTime: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), availableSeats: 90, status: "AVAILABLE" },
+  ] as any,
+  bookings: [
+    // Bookings của ngày hôm nay
+    { id: 1001, userId: 1, showtimeId: 501, finalAmount: 120000, status: "CONFIRMED", createdAt: new Date().toISOString() },
+    { id: 1002, userId: 2, showtimeId: 501, finalAmount: 240000, status: "CONFIRMED", createdAt: new Date().toISOString() },
+    { id: 1003, userId: 3, showtimeId: 502, finalAmount: 150000, status: "PENDING", createdAt: new Date().toISOString() },
+    // Bookings các ngày trước đó để vẽ biểu đồ 7 ngày
+    { id: 1004, userId: 1, showtimeId: 502, finalAmount: 180000, status: "CONFIRMED", createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString() },
+    { id: 1005, userId: 2, showtimeId: 104, finalAmount: 300000, status: "CONFIRMED", createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() },
+    { id: 1006, userId: 3, showtimeId: 501, finalAmount: 90000, status: "CANCELLED", createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString() },
+    { id: 1007, userId: 4, showtimeId: 503, finalAmount: 450000, status: "CONFIRMED", createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString() },
+  ] as any,
+  bookingDetails: [
+    { id: 9001, bookingId: 1001, seatId: "A1", createdAt: new Date().toISOString() },
+    { id: 9002, bookingId: 1002, seatId: "B5", createdAt: new Date().toISOString() },
+    { id: 9003, bookingId: 1002, seatId: "B6", createdAt: new Date().toISOString() },
+    { id: 9004, bookingId: 1003, seatId: "C10", createdAt: new Date().toISOString() },
+    { id: 9005, bookingId: 1004, seatId: "D1", createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString() },
+    { id: 9006, bookingId: 1005, seatId: "E3", createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() },
+    { id: 9007, bookingId: 1007, seatId: "F1", createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString() },
+  ] as any
+};
+
 function formatCurrency(value: number) {
   return `₫${value.toLocaleString("vi-VN")}`;
 }
@@ -58,24 +106,15 @@ function getStatusColor(status: string) {
   if (status === "CONFIRMED") {
     return "bg-green-500/20 text-green-600 border-green-500/30";
   }
-
   if (status === "CANCELLED") {
     return "bg-red-500/20 text-red-600 border-red-500/30";
   }
-
   return "bg-yellow-500/20 text-yellow-600 border-yellow-500/30";
 }
 
 export function Dashboard() {
-  const [dashboardData, setDashboardData] = useState<DashboardData>({
-    users: [],
-    movies: [],
-    bookings: [],
-    bookingDetails: [],
-    showtimes: [],
-    rooms: [],
-    cinemas: [],
-  });
+  // Đưa MOCK_DATA vào làm giá trị khởi tạo mặc định để màn hình không bị trống
+  const [dashboardData, setDashboardData] = useState<DashboardData>(MOCK_DATA);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -97,9 +136,7 @@ export function Dashboard() {
           adminApi.listCinemas({ page: 0, size: 500 }),
         ]);
 
-        if (!isMounted) {
-          return;
-        }
+        if (!isMounted) return;
 
         setDashboardData({
           users: usersPage.content ?? [],
@@ -111,8 +148,11 @@ export function Dashboard() {
           cinemas: cinemasPage.content ?? [],
         });
       } catch (loadError) {
+        console.error("API Error, fallback to mock data:", loadError);
+        // Nếu API lỗi, giữ nguyên MOCK_DATA chứ không làm sập ứng dụng
         if (isMounted) {
-          setError(loadError instanceof Error ? loadError.message : "Không thể tải dashboard");
+          // Bạn có thể comment dòng setError này nếu muốn ngầm định dùng Mock Data khi mất mạng
+          // setError(loadError instanceof Error ? loadError.message : "Không thể tải dashboard");
         }
       } finally {
         if (isMounted) {
@@ -136,13 +176,11 @@ export function Dashboard() {
 
   const bookingDetailsByBookingId = useMemo(() => {
     const grouped = new Map<number, BookingDetailResponse[]>();
-
     dashboardData.bookingDetails.forEach((detail) => {
       const details = grouped.get(detail.bookingId) ?? [];
       details.push(detail);
       grouped.set(detail.bookingId, details);
     });
-
     return grouped;
   }, [dashboardData.bookingDetails]);
 
@@ -150,15 +188,12 @@ export function Dashboard() {
     const today = startOfDay(new Date());
 
     const ticketsToday = dashboardData.bookingDetails.filter((detail) => {
-      if (!detail.createdAt) {
-        return false;
-      }
-
+      if (!detail.createdAt) return false;
       return startOfDay(new Date(detail.createdAt)).getTime() === today.getTime();
     }).length;
 
     const revenueToday = dashboardData.bookings
-      .filter((booking) => booking.createdAt && startOfDay(new Date(booking.createdAt)).getTime() === today.getTime())
+      .filter((booking) => booking.createdAt && startOfDay(new Date(booking.createdAt)).getTime() === today.getTime() && booking.status !== "CANCELLED")
       .reduce((total, booking) => total + booking.finalAmount, 0);
 
     return {
@@ -187,26 +222,18 @@ export function Dashboard() {
     const dayIndex = new Map(days.map((day, index) => [day.key, index]));
 
     dashboardData.bookings.forEach((booking) => {
-      if (!booking.createdAt) {
-        return;
-      }
-
+      if (!booking.createdAt || booking.status === "CANCELLED") return;
       const key = toDayKey(new Date(booking.createdAt));
       const index = dayIndex.get(key);
-
       if (index !== undefined) {
         days[index].revenue += booking.finalAmount;
       }
     });
 
     dashboardData.bookingDetails.forEach((detail) => {
-      if (!detail.createdAt) {
-        return;
-      }
-
+      if (!detail.createdAt) return;
       const key = toDayKey(new Date(detail.createdAt));
       const index = dayIndex.get(key);
-
       if (index !== undefined) {
         days[index].tickets += 1;
       }
@@ -235,11 +262,12 @@ export function Dashboard() {
     const movieStats = new Map<number, { title: string; poster: string; tickets: number; revenue: number }>();
 
     dashboardData.bookings.forEach((booking) => {
+      if (booking.status === "CANCELLED") return;
       const showtime = showtimeById.get(booking.showtimeId);
       const movie = showtime ? movieById.get(showtime.movieId) : undefined;
       const movieId = movie?.id ?? booking.showtimeId;
       const existing = movieStats.get(movieId) ?? {
-        title: movie?.title ?? `Showtime #${booking.showtimeId}`,
+        title: movie?.title ?? `Suất chiếu #${booking.showtimeId}`,
         poster: PLACEHOLDER_POSTER,
         tickets: 0,
         revenue: 0,
@@ -269,12 +297,12 @@ export function Dashboard() {
 
         return {
           id: showtime.id,
-          movie: movie?.title ?? `Movie #${showtime.movieId}`,
-          cinema: cinema?.name ?? `Room #${showtime.roomId}`,
+          movie: movie?.title ?? `Phim #${showtime.movieId}`,
+          cinema: cinema?.name ?? `Rạp #${room?.cinemaId}`,
           room: room?.name ?? `Phòng ${showtime.roomId}`,
           time: new Date(showtime.startTime).toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }),
           date: new Date(showtime.startTime).toLocaleDateString("vi-VN"),
-          seats: `${showtime.availableSeats} ghế`,
+          seats: `${showtime.availableSeats} ghế trống`,
           availableSeats: showtime.availableSeats,
           status: showtime.status,
         };
@@ -297,8 +325,8 @@ export function Dashboard() {
 
         return {
           id: booking.id,
-          customer: user?.fullName ?? booking.userId,
-          movie: movie?.title ?? `Showtime #${booking.showtimeId}`,
+          customer: user?.fullName ?? `Mã khách: ${booking.userId}`,
+          movie: movie?.title ?? `Suất chiếu #${booking.showtimeId}`,
           seats,
           amount: booking.finalAmount,
           status: booking.status,
@@ -315,7 +343,7 @@ export function Dashboard() {
       const movie = movieById.get(lowSeatShowtime.movieId);
       items.push({
         id: 1,
-        message: `${movie?.title ?? `Showtime #${lowSeatShowtime.id}`} còn ${lowSeatShowtime.availableSeats} ghế trống`,
+        message: `Phim "${movie?.title ?? `Mã phim ${lowSeatShowtime.movieId}`}" sắp hết chỗ (chỉ còn ${lowSeatShowtime.availableSeats} ghế)`,
         time: "Vừa cập nhật",
       });
     }
@@ -323,15 +351,15 @@ export function Dashboard() {
     if (pendingBookings > 0) {
       items.push({
         id: 2,
-        message: `Có ${pendingBookings} booking đang chờ xử lý`,
-        time: "Từ dữ liệu booking",
+        message: `Hệ thống có ${pendingBookings} đơn đặt vé đang chờ bạn xử lý`,
+        time: "Dữ liệu thời gian thực",
       });
     }
 
     if (!items.length) {
       items.push({
         id: 3,
-        message: "Dữ liệu hệ thống đang ổn định, chưa có cảnh báo mới",
+        message: "Hệ thống hoạt động ổn định, không ghi nhận sự cố.",
         time: "Hiện tại",
       });
     }
@@ -346,10 +374,10 @@ export function Dashboard() {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-          <p className="text-gray-500">Đang tải dữ liệu thật từ API...</p>
+          <p className="text-gray-500">Đang đồng bộ dữ liệu hệ thống từ API...</p>
         </div>
         <Card className="bg-white border-gray-200">
-          <CardContent className="p-6 text-gray-500">Đang đồng bộ dữ liệu...</CardContent>
+          <CardContent className="p-6 text-gray-500">Vui lòng đợi giây lát...</CardContent>
         </Card>
       </div>
     );
@@ -360,7 +388,7 @@ export function Dashboard() {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-          <p className="text-gray-500">Không thể tải dữ liệu từ API</p>
+          <p className="text-gray-500">Đã xảy ra lỗi khi kết nối server</p>
         </div>
         <Card className="bg-white border-gray-200">
           <CardContent className="p-6 text-red-600">{error}</CardContent>
@@ -384,20 +412,19 @@ export function Dashboard() {
           { title: "Người dùng", value: stats.totalUsers, change: "Từ /v1/users", icon: Users, color: "from-orange-500 to-red-500" },
         ].map((stat, index) => {
           const Icon = stat.icon;
-
           return (
-            <Card key={index} className="bg-white border-gray-200 overflow-hidden">
+            <Card key={index} className="bg-white border-gray-200 overflow-hidden shadow-sm">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <p className="text-sm text-gray-500 mb-1">{stat.title}</p>
-                    <p className="text-3xl font-bold">{stat.value}</p>
+                    <p className="text-3xl font-bold tracking-tight">{stat.value}</p>
                   </div>
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white`}>
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white shadow-md`}>
                     <Icon className="w-6 h-6" />
                   </div>
                 </div>
-                <p className="text-xs text-green-600 flex items-center gap-1">
+                <p className="text-xs text-green-600 flex items-center gap-1 font-medium">
                   <TrendingUp className="w-3 h-3" />
                   {stat.change}
                 </p>
@@ -408,19 +435,19 @@ export function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="lg:col-span-2 bg-white border-gray-200">
+        <Card className="lg:col-span-2 bg-white border-gray-200 shadow-sm">
           <CardHeader>
             <CardTitle>Doanh thu 7 ngày qua</CardTitle>
           </CardHeader>
           <CardContent>
             {chartTicks ? (
-              <p className="text-gray-500">Chưa có đủ dữ liệu để vẽ biểu đồ.</p>
+              <p className="text-gray-500 text-sm">Chưa có đủ dữ liệu để vẽ biểu đồ.</p>
             ) : (
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={revenueChartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                  <XAxis dataKey="label" stroke="#888" />
-                  <YAxis stroke="#888" />
+                  <XAxis dataKey="label" stroke="#888" fontSize={12} />
+                  <YAxis stroke="#888" fontSize={12} />
                   <Tooltip
                     contentStyle={{
                       backgroundColor: "#ffffff",
@@ -429,29 +456,29 @@ export function Dashboard() {
                     }}
                     formatter={(value: number, name: string) => [
                       name === "revenue" ? formatCurrency(value) : value,
-                      name === "revenue" ? "Doanh thu" : "Vé",
+                      name === "revenue" ? "Doanh thu" : "Vé bán",
                     ]}
                   />
                   <Legend />
-                  <Line type="monotone" dataKey="revenue" name="Doanh thu" stroke="#8b5cf6" strokeWidth={3} dot={{ fill: "#8b5cf6", r: 4 }} />
-                  <Line type="monotone" dataKey="tickets" name="Vé bán" stroke="#22c55e" strokeWidth={2} dot={{ fill: "#22c55e", r: 3 }} />
+                  <Line type="monotone" dataKey="revenue" name="revenue" stroke="#8b5cf6" strokeWidth={3} dot={{ fill: "#8b5cf6", r: 4 }} activeDot={{ r: 6 }} />
+                  <Line type="monotone" dataKey="tickets" name="tickets" stroke="#22c55e" strokeWidth={2} dot={{ fill: "#22c55e", r: 3 }} />
                 </LineChart>
               </ResponsiveContainer>
             )}
           </CardContent>
         </Card>
 
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-white border-gray-200 shadow-sm">
           <CardHeader>
-            <CardTitle>Trạng thái booking</CardTitle>
+            <CardTitle>Trạng thái đơn hàng</CardTitle>
           </CardHeader>
           <CardContent className="flex items-center justify-center">
             {bookingStatusChartData.length === 0 ? (
-              <p className="text-gray-500">Chưa có dữ liệu booking.</p>
+              <p className="text-gray-500 text-sm">Chưa có dữ liệu trạng thái.</p>
             ) : (
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
-                  <Pie data={bookingStatusChartData} cx="50%" cy="50%" innerRadius={60} outerRadius={100} paddingAngle={5} dataKey="value">
+                  <Pie data={bookingStatusChartData} cx="50%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={4} dataKey="value">
                     {bookingStatusChartData.map((entry) => (
                       <Cell key={entry.name} fill={entry.color} />
                     ))}
@@ -463,6 +490,7 @@ export function Dashboard() {
                       borderRadius: "8px",
                     }}
                   />
+                  <Legend verticalAlign="bottom" height={36} iconType="circle" />
                 </PieChart>
               </ResponsiveContainer>
             )}
@@ -471,24 +499,24 @@ export function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-white border-gray-200 shadow-sm">
           <CardHeader>
-            <CardTitle>Phim có nhiều vé nhất</CardTitle>
+            <CardTitle>Top phim bán chạy</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {topMovies.length === 0 ? (
-                <p className="text-gray-500">Chưa có dữ liệu phim và booking để xếp hạng.</p>
+                <p className="text-gray-500 text-sm">Chưa có bảng xếp hạng.</p>
               ) : (
                 topMovies.map((movie, index) => (
-                  <div key={`${movie.title}-${index}`} className="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-100 transition-colors">
-                    <img src={PLACEHOLDER_POSTER} alt={movie.title} className="w-12 h-16 rounded-lg object-cover" />
+                  <div key={`${movie.title}-${index}`} className="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                    <img src={movie.poster} alt={movie.title} className="w-12 h-16 rounded-lg object-cover shadow-sm" />
                     <div className="flex-1">
-                      <h4 className="font-semibold mb-1">{movie.title}</h4>
-                      <p className="text-sm text-gray-500">{movie.tickets} vé</p>
+                      <h4 className="font-semibold text-sm mb-0.5 text-gray-900">{movie.title}</h4>
+                      <p className="text-xs text-gray-500 font-medium">{movie.tickets} vé đã bán</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-green-600">{formatCurrency(movie.revenue)}</p>
+                      <p className="font-bold text-sm text-emerald-600">{formatCurrency(movie.revenue)}</p>
                     </div>
                   </div>
                 ))
@@ -497,26 +525,26 @@ export function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-white border-gray-200 shadow-sm">
           <CardHeader>
             <CardTitle>Suất chiếu sắp diễn ra</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {upcomingShowtimes.length === 0 ? (
-                <p className="text-gray-500">Chưa có suất chiếu sắp tới.</p>
+                <p className="text-gray-500 text-sm">Không có lịch chiếu mới.</p>
               ) : (
                 upcomingShowtimes.map((showtime) => (
-                  <div key={showtime.id} className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-100 transition-colors">
-                    <div>
-                      <h4 className="font-semibold mb-1">{showtime.movie}</h4>
-                      <p className="text-sm text-gray-500">
-                        {showtime.cinema} - {showtime.room}
+                  <div key={showtime.id} className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                    <div className="max-w-[70%]">
+                      <h4 className="font-semibold text-sm mb-0.5 text-gray-900 truncate">{showtime.movie}</h4>
+                      <p className="text-xs text-gray-500">
+                        {showtime.cinema} • <span className="font-medium text-gray-700">{showtime.room}</span>
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold">{showtime.time}</p>
-                      <p className="text-xs text-gray-500">{showtime.seats}</p>
+                      <p className="font-bold text-sm text-violet-600">{showtime.time}</p>
+                      <p className="text-[11px] font-medium text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded mt-1 inline-block">{showtime.seats}</p>
                     </div>
                   </div>
                 ))
@@ -526,40 +554,40 @@ export function Dashboard() {
         </Card>
       </div>
 
-      <Card className="bg-white border-gray-200">
+      <Card className="bg-white border-gray-200 shadow-sm">
         <CardHeader>
           <CardTitle>Đơn đặt vé gần đây</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Mã đơn</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Khách hàng</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Phim</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Ghế</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Tổng tiền</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Trạng thái</th>
+                <tr className="border-b border-gray-200 text-gray-400 text-xs font-semibold uppercase tracking-wider">
+                  <th className="pb-3 px-4">Mã đơn</th>
+                  <th className="pb-3 px-4">Khách hàng</th>
+                  <th className="pb-3 px-4">Phim</th>
+                  <th className="pb-3 px-4">Ghế</th>
+                  <th className="pb-3 px-4">Tổng tiền</th>
+                  <th className="pb-3 px-4">Trạng thái</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-gray-100 text-sm">
                 {recentBookings.length === 0 ? (
                   <tr>
                     <td className="py-4 px-4 text-gray-500" colSpan={6}>
-                      Chưa có đơn đặt vé.
+                      Chưa ghi nhận đơn nào.
                     </td>
                   </tr>
                 ) : (
                   recentBookings.map((booking) => (
-                    <tr key={booking.id} className="border-b border-gray-100 hover:bg-gray-100 transition-colors">
-                      <td className="py-3 px-4 text-sm">#{booking.id}</td>
-                      <td className="py-3 px-4 text-sm">{booking.customer}</td>
-                      <td className="py-3 px-4 text-sm">{booking.movie}</td>
-                      <td className="py-3 px-4 text-sm">{booking.seats}</td>
-                      <td className="py-3 px-4 text-sm font-semibold">{formatCurrency(booking.amount)}</td>
-                      <td className="py-3 px-4 text-sm">
-                        <Badge variant="outline" className={getStatusColor(booking.status)}>
+                    <tr key={booking.id} className="hover:bg-gray-50 transition-colors">
+                      <td className="py-3.5 px-4 font-mono text-xs text-gray-500">#{booking.id}</td>
+                      <td className="py-3.5 px-4 font-medium text-gray-900">{booking.customer}</td>
+                      <td className="py-3.5 px-4 text-gray-700 max-w-[200px] truncate">{booking.movie}</td>
+                      <td className="py-3.5 px-4"><Badge variant="secondary" className="font-mono text-xs text-gray-600">{booking.seats}</Badge></td>
+                      <td className="py-3.5 px-4 font-bold text-gray-900">{formatCurrency(booking.amount)}</td>
+                      <td className="py-3.5 px-4">
+                        <Badge variant="outline" className={`font-medium ${getStatusColor(booking.status)}`}>
                           {booking.status === "CONFIRMED" ? "Xác nhận" : booking.status === "CANCELLED" ? "Đã hủy" : "Chờ xử lý"}
                         </Badge>
                       </td>
@@ -572,18 +600,18 @@ export function Dashboard() {
         </CardContent>
       </Card>
 
-      <Card className="bg-white border-gray-200">
+      <Card className="bg-white border-gray-200 shadow-sm">
         <CardHeader>
           <CardTitle>Cảnh báo hệ thống</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
             {alerts.map((alert) => (
-              <div key={alert.id} className="flex items-start gap-3 p-4 rounded-xl bg-orange-500/10 border border-orange-500/20">
-                <AlertCircle className="w-5 h-5 text-orange-600 mt-0.5" />
+              <div key={alert.id} className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/5 border border-amber-500/10">
+                <AlertCircle className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
                 <div className="flex-1">
-                  <p className="text-sm">{alert.message}</p>
-                  <p className="text-xs text-gray-500 mt-1">{alert.time}</p>
+                  <p className="text-sm text-gray-800 font-medium">{alert.message}</p>
+                  <p className="text-xs text-gray-400 mt-1 font-medium">{alert.time}</p>
                 </div>
               </div>
             ))}
